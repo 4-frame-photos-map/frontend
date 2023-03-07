@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -13,7 +13,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page) => page);
   return getLayout(
     <QueryClientProvider client={queryClient}>
