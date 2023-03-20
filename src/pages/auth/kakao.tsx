@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Kakao = () => {
-  return <div>Kakao</div>;
+  return <PageLayout>Kakao</PageLayout>;
 };
 
 export default Kakao;

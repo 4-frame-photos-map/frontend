@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Reviews = () => {
-  return <div>Reviews</div>;
+  return <PageLayout>Reviews</PageLayout>;
 };
 
 export default Reviews;

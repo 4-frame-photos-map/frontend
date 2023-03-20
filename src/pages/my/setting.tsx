@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Setting = () => {
-  return <div>Setting</div>;
+  return <PageLayout>Setting</PageLayout>;
 };
 
 export default Setting;

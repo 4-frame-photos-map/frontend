@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Terms = () => {
-  return <div>Terms</div>;
+  return <PageLayout>Terms</PageLayout>;
 };
 
 export default Terms;
