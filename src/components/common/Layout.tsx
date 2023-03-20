@@ -1,13 +1,16 @@
 import React from 'react';
+import tw from 'tailwind-styled-components';
 
 type Props = {
   children: React.ReactNode;
 };
 
-export function Layout({ children }: Props) {
-  return (
-    <>
-      <div>{children}</div>
-    </>
-  );
-}
+const LayoutBox = tw.div`
+flex justify-center w-screen h-full font-Pretendard overflow-x-hidden overflow-y-hidden
+`;
+
+const Layout = ({ children }: Props) => {
+  return <LayoutBox>{children}</LayoutBox>;
+};
+
+export default Layout;
