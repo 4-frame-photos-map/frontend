@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Location = () => {
-  return <div>Location</div>;
+  return <PageLayout>Location</PageLayout>;
 };
 
 export default Location;

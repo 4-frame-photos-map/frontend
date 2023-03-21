@@ -1,5 +1,7 @@
+import PageLayout from '@/components/common/PageLayout';
+
 const Inquiry = () => {
-  return <div>Inquiry</div>;
+  return <PageLayout>Inquiry</PageLayout>;
 };
 
 export default Inquiry;
