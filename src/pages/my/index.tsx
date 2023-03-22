@@ -1,6 +1,6 @@
-import PageLayout from '@/components/common/PageLayout';
-import SettingItem from '@/components/my/SettingItem';
-import SettingList from '@/components/my/SettingList';
+import PageLayout from '@components/common/PageLayout';
+import SettingItem from '@components/my/SettingItem';
+import SettingList from '@components/my/SettingList';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';

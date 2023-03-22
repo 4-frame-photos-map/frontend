@@ -1,4 +1,4 @@
-import PageLayout from '@/components/common/PageLayout';
+import PageLayout from '@components/common/PageLayout';
 
 const ShopDetail = () => {
   return <PageLayout>ShopDetail</PageLayout>;
