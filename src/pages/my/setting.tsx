@@ -1,5 +1,5 @@
-import PageLayout from '@/components/common/PageLayout';
-import SettingList from '@/components/my/SettingList';
+import PageLayout from '@components/common/PageLayout';
+import SettingList from '@components/my/SettingList';
 import type { SettingListsProps } from '.';
 import tw from 'tailwind-styled-components';
 

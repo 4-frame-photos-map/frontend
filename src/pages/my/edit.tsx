@@ -1,4 +1,4 @@
-import PageLayout from '@/components/common/PageLayout';
+import PageLayout from '@components/common/PageLayout';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
 
