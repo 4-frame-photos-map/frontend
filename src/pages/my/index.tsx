@@ -55,7 +55,7 @@ const My = () => {
   const router = useRouter();
   return (
     <PageLayout className="bg-white">
-      <NavBar title={'마이페이지'} isMy={true} />
+      <NavBar title="MY" isRight_nav={false} />
       <GreetingBox>
         <Greeting>
           <span className="font-semibold">닉네임</span>님 안녕하세요!

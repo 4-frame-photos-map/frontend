@@ -1,3 +1,4 @@
+import Modal from '@components/common/Modal';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/common/PageLayout';
 import { useForm } from 'react-hook-form';
