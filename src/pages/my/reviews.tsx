@@ -4,7 +4,7 @@ import PageLayout from '@components/common/PageLayout';
 const Reviews = () => {
   return (
     <PageLayout>
-      <NavBar title={'내 후기'} isMy={true} />
+      <NavBar title="내 후기" />
       Reviews
     </PageLayout>
   );

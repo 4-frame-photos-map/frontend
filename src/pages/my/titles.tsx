@@ -4,7 +4,7 @@ import PageLayout from '@components/common/PageLayout';
 const Titles = () => {
   return (
     <PageLayout>
-      <NavBar title={'내 칭호'} isMy={true} />
+      <NavBar title="내 칭호" />
       Titles
     </PageLayout>
   );
