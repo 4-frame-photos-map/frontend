@@ -1,3 +1,4 @@
+import NavBar from '@/components/common/NavBar';
 import PageLayout from '@/components/common/PageLayout';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
@@ -33,6 +34,7 @@ const Edit = () => {
   };
   return (
     <PageLayout className="bg-white">
+      <NavBar title={'닉네임 변경'} isMy={true} />
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>
         <EditInputBox>
