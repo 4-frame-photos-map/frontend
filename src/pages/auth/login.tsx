@@ -1,4 +1,4 @@
-import AuthLayout from '@/components/common/AuthLayout';
+import AuthLayout from '@components/common/AuthLayout';
 import Image from 'next/image';
 
 const Login = () => {

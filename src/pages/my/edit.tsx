@@ -1,5 +1,5 @@
-import NavBar from '@/components/common/NavBar';
-import PageLayout from '@/components/common/PageLayout';
+import NavBar from '@components/common/NavBar';
+import PageLayout from '@components/common/PageLayout';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
 
