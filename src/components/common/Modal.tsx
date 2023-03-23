@@ -1,41 +1,49 @@
 import tw from 'tailwind-styled-components';
+import Link from 'next/link';
+import Image from 'next/image';
 
 type ModalProps = {
   isModal: boolean;
+  isKakao?: boolean;
   title: string;
   message: string;
   left: string;
-  right: string;
+  right?: string;
   leftEvent?: () => void;
   rightEvent?: () => void;
 };
 
 const ModalBG = tw.div`
-absolute flex h-full w-full items-center justify-center bg-text-alternative p-12
+absolute flex h-full w-full items-center justify-center bg-text-alternative p-6 z-[999]
 `;
 
 const ModalContainer = tw.div`
-flex flex-col bg-white p-5
+flex flex-col bg-white rounded-lg flex-wrap w-full
 `;
 
 const ModalTitle = tw.div`
-text-label1 font-semibold
+text-title1 font-semibold text-center
 `;
 
 const ModalMessage = tw.p`
-mt-2 text-[0.75rem] text-text-alternative
+mt-4 text-[0.875rem] text-text-alternative text-center
 `;
 
 const ModalEventContainer = tw.div`
-mt-4 flex justify-center gap-1
+flex text-white
 `;
 
 const ModalEvent = tw.div`
-w-full rounded border border-line-normal py-3 px-4 text-center text-label2 cursor-pointer
+py-4 px-8 text-center text-body1 cursor-pointer flex items-center justify-center h-[58px]
+`;
+
+const KakaoButton = tw.div`
+py-4 px-6 rounded-br-lg bg-[#F9E000] leading-3 basis-2/3 text-center flex justify-center
 `;
 
 const Modal = ({
-  isModal,
+  isModal = false,
+  isKakao = false,
   title,
   message,
   left,
@@ -46,11 +54,45 @@ const Modal = ({
   return isModal ? (
     <ModalBG>
       <ModalContainer>
-        <ModalTitle>{title}</ModalTitle>
-        <ModalMessage>{message}</ModalMessage>
+        <div className="p-6">
+          <ModalTitle>{title}</ModalTitle>
+          <ModalMessage>{message}</ModalMessage>
+        </div>
         <ModalEventContainer>
-          <ModalEvent onClick={leftEvent}>{left}</ModalEvent>
-          <ModalEvent onClick={rightEvent}>{right}</ModalEvent>
+          <ModalEvent
+            className={`rounded-bl-lg bg-[#DDDEE3] ${
+              isKakao ? 'basis-2/5' : 'basis-1/2'
+            }`}
+            onClick={leftEvent}
+          >
+            {left}
+          </ModalEvent>
+          {!isKakao ? (
+            <ModalEvent
+              className="basis-1/2 rounded-br-lg bg-[#333333]"
+              onClick={rightEvent}
+            >
+              {right}
+            </ModalEvent>
+          ) : (
+            <KakaoButton>
+              <Link
+                href={`https://kauth.kakao.com/oauth/authorize?client_id=1ebf83c39629e96f29ffa4b207f476a8&redirect_uri=http://localhost:3000/auth/kakao&response_type=code`}
+                className="flex items-center"
+              >
+                <Image
+                  src="/svg/kakao.svg"
+                  width={20}
+                  height={20}
+                  alt="kakao"
+                  priority
+                />
+                <span className="ml-2 text-body1 font-normal text-black">
+                  카카오 로그인
+                </span>
+              </Link>
+            </KakaoButton>
+          )}
         </ModalEventContainer>
       </ModalContainer>
     </ModalBG>
