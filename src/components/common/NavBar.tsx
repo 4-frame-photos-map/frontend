@@ -1,72 +1,95 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import tw from 'tailwind-styled-components';
 
 type NavBarProps = {
-  title: string;
-  isHome?: boolean;
-  isClicked?: boolean;
-  isDetail?: boolean;
-  isMy?: boolean;
-  isWish?: boolean;
-  isLocation?: boolean;
+  title?: string;
+  area?: string;
+  isLeft?: boolean;
+  isRight?: boolean;
 };
 
-const NavBar = ({
-  title,
-  isHome,
-  isLocation,
-  isClicked,
-  isDetail,
-  isMy,
-  isWish,
-}: NavBarProps) => {
+const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
   const router = useRouter();
+  const [input, setInput] = useState<boolean>(false);
+
+  const handleCloseInput = () => {
+    setInput(false);
+  };
+  const handleOpenInput = () => {
+    setInput(true);
+  };
+
   return (
-    <div className="top-0 w-full bg-bg-secondary py-[18px]">
-      <div className="mx-[16px] flex items-center justify-between">
-        {isClicked || isWish || isDetail || isMy || isLocation ? (
-          <Image
-            src={'/svg/navbar/prev.svg'}
-            width={24}
-            height={24}
-            alt="이전"
-            className="z-[999] cursor-pointer"
-            onClick={() => {
-              router.back();
-            }}
-          />
+    <NavContainer>
+      <NavItems>
+        {input ? (
+          <>
+            <Image
+              src={'/svg/navbar/prev.svg'}
+              width={24}
+              height={24}
+              alt="이전"
+              className="z-[900] cursor-pointer"
+              onClick={handleCloseInput}
+            />
+            <SearchInput type="text" className="z-[999]" />
+          </>
+        ) : isLeft ? (
+          <>
+            <Image
+              src={'/svg/navbar/prev.svg'}
+              width={24}
+              height={24}
+              alt="이전"
+              className="z-[900] cursor-pointer"
+              onClick={() => {
+                router.back();
+              }}
+            />
+          </>
         ) : (
-          ''
+          <Area>{area}</Area>
         )}
-        {isWish || isMy ? (
-          <span className="absolute inset-x-0 mx-0 my-auto text-center text-title2">
-            {title}
-          </span>
+        {title && <Title>{title}</Title>}
+        {isRight ? (
+          input ? (
+            <></>
+          ) : (
+            <Image
+              src={'/svg/navbar/search.svg'}
+              alt="검색"
+              width={24}
+              height={24}
+              className="right-0 z-[900] cursor-pointer"
+              onClick={handleOpenInput}
+            />
+          )
         ) : (
-          <span className="left-0 text-title2">{title}</span>
+          <></>
         )}
-        {isClicked || isDetail || isMy ? (
-          ''
-        ) : isWish ? (
-          <Image
-            src={'/svg/menu/filled-bookmark.svg'}
-            alt="검색"
-            width={24}
-            height={24}
-            className="right-0 z-[999] cursor-pointer"
-          />
-        ) : (
-          <Image
-            src={'/svg/navbar/search.svg'}
-            alt="검색"
-            width={24}
-            height={24}
-            className="right-0 z-[999] cursor-pointer"
-          />
-        )}
-      </div>
-    </div>
+      </NavItems>
+    </NavContainer>
   );
 };
+
+const NavContainer = tw.nav`
+top-0 w-full bg-bg-secondary py-[18px]`;
+
+const NavItems = tw.div`
+mx-[16px] flex items-center justify-between
+`;
+
+const Area = tw.span`
+text-[18px] font-semibold
+`;
+
+const Title = tw.span`
+absolute inset-x-0 mx-0 my-auto text-center text-title2
+`;
+
+const SearchInput = tw.input`
+basis-5/6 bg-bg-primary rounded-[20px] pl-2`;
 
 export default NavBar;

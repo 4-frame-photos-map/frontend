@@ -4,7 +4,7 @@ import PageLayout from '@components/common/PageLayout';
 const Location = () => {
   return (
     <PageLayout>
-      <NavBar title={'지도 지역명'} isLocation={true} />
+      <NavBar area="지도 지역명" isSearch={true} isRight={true} />
       Location
     </PageLayout>
   );
