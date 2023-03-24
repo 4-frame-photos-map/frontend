@@ -75,7 +75,7 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
 };
 
 const NavContainer = tw.nav`
-top-0 w-full bg-bg-secondary py-[18px]`;
+top-0 w-full bg-bg-secondary py-[20px]`;
 
 const NavItems = tw.div`
 mx-[16px] flex items-center justify-between
@@ -86,7 +86,7 @@ text-[18px] font-semibold
 `;
 
 const Title = tw.span`
-absolute inset-x-0 mx-0 my-auto text-center text-title2
+absolute inset-x-0 mx-0 my-auto text-center text-[18px] font-semibold
 `;
 
 const SearchInput = tw.input`
