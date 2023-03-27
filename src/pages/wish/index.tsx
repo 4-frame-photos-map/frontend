@@ -4,7 +4,7 @@ import PageLayout from '@components/common/PageLayout';
 const Wish = () => {
   return (
     <PageLayout>
-      <NavBar title={'저장'} isWish={true} />
+      <NavBar title={'저장'} isRight={true} isLeft={true} />
       Wish
     </PageLayout>
   );
