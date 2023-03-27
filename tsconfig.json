@@ -16,9 +16,11 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "src",
+    "typeRoots": ["node_modules/@types", "src/apis/*/*.d.ts", "src/@types/*"],
     "paths": {
       "@components/*": ["./components/*"],
       "@apis/*": ["./apis/*"],
+      "@styles/*": ["./styles/*"],
       "@hooks/*": ["./hooks/*"],
       "@utils/*": ["./utils/*"],
       "@public/*": ["../public/*"],

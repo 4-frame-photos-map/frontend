@@ -1,6 +1,7 @@
 import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
+import { CONFIG } from '@config';
 
 type ModalProps = {
   isModal: boolean;
@@ -77,7 +78,7 @@ const Modal = ({
           ) : (
             <KakaoButton>
               <Link
-                href={`https://kauth.kakao.com/oauth/authorize?client_id=1ebf83c39629e96f29ffa4b207f476a8&redirect_uri=http://localhost:3000/auth/kakao&response_type=code`}
+                href={`https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`}
                 className="flex items-center"
               >
                 <Image
