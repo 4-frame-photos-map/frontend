@@ -34,7 +34,7 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
               className="z-[900] cursor-pointer"
               onClick={handleCloseInput}
             />
-            <SearchInput type="text" className="z-[999]" />
+            <SearchInput type="search" placeholder="지점/장소 검색" />
           </>
         ) : isLeft ? (
           <>
@@ -90,6 +90,7 @@ absolute inset-x-0 mx-0 my-auto text-center text-[18px] font-semibold
 `;
 
 const SearchInput = tw.input`
-basis-5/6 bg-bg-primary rounded-[20px] pl-2`;
+basis-5/6 bg-bg-primary rounded-[100px] px-[12px] py-[8px] z-[999]
+`;
 
 export default NavBar;
