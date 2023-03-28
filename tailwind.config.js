@@ -42,6 +42,11 @@ module.exports = {
           alternative: '#F4F4F5',
         },
       },
+      boxShadow: {
+        category:
+          '2px 4px 12px rgba(0, 0, 0, 0.1), 0px 0px 4px rgba(0, 0, 0, 0.1)',
+        tracker: '0px 4px 4px rgba(0, 0, 0, 0.16)',
+      },
     },
   },
   plugins: [],
