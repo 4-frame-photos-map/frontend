@@ -75,7 +75,7 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
 };
 
 const NavContainer = tw.nav`
-top-0 w-full bg-bg-secondary py-[20px]`;
+fixed top-0 w-full bg-bg-secondary py-[20px] max-w-[375px]`;
 
 const NavItems = tw.div`
 mx-[16px] flex items-center justify-between
