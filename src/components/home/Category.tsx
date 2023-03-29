@@ -46,7 +46,7 @@ py-[8px] overflow-x-hidden
 `;
 
 const ItemsWrapper = tw.ul`
-flex items-center px-[16px] gap-x-[8px]
+flex items-center pl-[16px] gap-x-[7px]
 `;
 
 const Item = tw.li`
