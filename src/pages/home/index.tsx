@@ -1,16 +1,16 @@
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/common/PageLayout';
 import Category from '@components/home/Category';
-import Research from '@components/home/Research';
-import Tracker from '@components/home/Tracker';
+import ResearchButton from '@components/home/ResearchButton';
+import TrackerButton from '@components/home/TrackerButton';
 
 const Home = () => {
   return (
     <PageLayout>
       <NavBar area="지도 지역명" isRight={true} />
       <Category />
-      <Research />
-      <Tracker />
+      <ResearchButton />
+      <TrackerButton />
     </PageLayout>
   );
 };
