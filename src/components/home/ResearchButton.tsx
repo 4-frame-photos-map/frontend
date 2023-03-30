@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 const ResearchButton = () => {
   return (
     <ResearchContainer>
-      <button className="flex items-center rounded-[100px] bg-[#333333] py-[8px] px-[16px] text-label2 text-white">
+      <button className="flex items-center rounded-[100px] bg-primary-normal py-[8px] px-[16px] text-label2 text-white">
         <Image
           src="/svg/home/refresh.svg"
           width={16}
