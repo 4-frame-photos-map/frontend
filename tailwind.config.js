@@ -40,7 +40,37 @@ module.exports = {
         line: {
           normal: '#E1E2E4',
           alternative: '#F4F4F5',
+          disable: '#CCCCCC',
         },
+        fill: {
+          normal: '#F4F4F5',
+          strong: '#DDDEE3',
+          alternative: '#ECECF1',
+          disable: '#CCCCCC',
+        },
+        interaction: {
+          hover: 'rgba(0, 0, 0, 0.05)',
+          pressed: 'rgba(51, 51, 51, 0.1)',
+        },
+        status: {
+          error: '#FC5A2F',
+        },
+        brand: {
+          purple: '#9D7FF2',
+          yellow: '#FCF12F',
+          green: '#29DC1E',
+          pink: '#EA6FDE',
+        },
+        primary: {
+          normal: '#333333',
+          pressed: '#242424',
+          disable: 'rgba(51, 51, 51, 0.4)',
+        },
+      },
+      boxShadow: {
+        category:
+          '2px 4px 12px rgba(0, 0, 0, 0.1), 0px 0px 4px rgba(0, 0, 0, 0.1)',
+        tracker: '0px 4px 4px rgba(0, 0, 0, 0.16)',
       },
     },
   },
