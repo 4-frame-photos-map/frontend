@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
 
-const Research = () => {
+const ResearchButton = () => {
   return (
     <ResearchContainer>
       <button className="flex items-center rounded-[100px] bg-[#333333] py-[8px] px-[16px] text-label2 text-white">
@@ -22,4 +22,4 @@ const ResearchContainer = tw.div`
 mt-[8px] flex items-center justify-center
 `;
 
-export default Research;
+export default ResearchButton;
