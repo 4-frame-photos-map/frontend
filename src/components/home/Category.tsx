@@ -42,11 +42,11 @@ const Category = () => {
 };
 
 const CategoryBar = tw.div`
-py-[8px] overflow-x-hidden
+pt-[67px] overflow-x-hidden
 `;
 
 const ItemsWrapper = tw.ul`
-flex items-center pl-[16px] gap-x-[7px]
+flex items-center pl-[16px] my-[8px] gap-x-[7px]
 `;
 
 const Item = tw.li`
