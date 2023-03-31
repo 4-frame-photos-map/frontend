@@ -1,12 +1,10 @@
-type Login = TResponse & {
-  result: {
-    jwt_token: {
-      access_token: string;
-      refresh_token: string;
-    };
+type Login = {
+  jwt_token: {
+    access_token: string;
+    refresh_token: string;
   };
 };
 
-type Reissue = TResponse & {
+type Reissue = {
   accessToken: string;
 };
