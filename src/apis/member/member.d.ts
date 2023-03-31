@@ -1,15 +1,10 @@
-type MemberProps = {
+type Member = {
   id: number;
   nickname: string;
+  main_member_title: string;
   member_title_cnt: number;
 };
 
-type QuitMember = TResponse & {
-  result: {
-    id: number;
-  };
-};
-
-type Member = TResponse & {
-  result: MemberProps;
+type QuitMember = {
+  id: number;
 };
