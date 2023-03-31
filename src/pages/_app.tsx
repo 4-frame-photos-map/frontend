@@ -5,6 +5,12 @@ import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
