@@ -1,4 +1,4 @@
-type ReviewProps = ReviewInfo & {
+type Review = ReviewInfo & {
   id: number;
   create_date: string;
   modify_date: string;
@@ -12,14 +12,6 @@ type ReviewProps = ReviewInfo & {
     place_name: string;
     road_address_name: string;
   };
-};
-
-type Reviews = TResponse & {
-  result: ReviewProps[];
-};
-
-type Review = TResponse & {
-  result: ReviewProps;
 };
 
 type ReviewInfo = {
