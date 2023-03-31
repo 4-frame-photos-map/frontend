@@ -1,27 +1,40 @@
-type ShopProps = {
+type Shop = {
   id: number;
-  placeName: string;
-  roadAddressName: string;
-  latitude: number;
+  place_name: string;
   longitude: number;
+  latitude: number;
   distance: string;
-  canBeAddedToFavorites: boolean;
+  place_url: string;
+  star_rating_avg: number;
+  review_cnt: number;
+  can_be_added_to_favorites: boolean;
 };
 
-type ShopDetailProps = {
+type ShopDetail = {
   id: number;
-  placeName: string;
-  roadAddressName: string;
+  place_name: string;
+  road_address_name: string;
   distance: string;
-  placeUrl: string;
-  canBeAddedToFavorites: boolean;
-  shopTitles: null;
+  place_url: string;
+  star_rating_avg: number;
+  review_cnt: number;
+  favorite: boolean;
+  latitude: string;
+  longitude: string;
+  recent_reviews: ShopReviewProps[];
 };
 
-type Shop = TResponse & {
-  result: ShopProps[];
-};
-
-type ShopDetail = TResponse & {
-  result: ShopDetailProps;
+type ShopReviewProps = {
+  id: number;
+  create_date: string;
+  modify_date: string;
+  star_rating: number;
+  content: string;
+  purity: string;
+  retouch: string;
+  item: string;
+  member_info: {
+    id: number;
+    nickname: string;
+  };
 };
