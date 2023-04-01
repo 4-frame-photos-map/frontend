@@ -1,20 +1,12 @@
-type MemberTitleProps = {
+type MemberTitle = {
   id: number;
   name: string;
   content: string;
-  status?: 'y' | 'n';
+  status?: string;
 };
 
-type ShopTitleProps = {
+type ShopTitle = {
   name: string;
   conditions: string;
   content: string;
-};
-
-type MemberTitle = TResponse & {
-  result: MemberTitleProps;
-};
-
-type ShopTitle = TResponse & {
-  result: ShopTitleProps[];
 };

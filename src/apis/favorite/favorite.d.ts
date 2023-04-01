@@ -1,12 +1,8 @@
-type FavoriteProps = {
+type Favorite = {
   id: number;
   shop: {
     id: number;
-    placeName: string;
-    roadAddressName: string;
+    place_name: string;
+    road_address_name: string;
   };
-};
-
-type Favorite = TResponse & {
-  result: FavoriteProps[];
 };

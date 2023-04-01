@@ -3,7 +3,7 @@ import instance from '@apis/instance';
 class MemberApi {
   getProfile = async (): Promise<Member> => {
     const { data } = await instance.get(`/member/info`);
-    return data;
+    return data.result;
   };
 
   patchNickname = async (nickname: string): Promise<TResponse> => {
@@ -15,7 +15,7 @@ class MemberApi {
 
   delAccount = async (): Promise<QuitMember> => {
     const { data } = await instance.delete(`/member`);
-    return data;
+    return data.result;
   };
 
   patchTitle = async (titleId: number): Promise<TResponse> => {

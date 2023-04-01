@@ -3,17 +3,17 @@ import instance from '@apis/instance';
 class ReviewApi {
   getReview = async (reviewId: number): Promise<Review> => {
     const { data } = await instance.get(`/reviews/${reviewId}`);
-    return data;
+    return data.result;
   };
 
-  getAllShopReviews = async (shopId: number): Promise<Reviews> => {
+  getAllShopReviews = async (shopId: number): Promise<Review[]> => {
     const { data } = await instance.get(`/reviews/shop/${shopId}`);
-    return data;
+    return data.result;
   };
 
-  getAllUserReviews = async (memberId: number): Promise<Reviews> => {
+  getAllUserReviews = async (memberId: number): Promise<Review[]> => {
     const { data } = await instance.get(`/reviews/member/${memberId}`);
-    return data;
+    return data.result;
   };
 
   postReview = async (shopId: number, info: ReviewInfo): Promise<TResponse> => {
