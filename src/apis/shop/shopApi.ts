@@ -15,10 +15,10 @@ class ShopApi {
   getShopsInRad = async (
     lat: number,
     lng: number,
-    brd: string,
+    brd?: string,
   ): Promise<Shop> => {
     const { data } = await instance.get(
-      `/shops/marker?latitude=${lat}&longitude=${lng}&brand=${brd}`,
+      `/shops/brand?latitude=${lat}&longitude=${lng}&brand=${brd}`,
     );
     return data.result;
   };
