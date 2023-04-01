@@ -1,6 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
+import { QueryClient, dehydrate, type DehydratedState } from 'react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useGetShopDetail } from '@hooks/useGetShop';
 import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/common/ShopLayout';
@@ -8,10 +11,13 @@ import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 
-const ShopDetail = (props) => {
+const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
+
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const mapContainer = useRef<HTMLDivElement>(null);
+
+  const { data: shopInfo } = useGetShopDetail(shopId, distance);
 
   useEffect(() => {
     const $script = document.createElement('script');
@@ -21,13 +27,13 @@ const ShopDetail = (props) => {
   }, []);
 
   useEffect(() => {
-    if (mapLoaded) {
+    if (shopInfo && mapLoaded) {
       const { kakao } = window;
       kakao.maps.load(() => {
         const options = {
           center: new kakao.maps.LatLng(
-            Number(props?.latitude),
-            Number(props?.longitude),
+            Number(shopInfo?.latitude),
+            Number(shopInfo?.longitude),
           ),
           level: 2,
         };
@@ -41,8 +47,8 @@ const ShopDetail = (props) => {
           imageOption,
         );
         const markerPosition = new kakao.maps.LatLng(
-          Number(props?.latitude),
-          Number(props?.longitude),
+          Number(shopInfo?.latitude),
+          Number(shopInfo?.longitude),
         );
         const marker = new kakao.maps.Marker({
           position: markerPosition,
@@ -51,31 +57,31 @@ const ShopDetail = (props) => {
         marker.setMap(map);
       });
     }
-  }, [mapLoaded]);
+  }, [shopInfo, mapLoaded]);
 
   return (
     <ShopLayout className="bg-white">
       <NavBar isLeft={true} isRight={true} />
-      <div className="mt-[52px] h-[270px] w-full" ref={mapContainer}></div>
+      <div className="h-[270px] w-full" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>
-          <ShopTag>{props?.place_name.split(' ')[0]}</ShopTag>
+          <ShopTag>{shopInfo?.place_name.split(' ')[0]}</ShopTag>
         </ShopTagBox>
-        <ShopName>{props?.place_name}</ShopName>
+        <ShopName>{shopInfo?.place_name}</ShopName>
         <ShopRate>
           <div className="flex items-center">
-            {props && <StarRate rate={props?.star_rating_avg} />}
+            {shopInfo && <StarRate rate={shopInfo?.star_rating_avg} />}
             <div className="pl-1">
-              {props?.star_rating_avg} ({props?.review_cnt})
+              {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
           </div>
-          <div>{props?.distance.replaceAll('"', '')}</div>
+          <div>{shopInfo?.distance.replaceAll('"', '')}</div>
         </ShopRate>
         <ShopEventBox>
           <ShopEvent
             onClick={() => {
-              if (props) {
-                router.push(props.place_url);
+              if (shopInfo) {
+                router.push(shopInfo.place_url);
               }
             }}
           >
@@ -88,10 +94,12 @@ const ShopDetail = (props) => {
           </ShopEvent>
         </ShopEventBox>
         <ReviewInfoBox>
-          <span>리뷰 {props?.review_cnt}개</span>
-          {props && <StarRate color={true} rate={props.star_rating_avg} />}
+          <span>리뷰 {shopInfo?.review_cnt}개</span>
+          {shopInfo && (
+            <StarRate color={true} rate={shopInfo.star_rating_avg} />
+          )}
         </ReviewInfoBox>
-        {props?.recent_reviews.map((review) => (
+        {shopInfo?.recent_reviews.map((review) => (
           <ReviewItem
             key={review.id}
             create_date={review.create_date}
@@ -106,7 +114,7 @@ const ShopDetail = (props) => {
       </ShopInfoBox>
       <div
         onClick={() => {
-          router.push(`/shopDetail/review?${props.id}`);
+          router.push(`/shopDetail/review?${shopInfo?.id}`);
         }}
         className="fixed bottom-0 flex w-full max-w-[375px] cursor-pointer justify-center bg-white px-4 text-title2 text-white"
       >
@@ -143,9 +151,19 @@ const ShopRate = tw.div`
 flex justify-between py-2 text-caption1
 `;
 
-export async function getServerSideProps({ query }) {
-  const res = shopApi.getShopDetail(query.shopId, query.distance);
-  return { props: res };
-}
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { shopId, distance } = query;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['useGetShopDetail'], () =>
+    shopApi.getShopDetail(Number(shopId), distance),
+  );
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      shopId: Number(shopId),
+      distance: String(distance),
+    },
+  };
+};
 
 export default ShopDetail;
