@@ -17,7 +17,7 @@ type Review = ReviewInfo & {
 type ReviewInfo = {
   star_rating: number;
   content: string;
-  purity: string;
-  retouch: string;
-  item: string;
+  purity?: string;
+  retouch?: string;
+  item?: string;
 };

@@ -6,5 +6,5 @@ type Login = {
 };
 
 type Reissue = {
-  accessToken: string;
+  access_token: string;
 };
