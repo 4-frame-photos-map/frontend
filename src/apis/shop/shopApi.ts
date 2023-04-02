@@ -29,6 +29,18 @@ class ShopApi {
     );
     return data.result;
   };
+
+  getShopModal = async (
+    shopId: number,
+    place_name: string,
+    place_url: string,
+    distance: string,
+  ): Promise<ShopModalProps> => {
+    const { data } = await instance.get(
+      `/shops/${shopId}/info?placeName=${place_name}&placeUrl=${place_url}&distance=${distance}`,
+    );
+    return data.result;
+  };
 }
 
 const shopApi = new ShopApi();
