@@ -10,6 +10,7 @@ import ShopLayout from '@components/common/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
+import Button from '@components/common/Button';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
@@ -112,22 +113,17 @@ const ShopDetail = ({ shopId, distance }) => {
           />
         ))}
       </ShopInfoBox>
-      <div
-        onClick={() => {
-          router.push(`/shopDetail/review?${shopInfo?.id}`);
-        }}
-        className="fixed bottom-0 flex w-full max-w-[375px] cursor-pointer justify-center bg-white px-4 text-title2 text-white"
-      >
-        <span className="w-full bg-[#333333] py-4 text-center">
-          이용 후기 작성하기
-        </span>
-      </div>
+      <Button
+        handleButton={() =>
+          router.push(`/shopDetail/review?shopId=${shopInfo?.id}`)
+        }
+      />
     </ShopLayout>
   );
 };
 
 const ShopInfoBox = tw.div`
-flex flex-col px-4 pt-4 pb-2
+flex flex-col px-4 pt-4 pb-2 mb-[52px]
 `;
 const ShopTagBox = tw.div`
 mb-2 text-caption2
