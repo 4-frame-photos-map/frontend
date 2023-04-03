@@ -12,3 +12,13 @@ export const useGetShopDetail = (shopId: number, distance: string) => {
     },
   );
 };
+
+export const useGetShopsInRad = (lat: number, lng: number, brd?: string) => {
+  return useQuery<Shop, Error>(
+    ['useGetShopDetail'],
+    () => shopApi.getShopsInRad(lat, lng, brd),
+    {
+      refetchOnWindowFocus: false,
+    },
+  );
+};

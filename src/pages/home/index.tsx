@@ -4,9 +4,9 @@ import Category from '@components/home/Category';
 import ResearchButton from '@components/home/ResearchButton';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
-import { useGetShopsInRad } from '@hooks/useGetShopsInRad';
 import { useEffect, useRef, useState } from 'react';
-import useMapLoading from '@hooks/useMapLoading';
+import { useGetShopsInRad } from '@hooks/useGetShop';
+import useMapScriptLoad from '@hooks/useMapScriptLoad';
 
 export interface ModalProps {
   id?: number;
@@ -39,7 +39,7 @@ const Home = () => {
 
   const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
 
-  useMapLoading(setMapLoaded);
+  useMapScriptLoad(setMapLoaded);
 
   useEffect(() => {
     if (!mapLoaded) return;

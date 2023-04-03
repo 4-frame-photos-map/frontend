@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 
-export default function useMapLoading(
+export default function useMapScriptLoad(
   setMapLoaded: Dispatch<SetStateAction<boolean>>,
 ) {
   useEffect(() => {
