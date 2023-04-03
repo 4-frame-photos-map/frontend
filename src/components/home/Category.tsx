@@ -19,7 +19,7 @@ const Categories: CategoriesProps[] = [
   { id: 2, name: '인생네컷', state: '인생네컷' },
   { id: 3, name: '하루필름', state: '하루필름' },
   { id: 4, name: '포토이즘', state: '포토이즘' },
-  { id: 5, name: '탭명', state: '탭명' },
+  { id: 5, name: '포토그레이', state: '포토그레이' },
 ];
 
 const Category = ({ setBrd }: CategoryData) => {
@@ -32,7 +32,12 @@ const Category = ({ setBrd }: CategoryData) => {
   return (
     <CategoryBar>
       <ItemsWrapper>
-        <Swiper scrollbar={{ draggable: true }} slidesPerView={4}>
+        <Swiper
+          scrollbar={{ draggable: true }}
+          slidesPerView={4}
+          slideToClickedSlide={true}
+          spaceBetween={12}
+        >
           {Categories.map(({ id, name, state }) => (
             <SwiperSlide key={id}>
               <Item key={id}>
