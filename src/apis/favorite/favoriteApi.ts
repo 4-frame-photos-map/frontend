@@ -1,8 +1,8 @@
 import instance from '@apis/instance';
 
 class FavoriteApi {
-  getFavorites = async (sort: string): Promise<Favorite[]> => {
-    const { data } = await instance.get(`/favorites&${sort}`);
+  getFavorites = async (sort?: string): Promise<Favorite[]> => {
+    const { data } = await instance.get(`/favorites?sort=${sort}`);
     return data.result;
   };
 

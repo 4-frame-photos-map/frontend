@@ -6,7 +6,7 @@ import authApi from '@apis/auth/authApi';
 const ReissueToken = async () => {
   const refreshToken = getToken().refreshToken;
   const data = await authApi.reissueToken(refreshToken);
-  return data.accessToken;
+  return data.access_token;
 };
 
 const instance = axios.create({
