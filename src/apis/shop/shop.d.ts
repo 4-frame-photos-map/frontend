@@ -7,7 +7,7 @@ type Shop = {
   place_url: string;
   star_rating_avg: number;
   review_cnt: number;
-  can_be_added_to_favorites: boolean;
+  favorite: boolean;
 };
 
 type ShopDetail = {
@@ -37,4 +37,14 @@ type ShopReviewProps = {
     id: number;
     nickname: string;
   };
+};
+
+type ShopModalProps = {
+  id: number;
+  place_name: string;
+  distance: string;
+  place_url: string;
+  star_rating_avg: number;
+  review_cnt: number;
+  favorite: boolean;
 };

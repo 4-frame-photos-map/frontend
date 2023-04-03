@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const Menu = () => {
   const router = useRouter();
   return (
-    <div className="fixed bottom-0 w-full max-w-[375px] overflow-hidden border-t-[1px] border-[#e1e2e4] bg-bg-secondary py-[10px]">
+    <div className="fixed bottom-0 w-full max-w-[375px] overflow-hidden border-t-[1px] border-line-normal bg-bg-secondary py-[10px]">
       <div className="flex h-full items-center justify-center space-x-16 px-[20px] text-[10px]">
         <Link href="/home">
           <div className="text-center">
@@ -72,7 +72,7 @@ const Menu = () => {
                   : 'text-text-assitive'
               }`}
             >
-              저장
+              찜
             </p>
           </div>
         </Link>

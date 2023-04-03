@@ -1,52 +1,71 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import styles from '@styles/swiper.module.css';
 
 type CategoriesProps = {
   id: number;
   name: string;
+  state: string;
+};
+
+type CategoryData = {
+  setBrd: Dispatch<SetStateAction<string>>;
 };
 
 const Categories: CategoriesProps[] = [
-  { id: 1, name: '전체' },
-  { id: 2, name: '인생네컷' },
-  { id: 3, name: '하루필름' },
-  { id: 4, name: '포토이즘' },
-  { id: 5, name: '탭명' },
+  { id: 1, name: '전체', state: '' },
+  { id: 2, name: '인생네컷', state: '인생네컷' },
+  { id: 3, name: '하루필름', state: '하루필름' },
+  { id: 4, name: '포토이즘', state: '포토이즘' },
+  { id: 5, name: '포토그레이', state: '포토그레이' },
 ];
 
-const Category = () => {
+const Category = ({ setBrd }: CategoryData) => {
   const [categoryId, setCategoryId] = useState<number>(1);
-  const handleCatBtn = (id: number) => {
+  const handleCatBtn = (id: number, state: string) => {
     setCategoryId(id);
+    setBrd(state);
   };
+
   return (
     <CategoryBar>
       <ItemsWrapper>
-        {Categories.map(({ id, name }) => (
-          <Item key={id}>
-            <Button
-              className={`${
-                id === categoryId
-                  ? 'bg-black text-white shadow-category'
-                  : 'border border-solid border-black bg-white text-black'
-              }`}
-              onClick={() => handleCatBtn(id)}
-            >
-              {name}
-            </Button>
-          </Item>
-        ))}
+        <Swiper
+          scrollbar={{ draggable: true }}
+          slidesPerView={4}
+          slideToClickedSlide={true}
+          spaceBetween={12}
+        >
+          {Categories.map(({ id, name, state }) => (
+            <SwiperSlide key={id}>
+              <Item key={id}>
+                <Button
+                  className={`${
+                    id === categoryId
+                      ? 'bg-black text-white shadow-category'
+                      : 'border border-solid border-black bg-white text-black'
+                  }`}
+                  onClick={() => handleCatBtn(id, state)}
+                >
+                  {name}
+                </Button>
+              </Item>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </ItemsWrapper>
     </CategoryBar>
   );
 };
 
 const CategoryBar = tw.div`
-pt-[67px] overflow-x-hidden
+pt-[72px] overflow-x-hidden
 `;
 
 const ItemsWrapper = tw.ul`
-flex items-center pl-[16px] my-[8px] gap-x-[7px]
+flex items-center pl-[16px] my-[8px] gap-x-[7px] 
 `;
 
 const Item = tw.li`

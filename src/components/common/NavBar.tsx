@@ -82,7 +82,7 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
               alt="검색"
               width={24}
               height={24}
-              className="right-0 z-[900] cursor-pointer"
+              className="right-0 z-[999] cursor-pointer"
               onClick={handleOpenInput}
             />
           )
@@ -95,7 +95,7 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
 };
 
 const NavContainer = tw.nav`
-fixed top-0 w-full bg-bg-secondary py-[18px] max-w-[375px] box-border h-16`;
+fixed top-0 w-full bg-bg-secondary py-[18px] max-w-[375px] box-border h-16 z-[999]`;
 
 const NavItems = tw.div`
 mx-[16px] flex items-center justify-between h-full
