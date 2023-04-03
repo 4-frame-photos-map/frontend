@@ -72,7 +72,7 @@ const Menu = () => {
                   : 'text-text-assitive'
               }`}
             >
-              저장
+              찜
             </p>
           </div>
         </Link>
