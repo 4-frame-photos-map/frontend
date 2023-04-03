@@ -42,7 +42,7 @@ const wishArray: ArrayProps[] = [
 const Wish = () => {
   return (
     <PageLayout>
-      <NavBar title={'저장'} isRight={true} isLeft={true} />
+      <NavBar title={'찜'} isRight={true} isLeft={true} />
       {wishArray.length > 0 ? (
         <WishList>
           {wishArray.map((data, idx) => (

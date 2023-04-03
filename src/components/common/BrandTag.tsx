@@ -2,12 +2,17 @@ import tw from 'tailwind-styled-components';
 
 type BrandTagProps = {
   name: string;
-  className?: React.ComponentProps<'div'>['className'];
 };
 
-const BrandTag = ({ name, ...rest }: BrandTagProps) => {
+const BrandTag = ({ name }: BrandTagProps) => {
   return (
-    <BadgeContainer {...rest}>
+    <BadgeContainer
+      className={`${name.includes('인생네컷') && 'bg-brand-purple'} ${
+        name.includes('하루필름') && 'bg-brand-yellow'
+      } ${name.includes('포토이즘') && 'bg-brand-green'}  ${
+        name.includes('포토그레이') && 'bg-brand-pink'
+      }`}
+    >
       <span className="text-center text-[10px]">{name.split(' ')[0]}</span>
     </BadgeContainer>
   );
