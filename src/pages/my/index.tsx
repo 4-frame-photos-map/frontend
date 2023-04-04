@@ -2,12 +2,13 @@ import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/common/PageLayout';
 import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
+import { useGetProfile } from '@hooks/useGetProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
 
 const GreetingBox = tw.div`
-flex h-[60px] justify-between px-[16px]
+flex h-[60px] justify-between px-[16px] mt-[52px]
 `;
 
 const Greeting = tw.div`
@@ -53,12 +54,13 @@ const SettingLists: SettingListsProps[] = [
 
 const My = () => {
   const router = useRouter();
+  const { data: user } = useGetProfile();
   return (
     <PageLayout className="bg-white">
       <NavBar title="마이페이지" isLeft={true} />
       <GreetingBox>
         <Greeting>
-          <span className="font-semibold">닉네임</span>님 안녕하세요!
+          <span className="font-semibold">{user?.nickname}</span>님 안녕하세요!
         </Greeting>
         <div className="flex items-center">
           <SettingBox onClick={() => router.push('/my/setting')}>
