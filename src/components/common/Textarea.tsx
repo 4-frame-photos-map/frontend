@@ -5,7 +5,7 @@ interface TextareaProps {
   label: string;
   placeholder: string;
   register: UseFormRegisterReturn;
-  [key: string]: any;
+  className?: React.ComponentProps<'div'>['className'];
 }
 
 const Textarea = ({ label, placeholder, register, ...rest }: TextareaProps) => {
