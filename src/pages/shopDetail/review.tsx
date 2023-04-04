@@ -10,7 +10,7 @@ import Button from '@components/common/Button';
 import usePostReview from '@hooks/usePostReview';
 
 type ReviewForm = {
-  content: string;
+  content?: string;
   purity?: string;
   retouch?: string;
   item?: string;
@@ -29,7 +29,7 @@ const Review = () => {
     false,
   ]);
 
-  const { register, handleSubmit, watch } = useForm<ReviewForm>();
+  const { register, handleSubmit, watch, setValue } = useForm<ReviewForm>();
 
   const watchContent = watch('content');
   const watchItem = watch('item');
@@ -51,12 +51,13 @@ const Review = () => {
       {
         star_rating: rate.filter(Boolean).length,
         content,
-        item: item[0],
-        purity: purity[0],
-        retouch: retouch[0],
+        item,
+        purity,
+        retouch,
       },
     ];
     mutate(reviewInfo);
+    console.log(form);
   };
 
   return (
@@ -90,20 +91,20 @@ const Review = () => {
           <Checkbox
             id="item"
             label="악세사리"
+            setValue={setValue}
             status={watchItem}
-            register={register('item')}
           />
           <Checkbox
             id="purity"
             label="청결상태"
+            setValue={setValue}
             status={watchPurity}
-            register={register('purity')}
           />
           <Checkbox
             id="retouch"
             label="보정도"
+            setValue={setValue}
             status={watchRetouch}
-            register={register('retouch')}
           />
         </OptionBox>
         <Textarea
