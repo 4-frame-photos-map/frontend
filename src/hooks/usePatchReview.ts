@@ -1,6 +1,6 @@
+import { useRouter } from 'next/router';
 import reviewApi from '@apis/review/reviewApi';
 import { useMutation } from 'react-query';
-import { useRouter } from 'next/router';
 
 type Data = (
   | number
@@ -13,17 +13,17 @@ type Data = (
     }
 )[];
 
-const usePostReview = () => {
+const usePatchReview = () => {
   const router = useRouter();
   return useMutation<TResponse, Error, Data>(
-    'usePostReview',
-    (formData: any) => reviewApi.postReview(formData[0], formData[1]),
+    'usePatchReview',
+    (formData: any) => reviewApi.patchReview(formData[0], formData[1]),
     {
       onSuccess: () => {
-        router.back();
+        router.push('/my/reviews');
       },
     },
   );
 };
 
-export default usePostReview;
+export default usePatchReview;

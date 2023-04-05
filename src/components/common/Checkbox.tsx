@@ -1,15 +1,15 @@
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
-import type { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 
 type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string;
   label: string;
-  register?: UseFormRegisterReturn;
-  status: string[] | string | undefined;
+  status?: string;
+  setValue: UseFormReturn['setValue'];
 };
 
-const Checkbox = ({ id, label, register, status }: CheckboxProps) => {
+const Checkbox = ({ id, label, status, setValue }: CheckboxProps) => {
   return (
     <CheckboxContainer>
       <CheckboxTitle>{label}</CheckboxTitle>
@@ -17,7 +17,7 @@ const Checkbox = ({ id, label, register, status }: CheckboxProps) => {
         <CheckboxInner>
           <Image
             src={
-              status?.[0] === 'GOOD'
+              status === 'GOOD'
                 ? '/svg/checkbox_active.svg'
                 : '/svg/checkbox_blank.svg'
             }
@@ -30,8 +30,8 @@ const Checkbox = ({ id, label, register, status }: CheckboxProps) => {
             type="checkbox"
             id={id}
             value="GOOD"
-            checked={status?.[0] === 'GOOD' ? true : false}
-            {...register}
+            checked={status === 'GOOD' ? true : false}
+            onChange={() => setValue(id, 'GOOD')}
           />
         </CheckboxInner>
       </Label>
@@ -39,7 +39,7 @@ const Checkbox = ({ id, label, register, status }: CheckboxProps) => {
         <CheckboxInner>
           <Image
             src={
-              status?.[0] === 'BAD'
+              status === 'BAD'
                 ? '/svg/checkbox_active.svg'
                 : '/svg/checkbox_blank.svg'
             }
@@ -52,8 +52,8 @@ const Checkbox = ({ id, label, register, status }: CheckboxProps) => {
             type="checkbox"
             id={id}
             value="BAD"
-            checked={status?.[0] === 'BAD' ? true : false}
-            {...register}
+            checked={status === 'BAD' ? true : false}
+            onChange={() => setValue(id, 'BAD')}
           />
         </CheckboxInner>
       </Label>
@@ -65,7 +65,7 @@ const CheckboxContainer = tw.div`
 flex
 `;
 const Label = tw.label`
-flex mb-3
+flex mb-3 cursor-pointer
 `;
 const CheckboxTitle = tw.span`
 text-body1 font-semibold w-[56px] mr-3

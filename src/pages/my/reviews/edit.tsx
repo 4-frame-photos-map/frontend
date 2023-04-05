@@ -1,13 +1,14 @@
+import usePatchReview from '@hooks/usePatchReview';
+import { useGetUserReview } from '@hooks/useGetReview';
 import tw from 'tailwind-styled-components';
+import Button from '@components/common/Button';
 import Checkbox from '@components/common/Checkbox';
 import ShopLayout from '@components/common/ShopLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '@components/common/Button';
-import usePostReview from '@hooks/usePostReview';
 
 type ReviewForm = {
   content?: string;
@@ -17,10 +18,11 @@ type ReviewForm = {
 };
 const STAR = [0, 1, 2, 3, 4];
 
-const Review = () => {
+const Edit = () => {
   const router = useRouter();
-  const shopId = Number(router.query.shopId);
-  const { mutate } = usePostReview();
+  const reviewId = Number(router.query.reviewId);
+  const { data: review } = useGetUserReview(reviewId);
+  const { mutate: patchReview } = usePatchReview();
   const [rate, setRate] = useState<boolean[]>([
     false,
     false,
@@ -28,8 +30,19 @@ const Review = () => {
     false,
     false,
   ]);
+  const [isEditStar, setIsEditStar] = useState<boolean>(false);
 
   const { register, handleSubmit, watch, setValue } = useForm<ReviewForm>();
+
+  useEffect(() => {
+    if (review) {
+      setValue('content', review.content);
+      setValue('item', review.item);
+      setValue('purity', review.purity);
+      setValue('retouch', review.retouch);
+      rate.fill(true, 0, review.star_rating);
+    }
+  }, [review]);
 
   const watchContent = watch('content');
   const watchItem = watch('item');
@@ -37,6 +50,9 @@ const Review = () => {
   const watchRetouch = watch('retouch');
 
   const handleStarClick = (index: number) => {
+    if (!isEditStar) {
+      setIsEditStar(true);
+    }
     const clickStates = [...rate];
     for (let i = 0; i < 5; i++) {
       clickStates[i] = i <= index ? true : false;
@@ -47,7 +63,7 @@ const Review = () => {
   const onSubmit = (form) => {
     const { content, item, purity, retouch } = form;
     const reviewInfo = [
-      shopId,
+      reviewId,
       {
         star_rating: rate.filter(Boolean).length,
         content,
@@ -56,8 +72,7 @@ const Review = () => {
         retouch,
       },
     ];
-    mutate(reviewInfo);
-    console.log(form);
+    patchReview(reviewInfo);
   };
 
   return (
@@ -71,18 +86,36 @@ const Review = () => {
           </span>
         </div>
         <div className="flex">
-          {STAR.map((ele) => (
-            <div key={ele} onClick={() => handleStarClick(ele)}>
-              <Image
-                src={
-                  rate[ele] ? '/svg/checked_star.svg' : '/svg/blank_star.svg'
-                }
-                width={40}
-                height={40}
-                alt="별"
-              />
-            </div>
-          ))}
+          {isEditStar
+            ? STAR.map((ele) => (
+                <div key={ele} onClick={() => handleStarClick(ele)}>
+                  <Image
+                    src={
+                      rate[ele]
+                        ? '/svg/checked_star.svg'
+                        : '/svg/blank_star.svg'
+                    }
+                    width={40}
+                    height={40}
+                    alt="별"
+                  />
+                </div>
+              ))
+            : review &&
+              rate.fill(true, 0, review.star_rating).map((_, idx) => (
+                <div key={idx} onClick={() => handleStarClick(idx)}>
+                  <Image
+                    src={
+                      rate[idx]
+                        ? '/svg/default_star.svg'
+                        : '/svg/blank_star.svg'
+                    }
+                    width={40}
+                    height={40}
+                    alt="별"
+                  />
+                </div>
+              ))}
           <span className="text-status-error">*</span>
         </div>
       </RatingContainer>
@@ -92,6 +125,7 @@ const Review = () => {
             id="item"
             label="악세사리"
             setValue={setValue}
+            defaultValue="GOOD"
             status={watchItem}
           />
           <Checkbox
@@ -139,4 +173,4 @@ const OptionBox = tw.div`
 mb-4 flex flex-col
 `;
 
-export default Review;
+export default Edit;

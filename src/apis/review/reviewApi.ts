@@ -11,8 +11,8 @@ class ReviewApi {
     return data.result;
   };
 
-  getAllUserReviews = async (memberId: number): Promise<Review[]> => {
-    const { data } = await instance.get(`/reviews/member/${memberId}`);
+  getAllUserReviews = async (): Promise<Review[]> => {
+    const { data } = await instance.get(`/reviews/member`);
     return data.result;
   };
 
