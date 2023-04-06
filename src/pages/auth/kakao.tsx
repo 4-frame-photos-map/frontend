@@ -15,10 +15,10 @@ const Kakao = () => {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     async function login() {
-      const { jwt_token } = await authApi.kakaoLogin(code);
+      const { access_token, refresh_token } = await authApi.kakaoLogin(code);
       const token = {
-        accessToken: jwt_token.access_token,
-        refreshToken: jwt_token.refresh_token,
+        accessToken: access_token,
+        refreshToken: refresh_token,
       };
       if (token) {
         setToken(token);
