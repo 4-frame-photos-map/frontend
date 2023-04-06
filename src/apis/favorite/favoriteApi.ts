@@ -1,17 +1,23 @@
 import instance from '@apis/instance';
 
 class FavoriteApi {
-  getFavorites = async (sort?: string): Promise<Favorite[]> => {
-    const { data } = await instance.get(`/favorites?sort=${sort}`);
+  getAllFavorites = async (
+    lng: number,
+    lat: number,
+    sort?: string,
+  ): Promise<Favorite[]> => {
+    const { data } = await instance.get(
+      `/favorites?longitude=${lng}&latitude=${lat}&sort=${sort}`,
+    );
     return data.result;
   };
 
-  postFavorites = async (shopId: number): Promise<TResponse> => {
+  postFavorites = async (shopId: number): Promise<void> => {
     const { data } = await instance.post(`/favorites/${shopId}`);
     return data;
   };
 
-  delFavorites = async (shopId: number): Promise<TResponse> => {
+  delFavorites = async (shopId: number): Promise<void> => {
     const { data } = await instance.delete(`/favorites/${shopId}`);
     return data;
   };

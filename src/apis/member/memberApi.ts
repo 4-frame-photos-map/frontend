@@ -3,10 +3,10 @@ import instance from '@apis/instance';
 class MemberApi {
   getProfile = async (): Promise<Member> => {
     const { data } = await instance.get(`/member/info`);
-    return data.result;
+    return data;
   };
 
-  patchNickname = async (nickname: string): Promise<TResponse> => {
+  patchNickname = async (nickname: string): Promise<void> => {
     const { data } = await instance.patch(`/member/info`, {
       nickname,
     });
@@ -15,10 +15,10 @@ class MemberApi {
 
   delAccount = async (): Promise<QuitMember> => {
     const { data } = await instance.delete(`/member`);
-    return data.result;
+    return data;
   };
 
-  patchTitle = async (titleId: number): Promise<TResponse> => {
+  patchTitle = async (titleId: number): Promise<void> => {
     const { data } = await instance.patch(`/member/main-title/${titleId}`);
     return data;
   };
