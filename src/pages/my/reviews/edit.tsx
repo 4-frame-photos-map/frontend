@@ -124,6 +124,8 @@ const Edit = () => {
           <Checkbox
             id="item"
             label="악세사리"
+            leftValue="많음"
+            rightValue="적음"
             setValue={setValue}
             defaultValue="GOOD"
             status={watchItem}
@@ -131,12 +133,16 @@ const Edit = () => {
           <Checkbox
             id="purity"
             label="청결상태"
+            leftValue="좋음"
+            rightValue="나쁨"
             setValue={setValue}
             status={watchPurity}
           />
           <Checkbox
             id="retouch"
             label="보정도"
+            leftValue="높음"
+            rightValue="낮음"
             setValue={setValue}
             status={watchRetouch}
           />
