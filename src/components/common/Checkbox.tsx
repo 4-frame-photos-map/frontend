@@ -6,10 +6,19 @@ type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string;
   label: string;
   status?: string;
+  leftValue: string;
+  rightValue: string;
   setValue: UseFormReturn['setValue'];
 };
 
-const Checkbox = ({ id, label, status, setValue }: CheckboxProps) => {
+const Checkbox = ({
+  id,
+  label,
+  status,
+  leftValue,
+  rightValue,
+  setValue,
+}: CheckboxProps) => {
   return (
     <CheckboxContainer>
       <CheckboxTitle>{label}</CheckboxTitle>
@@ -25,7 +34,7 @@ const Checkbox = ({ id, label, status, setValue }: CheckboxProps) => {
             height={20}
             alt="체크박스"
           />
-          <span>좋음</span>
+          <span>{leftValue}</span>
           <CheckboxInput
             type="checkbox"
             id={id}
@@ -47,7 +56,7 @@ const Checkbox = ({ id, label, status, setValue }: CheckboxProps) => {
             height={20}
             alt="체크박스"
           />
-          <span>나쁨</span>
+          <span>{rightValue}</span>
           <CheckboxInput
             type="checkbox"
             id={id}
