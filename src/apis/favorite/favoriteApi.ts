@@ -9,17 +9,15 @@ class FavoriteApi {
     const { data } = await instance.get(
       `/favorites?longitude=${lng}&latitude=${lat}&sort=${sort}`,
     );
-    return data.result;
+    return data;
   };
 
   postFavorites = async (shopId: number): Promise<void> => {
-    const { data } = await instance.post(`/favorites/${shopId}`);
-    return data;
+    return await instance.post(`/favorites/${shopId}`);
   };
 
   delFavorites = async (shopId: number): Promise<void> => {
-    const { data } = await instance.delete(`/favorites/${shopId}`);
-    return data;
+    return await instance.delete(`/favorites/${shopId}`);
   };
 }
 

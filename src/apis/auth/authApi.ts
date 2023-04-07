@@ -6,9 +6,8 @@ class AuthApi {
     return data;
   };
 
-  logout = async (): Promise<TResponse> => {
-    const { data } = await instance.get(`/auth/logout`);
-    return data;
+  logout = async (): Promise<void> => {
+    return await instance.get(`/auth/logout`);
   };
 
   reissueToken = async (refreshToken: string | undefined): Promise<Reissue> => {

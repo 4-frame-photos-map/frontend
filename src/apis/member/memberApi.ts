@@ -7,10 +7,9 @@ class MemberApi {
   };
 
   patchNickname = async (nickname: string): Promise<void> => {
-    const { data } = await instance.patch(`/member/info`, {
+    return await instance.patch(`/member/info`, {
       nickname,
     });
-    return data;
   };
 
   delAccount = async (): Promise<QuitMember> => {
@@ -19,8 +18,7 @@ class MemberApi {
   };
 
   patchTitle = async (titleId: number): Promise<void> => {
-    const { data } = await instance.patch(`/member/main-title/${titleId}`);
-    return data;
+    return await instance.patch(`/member/main-title/${titleId}`);
   };
 }
 
