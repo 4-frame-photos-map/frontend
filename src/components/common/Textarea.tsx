@@ -27,7 +27,7 @@ const Textarea = ({ label, placeholder, register, ...rest }: TextareaProps) => {
 };
 
 const TextareaBox = tw.label`
-mb-1 flex flex-col
+mb-1 flex flex-col text-label2
 `;
 const Label = tw.div`
 flex mb-1
@@ -36,7 +36,7 @@ const TextareaTitle = tw.span`
 text-body1 font-semibold
 `;
 const TextareaInner = tw.textarea`
-h-[140px] w-full rounded-lg border border-text-assitive p-1 text-label2 focus:outline-0
+h-[140px] w-full rounded-lg border p-1 focus:outline-0
 `;
 
 export default Textarea;
