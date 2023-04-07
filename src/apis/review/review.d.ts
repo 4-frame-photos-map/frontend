@@ -1,7 +1,7 @@
 type Review = ReviewInfo & {
   id: number;
-  create_date: string;
-  modify_date: string;
+  create_date: number[];
+  modify_date: number[];
   member_info: {
     id: number;
     nickname: string;

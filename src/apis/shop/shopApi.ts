@@ -5,29 +5,29 @@ class ShopApi {
     keyword: string,
     lat: number,
     lng: number,
-  ): Promise<Shop> => {
+  ): Promise<Shop[]> => {
     const { data } = await instance.get(
       `/shops?keyword=${keyword}&latitude=${lat}&longitude=${lng}`,
     );
-    return data.result;
+    return data;
   };
 
   getShopsInRad = async (
     lat: number,
     lng: number,
     brd?: string,
-  ): Promise<Shop> => {
+  ): Promise<Shop[]> => {
     const { data } = await instance.get(
       `/shops/brand?latitude=${lat}&longitude=${lng}&brand=${brd}`,
     );
-    return data.result;
+    return data;
   };
 
   getShopDetail = async (shopId: number, distance): Promise<ShopDetail> => {
     const { data } = await instance.get(
       `/shops/${shopId}?distance=${distance}`,
     );
-    return data.result;
+    return data;
   };
 
   getShopModal = async (
@@ -35,11 +35,11 @@ class ShopApi {
     place_name: string,
     place_url: string,
     distance: string,
-  ): Promise<ShopModalProps> => {
+  ): Promise<ShopProps> => {
     const { data } = await instance.get(
       `/shops/${shopId}/info?placeName=${place_name}&placeUrl=${place_url}&distance=${distance}`,
     );
-    return data.result;
+    return data;
   };
 }
 
