@@ -31,17 +31,16 @@ const Edit = () => {
     false,
   ]);
   const [isEditStar, setIsEditStar] = useState<boolean>(false);
-
+  const [isItemSet, setIsItemSet] = useState<boolean>(true);
+  const [isPuritySet, setIsPuritySet] = useState<boolean>(true);
+  const [isRetouchSet, setIsRetouchSet] = useState<boolean>(true);
   const { register, handleSubmit, watch, setValue } = useForm<ReviewForm>();
 
   useEffect(() => {
-    if (review) {
-      setValue('content', review.content);
-      setValue('item', review.item);
-      setValue('purity', review.purity);
-      setValue('retouch', review.retouch);
-      rate.fill(true, 0, review.star_rating);
-    }
+    setValue('content', review?.content);
+    setValue('item', review?.item);
+    setValue('purity', review?.purity);
+    setValue('retouch', review?.retouch);
   }, [review]);
 
   const watchContent = watch('content');
@@ -102,7 +101,7 @@ const Edit = () => {
                 </div>
               ))
             : review &&
-              rate.fill(true, 0, review.star_rating).map((_, idx) => (
+              rate.fill(true, 0, review?.star_rating).map((_, idx) => (
                 <div key={idx} onClick={() => handleStarClick(idx)}>
                   <Image
                     src={
@@ -126,8 +125,9 @@ const Edit = () => {
             label="악세사리"
             leftValue="많음"
             rightValue="적음"
+            isSet={isItemSet}
             setValue={setValue}
-            defaultValue="GOOD"
+            setIsSet={setIsItemSet}
             status={watchItem}
           />
           <Checkbox
@@ -135,7 +135,9 @@ const Edit = () => {
             label="청결상태"
             leftValue="좋음"
             rightValue="나쁨"
+            isSet={isPuritySet}
             setValue={setValue}
+            setIsSet={setIsPuritySet}
             status={watchPurity}
           />
           <Checkbox
@@ -143,7 +145,9 @@ const Edit = () => {
             label="보정도"
             leftValue="높음"
             rightValue="낮음"
+            isSet={isRetouchSet}
             setValue={setValue}
+            setIsSet={setIsRetouchSet}
             status={watchRetouch}
           />
         </OptionBox>
@@ -152,7 +156,9 @@ const Edit = () => {
           placeholder="리뷰를 남겨주세요! (100자 이내)"
           register={register('content')}
           className={
-            watchContent ? 'border-primary-pressed' : 'border-text-assitive'
+            watchContent && watchContent !== review?.content
+              ? 'border-primary-pressed'
+              : 'border-text-assitive text-text-assitive'
           }
         />
       </OptionContainer>
