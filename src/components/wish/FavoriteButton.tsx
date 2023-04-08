@@ -1,9 +1,7 @@
 import { useDeleteFavorite } from '@hooks/useDeleteFavorite';
-import { useGetFavorites } from '@hooks/useGetFavorites';
 import { usePostFavorites } from '@hooks/usePostFavorite';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { QueryClient } from 'react-query';
+import { useState } from 'react';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import { queryClient } from 'pages/_app';
@@ -35,10 +33,6 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
   };
 
   const favoriteArray = favorites?.map((fav) => fav.shop.id);
-
-  useEffect(() => {
-    console.log(toast);
-  }, [toast]);
 
   return (
     <>

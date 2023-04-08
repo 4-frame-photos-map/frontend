@@ -1,5 +1,5 @@
 import BrandTag from '@components/common/BrandTag';
-import FavoriteButton from '@components/common/FavoriteButton';
+import FavoriteButton from '@components/wish/FavoriteButton';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 

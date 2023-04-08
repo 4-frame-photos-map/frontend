@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
-import FavoriteButton from './FavoriteButton';
+import FavoriteButton from '@components/wish/FavoriteButton';
 
 type NavBarProps = {
   title?: string;
