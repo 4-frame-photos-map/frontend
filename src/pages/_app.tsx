@@ -2,7 +2,7 @@ import Layout from '@components/common/Layout';
 import '@styles/globals.css';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { ReactElement, ReactNode, useState } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 declare global {
@@ -19,8 +19,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   return getLayout(
     <QueryClientProvider client={queryClient}>
@@ -30,3 +30,5 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </QueryClientProvider>,
   );
 }
+
+export { queryClient };
