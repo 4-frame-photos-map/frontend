@@ -36,13 +36,13 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
     setToast(true);
   };
 
-  const favoriteArray = favoritesCache?.map((fav) => fav.shop.id);
-  const fav = favorites?.map((fav) => fav.shop.id);
+  const favCacheArray = favoritesCache?.map((fav) => fav.shop.id);
+  const favArray = favorites?.map((fav) => fav.shop.id);
 
   return (
     <>
       {isWish &&
-        (favoriteArray?.includes(shopId) ? (
+        (favCacheArray?.includes(shopId) ? (
           <Image
             src="/svg/wish/filled-bookmark.svg"
             width={24}
@@ -65,7 +65,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
           />
         ))}
       {!isWish &&
-        (fav?.includes(shopId) ? (
+        (favArray?.includes(shopId) ? (
           <Image
             src="/svg/wish/filled-bookmark.svg"
             width={24}
