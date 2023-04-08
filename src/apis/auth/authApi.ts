@@ -3,7 +3,7 @@ import instance from '@apis/instance';
 class AuthApi {
   kakaoLogin = async (code: string | null): Promise<Login> => {
     const { data } = await instance.get(`/auth/login/kakao?code=${code}`);
-    return data.result;
+    return data;
   };
 
   logout = async (): Promise<TResponse> => {
@@ -15,7 +15,7 @@ class AuthApi {
     const { data } = await instance.post(`/auth/token`, {
       refresh_token: refreshToken,
     });
-    return data.result;
+    return data;
   };
 }
 
