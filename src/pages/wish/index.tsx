@@ -1,6 +1,7 @@
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/common/PageLayout';
 import WishItem from '@components/wish/WishItem';
+import { useGetFavorites } from '@hooks/useGetFavorites';
 import tw from 'tailwind-styled-components';
 
 type ArrayProps = {
@@ -40,12 +41,13 @@ const wishArray: ArrayProps[] = [
 ];
 
 const Wish = () => {
+  const { data: favorites } = useGetFavorites(127.052068, 37.545704, 'created');
   return (
     <PageLayout>
-      <NavBar title={'찜'} isRight={true} isLeft={true} />
-      {wishArray.length > 0 ? (
+      <NavBar title={'저장'} isRight={true} isLeft={true} />
+      {favorites && favorites.length > 0 ? (
         <WishList>
-          {wishArray.map((data, idx) => (
+          {favorites?.map((data, idx) => (
             <WishItem key={idx} {...data} />
           ))}
         </WishList>
