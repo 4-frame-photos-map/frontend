@@ -20,7 +20,6 @@ type ShopProps = {
   place_url: string;
   star_rating_avg: number;
   review_cnt: number;
-<<<<<<< HEAD
   favorite_cnt: number;
   latitude: string;
   longitude: string;
@@ -34,9 +33,7 @@ type ShopProps = {
     id: number;
     nickname: string;
   };
-=======
   favorite: boolean;
->>>>>>> b4a0a86f413487452c7649e2e850514dcfb37e5f
 };
 
 type ShopReviewProps = {
