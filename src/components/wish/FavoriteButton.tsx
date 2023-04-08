@@ -109,7 +109,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
       )}
 
       {toast && isSuccess && (
-        <div className="fixed bottom-0 z-[900] w-full max-w-[375px] pb-[71px]">
+        <div className="fixed bottom-0 z-[900] pb-[71px]">
           <ToastMessage
             text="저장페이지에서 지점이 삭제되었습니다."
             setToast={setToast}
