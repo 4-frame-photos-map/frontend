@@ -11,9 +11,6 @@ export const usePostFavorites = () => {
           queryKey: ['useGetFavorites'],
         });
       },
-      onError: () => {
-        console.log('error');
-      },
     },
   );
 };

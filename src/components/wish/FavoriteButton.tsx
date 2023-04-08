@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import { queryClient } from 'pages/_app';
+import { useGetFavorites } from '@hooks/useGetFavorites';
 
 type FavortieButtonProps = {
   shopId: number;
@@ -12,9 +13,12 @@ type FavortieButtonProps = {
 };
 
 const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
+  const { data: favorites } = useGetFavorites(127.052068, 37.545704, 'created');
   const { mutate: del, isSuccess, isError } = useDeleteFavorite();
   const { mutate: add } = usePostFavorites();
-  const favorites = queryClient.getQueryData<Favorite[]>(['useGetFavorites']);
+  const favoritesCache = queryClient.getQueryData<Favorite[]>([
+    'useGetFavorites',
+  ]);
 
   const [isModal, setIsModal] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
@@ -32,7 +36,8 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
     setToast(true);
   };
 
-  const favoriteArray = favorites?.map((fav) => fav.shop.id);
+  const favoriteArray = favoritesCache?.map((fav) => fav.shop.id);
+  const fav = favorites?.map((fav) => fav.shop.id);
 
   return (
     <>
@@ -60,7 +65,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
           />
         ))}
       {!isWish &&
-        (favoriteArray?.includes(shopId) ? (
+        (fav?.includes(shopId) ? (
           <Image
             src="/svg/wish/filled-bookmark.svg"
             width={24}
