@@ -13,7 +13,12 @@ const BrandTag = ({ name }: BrandTagProps) => {
         name.includes('포토그레이') && 'bg-brand-pink'
       }`}
     >
-      <span className="text-center text-[10px]">{name.split(' ')[0]}</span>
+      <span className="text-center text-[10px]">
+        {name.includes('인생네컷') && '인생네컷'}
+        {name.includes('하루필름') && '하루필름'}
+        {name.includes('포토이즘') && '포토이즘'}
+        {name.includes('포토그레이') && '포토그레이'}
+      </span>
     </BadgeContainer>
   );
 };
