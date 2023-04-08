@@ -4,42 +4,6 @@ import WishItem from '@components/wish/WishItem';
 import { useGetFavorites } from '@hooks/useGetFavorites';
 import tw from 'tailwind-styled-components';
 
-type ArrayProps = {
-  id: number;
-  shop: {
-    id: number;
-    place_name: string;
-    road_address_name: string;
-  };
-};
-
-const wishArray: ArrayProps[] = [
-  {
-    id: 1,
-    shop: {
-      id: 3040,
-      place_name: '하루필름 서울대점',
-      road_address_name: '서울 용산구 이태원로26길 16',
-    },
-  },
-  {
-    id: 2,
-    shop: {
-      id: 3042,
-      place_name: '인생네컷 서울 경리단점',
-      road_address_name: '서울 용산구 이태원로26길 16',
-    },
-  },
-  {
-    id: 3,
-    shop: {
-      id: 3042,
-      place_name: '포토이즘 노원점',
-      road_address_name: '서울 용산구 이태원로26길 16',
-    },
-  },
-];
-
 const Wish = () => {
   const { data: favorites } = useGetFavorites(127.052068, 37.545704, 'created');
   return (
