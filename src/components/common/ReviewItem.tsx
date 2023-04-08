@@ -4,12 +4,12 @@ import StarRate from '@components/common/StarRate';
 import dateFormat from '@utils/dateFormat';
 
 type ReviewItemProps = {
-  create_date: string;
+  create_date: number[];
   star_rating: number;
   content: string;
-  purity: string;
-  retouch: string;
-  item: string;
+  purity?: string;
+  retouch?: string;
+  item?: string;
   member_info: {
     id: number;
     nickname: string;
@@ -44,7 +44,9 @@ const ReviewItem = ({
                 height={18}
                 alt="체크"
               />
-              <span className="ml-1">{purity}</span>
+              <span className="ml-1">
+                {purity === 'GOOD' ? '청결상태 좋음' : '청결상태 나쁨'}
+              </span>
             </ReviewValue>
           ) : (
             <></>
@@ -57,7 +59,9 @@ const ReviewItem = ({
                 height={18}
                 alt="체크"
               />
-              <span className="ml-1">{retouch}</span>
+              <span className="ml-1">
+                {retouch === 'GOOD' ? '보정정도 높음' : '보정정도 낮음'}
+              </span>
             </ReviewValue>
           ) : (
             <></>
@@ -70,13 +74,16 @@ const ReviewItem = ({
                 height={18}
                 alt="체크"
               />
-              <span className="ml-1">{item}</span>
+              <span className="ml-1">
+                {item === 'GOOD' ? '악세사리 많음' : '악세사리 적음'}
+              </span>
             </ReviewValue>
           ) : (
             <></>
           )}
         </ReviewValueBox>
         <ReviewContent>{content}</ReviewContent>
+        <div></div>
       </ReviewBox>
     </div>
   );

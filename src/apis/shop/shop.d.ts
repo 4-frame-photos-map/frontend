@@ -1,23 +1,26 @@
-type Shop = {
-  id: number;
-  place_name: string;
+type Shop = ShopProps & {
   longitude: number;
   latitude: number;
-  distance: string;
-  place_url: string;
-  star_rating_avg: number;
-  review_cnt: number;
-  favorite: boolean;
+  favorite_cnt: number;
+  brand: BrandProps[];
 };
 
-type ShopDetail = {
+type ShopDetail = ShopProps & {
+  favorite_cnt: number;
+  road_address_name: string;
+  longitude: string;
+  latitude: string;
+  recent_reviews: ShopReviewProps[];
+};
+
+type ShopProps = {
   id: number;
   place_name: string;
-  road_address_name: string;
   distance: string;
   place_url: string;
   star_rating_avg: number;
   review_cnt: number;
+<<<<<<< HEAD
   favorite_cnt: number;
   latitude: string;
   longitude: string;
@@ -31,12 +34,15 @@ type ShopDetail = {
     id: number;
     nickname: string;
   };
+=======
+  favorite: boolean;
+>>>>>>> b4a0a86f413487452c7649e2e850514dcfb37e5f
 };
 
 type ShopReviewProps = {
   id: number;
-  create_date: string;
-  modify_date: string;
+  create_date: number[];
+  modify_date: number[];
   star_rating: number;
   content: string;
   purity: string;
@@ -48,12 +54,8 @@ type ShopReviewProps = {
   };
 };
 
-type ShopModalProps = {
+type BrandProps = {
   id: number;
-  place_name: string;
-  distance: string;
-  place_url: string;
-  star_rating_avg: number;
-  review_cnt: number;
-  favorite: boolean;
+  brand_name: string;
+  file_path: string;
 };

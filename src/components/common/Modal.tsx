@@ -15,7 +15,7 @@ type ModalProps = {
 };
 
 const ModalBG = tw.div`
-absolute flex h-full w-full items-center justify-center bg-text-alternative p-6 z-[999]
+fixed top-0 w-full max-w-[375px] mx-auto flex h-full items-center justify-center bg-text-alternative p-6 z-[999]
 `;
 
 const ModalContainer = tw.div`

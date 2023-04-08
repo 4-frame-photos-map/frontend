@@ -20,6 +20,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const queryClient = new QueryClient();
+
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   return getLayout(
