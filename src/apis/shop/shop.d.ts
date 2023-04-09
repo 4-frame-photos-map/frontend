@@ -11,8 +11,8 @@ type ShopDetail = ShopProps & {
 type ShopProps = {
   id: number;
   place_name: string;
-  longitude: string;
-  latitude: string;
+  longitude?: string;
+  latitude?: string;
   distance: string;
   place_url: string;
   star_rating_avg: number;
