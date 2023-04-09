@@ -1,9 +1,9 @@
 import Modal from '@components/common/Modal';
 import NavBar from '@components/common/NavBar';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import ReviewItem from '@components/common/ReviewItem';
-import { useDeleteReview } from '@hooks/useDeleteReview';
-import { useGetAllUserReviews } from '@hooks/useGetReview';
+import { useDeleteReview } from '@hooks/mutations/useDeleteReview';
+import { useGetAllUserReviews } from '@hooks/queries/useGetReview';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

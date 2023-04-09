@@ -1,9 +1,9 @@
-import usePatchReview from '@hooks/usePatchReview';
-import { useGetUserReview } from '@hooks/useGetReview';
+import usePatchReview from '@hooks/mutations/usePatchReview';
+import { useGetUserReview } from '@hooks/queries/useGetReview';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import Checkbox from '@components/common/Checkbox';
-import ShopLayout from '@components/common/ShopLayout';
+import ShopLayout from '@components/layout/ShopLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -166,7 +166,7 @@ const Edit = () => {
         text="작성 취소하기"
         isRightButton={true}
         handleButton={() => {
-          router.back();
+          router.push('/my/reviews');
         }}
         handleRightButton={handleSubmit(onSubmit)}
         disabled={!rate.filter(Boolean).length || !watchContent}

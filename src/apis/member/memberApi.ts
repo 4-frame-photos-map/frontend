@@ -6,6 +6,13 @@ class MemberApi {
     return data;
   };
 
+  getNicknameValidate = async (nickname: string): Promise<Validate> => {
+    const { data } = await instance.get(
+      `/member/nickname?nickname=${nickname}`,
+    );
+    return data;
+  };
+
   patchNickname = async (nickname: string): Promise<void> => {
     return await instance.patch(`/member/info`, {
       nickname,

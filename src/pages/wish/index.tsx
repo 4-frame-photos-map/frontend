@@ -1,7 +1,7 @@
 import NavBar from '@components/common/NavBar';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
-import { useGetFavorite } from '@hooks/useGetFavorite';
+import { useGetFavorite } from '@hooks/queries/useGetFavorite';
 import tw from 'tailwind-styled-components';
 
 const Wish = () => {

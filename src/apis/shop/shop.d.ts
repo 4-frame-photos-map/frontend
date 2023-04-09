@@ -1,38 +1,23 @@
 type Shop = ShopProps & {
-  longitude: number;
-  latitude: number;
   favorite_cnt: number;
   brand: BrandProps[];
 };
 
 type ShopDetail = ShopProps & {
-  favorite_cnt: number;
   road_address_name: string;
-  longitude: string;
-  latitude: string;
   recent_reviews: ShopReviewProps[];
 };
 
 type ShopProps = {
   id: number;
   place_name: string;
+  longitude?: string;
+  latitude?: string;
   distance: string;
   place_url: string;
   star_rating_avg: number;
   review_cnt: number;
   favorite_cnt: number;
-  latitude: string;
-  longitude: string;
-  recent_reviews: ShopReviewProps[];
-  star_rating: number;
-  content: string;
-  purity: string;
-  retouch: string;
-  item: string;
-  member_info: {
-    id: number;
-    nickname: string;
-  };
   favorite: boolean;
 };
 
