@@ -14,7 +14,7 @@ class MemberApi {
   };
 
   patchNickname = async (nickname: string): Promise<void> => {
-    return await instance.patch(`/member/info`, {
+    return await instance.patch(`/member/nickname`, {
       nickname,
     });
   };
