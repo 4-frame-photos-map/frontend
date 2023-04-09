@@ -1,7 +1,11 @@
+import memberApi from '@apis/member/memberApi';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
+import useDebounce from '@hooks/useDebounce';
+import { usePatchProfile } from '@hooks/mutations/usePatchProfile';
 
 type FormValue = {
   nickname: string;
@@ -12,7 +16,7 @@ flex flex-col px-4 mt-[62px] pt-12
 `;
 
 const EditLabel = tw.label`
-text-[0.938rem] text-text-assitive
+text-body1 mb-1 font-semibold
 `;
 
 const EditInputBox = tw.div`
@@ -20,17 +24,39 @@ grid grid-cols-4 gap-1
 `;
 
 const EditInput = tw.input`
-col-span-3 h-[42px] rounded border border-[#CCCCCC] pl-1 text-label2
+col-span-3 h-[42px] rounded border pl-1 text-label2 focus:outline-0
 `;
 
-const EditButton = tw.div`
-flex cursor-pointer items-center justify-center rounded bg-[#67C8FF] text-[0.875rem] text-white
+const EditButton = tw.button`
+${({ disabled }) => (disabled ? 'bg-primary-disable' : 'bg-primary-normal')}
+flex cursor-pointer items-center justify-center rounded text-[0.875rem] text-white
 `;
 
 const Edit = () => {
-  const { register, handleSubmit } = useForm<FormValue>();
-  const onSubmit = () => {
-    console.log('form 전송');
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValue>({ mode: 'onChange' });
+  const [isValidate, setIsValidate] = useState<boolean>(true);
+  const [value, setValue] = useState<string>('');
+  const { mutate: editProfile } = usePatchProfile();
+  const nickname = watch('nickname');
+  const validateNickname = async () => {
+    if (nickname?.length >= 2 && nickname?.length <= 10 && !!!errors.nickname) {
+      const { status } = await memberApi.getNicknameValidate(value);
+      if (status || value.length === 0) {
+        setIsValidate(false);
+      } else {
+        setIsValidate(true);
+      }
+    }
+  };
+  useDebounce(validateNickname, 300);
+  const onSubmit = (form: FormValue) => {
+    const { nickname } = form;
+    editProfile(nickname);
   };
   return (
     <PageLayout className="bg-white">
@@ -38,8 +64,26 @@ const Edit = () => {
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>
         <EditInputBox>
-          <EditInput {...register('nickname')} type="text" />
-          <EditButton onClick={handleSubmit(onSubmit)}>변경하기</EditButton>
+          <EditInput
+            placeholder="변경 할 닉네임을 입력해주세요."
+            {...register('nickname', {
+              required: true,
+              pattern: {
+                value: /^[가-힣A-Za-z0-9]{2,10}$/g,
+                message: '최소 2자 ~ 최대 10자 까지 입력 가능합니다.',
+              },
+              onChange: (e) => setValue(e.target.value),
+            })}
+            maxLength={10}
+            type="text"
+            className={nickname ? 'border-text-strong' : 'border-text-assitive'}
+          />
+          <EditButton
+            disabled={isValidate || !!errors.nickname}
+            onClick={handleSubmit(onSubmit)}
+          >
+            변경하기
+          </EditButton>
         </EditInputBox>
       </EditContainer>
     </PageLayout>
