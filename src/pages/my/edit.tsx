@@ -1,5 +1,5 @@
 import NavBar from '@components/common/NavBar';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
 
@@ -8,7 +8,7 @@ type FormValue = {
 };
 
 const EditContainer = tw.div`
-mt-12 flex flex-col px-4
+flex flex-col px-4 mt-[62px] pt-12
 `;
 
 const EditLabel = tw.label`

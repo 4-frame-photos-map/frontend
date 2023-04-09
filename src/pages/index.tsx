@@ -1,4 +1,4 @@
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 
 export default function Home() {
   return (

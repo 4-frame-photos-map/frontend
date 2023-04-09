@@ -1,11 +1,11 @@
-import { useDeleteFavorite } from '@hooks/useDeleteFavorite';
-import { usePostFavorites } from '@hooks/usePostFavorite';
 import Image from 'next/image';
 import { useState } from 'react';
+import { queryClient } from 'pages/_app';
+import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
+import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
+import { useGetFavorite } from '@hooks/queries/useGetFavorite';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
-import { queryClient } from 'pages/_app';
-import { useGetFavorite } from '@hooks/useGetFavorite';
 
 type FavortieButtonProps = {
   shopId: number;
@@ -89,7 +89,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
         ))}
 
       {isModal && (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 h-full w-full">
           <Modal
             isModal={isModal}
             isKakao={false}

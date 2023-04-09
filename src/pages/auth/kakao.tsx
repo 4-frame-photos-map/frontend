@@ -1,5 +1,5 @@
 import authApi from '@apis/auth/authApi';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import { setToken } from '@utils/token';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

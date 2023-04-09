@@ -1,6 +1,6 @@
 import BrandTag from '@components/common/BrandTag';
-import { useDeleteFavorite } from '@hooks/useDeleteFavorite';
-import { usePostFavorites } from '@hooks/usePostFavorite';
+import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
+import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
 import Image from 'next/image';
 import { ModalProps } from 'pages/home';
 

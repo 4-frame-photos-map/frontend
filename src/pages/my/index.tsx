@@ -1,14 +1,14 @@
+import Image from 'next/image';
+import tw from 'tailwind-styled-components';
 import NavBar from '@components/common/NavBar';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
-import { useGetProfile } from '@hooks/useGetProfile';
-import Image from 'next/image';
+import { useGetProfile } from '@hooks/queries/useGetProfile';
 import { useRouter } from 'next/router';
-import tw from 'tailwind-styled-components';
 
 const GreetingBox = tw.div`
-flex h-[60px] justify-between px-[16px] mt-[52px]
+flex h-[60px] justify-between px-[16px] mt-[62px]
 `;
 
 const Greeting = tw.div`

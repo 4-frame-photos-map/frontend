@@ -1,4 +1,4 @@
-import AuthLayout from '@components/common/AuthLayout';
+import AuthLayout from '@components/layout/AuthLayout';
 import { CONFIG } from '@config';
 import { deleteToken } from '@utils/token';
 import Image from 'next/image';

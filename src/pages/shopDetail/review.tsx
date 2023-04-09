@@ -1,13 +1,13 @@
 import tw from 'tailwind-styled-components';
 import Checkbox from '@components/common/Checkbox';
-import ShopLayout from '@components/common/ShopLayout';
+import ShopLayout from '@components/layout/ShopLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@components/common/Button';
-import usePostReview from '@hooks/usePostReview';
+import usePostReview from '@hooks/mutations/usePostReview';
 
 type ReviewForm = {
   content?: string;

@@ -1,11 +1,11 @@
 import NavBar from '@components/common/NavBar';
-import PageLayout from '@components/common/PageLayout';
+import PageLayout from '@components/layout/PageLayout';
 import Category from '@components/home/Category';
 import ResearchButton from '@components/home/ResearchButton';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
 import { useEffect, useRef, useState } from 'react';
-import { useGetShopsInRad } from '@hooks/useGetShop';
+import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import useMapScriptLoad from '@hooks/useMapScriptLoad';
 
 export interface ModalProps {
