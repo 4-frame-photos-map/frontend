@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import { queryClient } from 'pages/_app';
-import { useGetFavorites } from '@hooks/useGetFavorites';
+import { useGetFavorite } from '@hooks/useGetFavorite';
 
 type FavortieButtonProps = {
   shopId: number;
@@ -13,7 +13,7 @@ type FavortieButtonProps = {
 };
 
 const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
-  const { data: favorites } = useGetFavorites(127.052068, 37.545704, 'created');
+  const { data: favorites } = useGetFavorite(127.052068, 37.545704, 'created');
   const { mutate: del, isSuccess, isError } = useDeleteFavorite();
   const { mutate: add } = usePostFavorites();
   const favoritesCache = queryClient.getQueryData<Favorite[]>([
@@ -89,7 +89,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
         ))}
 
       {isModal && (
-        <div className="absolute top-0 left-0 h-full w-full">
+        <div className="absolute top-0 left-0 w-full h-full">
           <Modal
             isModal={isModal}
             isKakao={false}
