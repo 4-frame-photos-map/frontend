@@ -8,3 +8,8 @@ type Member = {
 type QuitMember = {
   id: number;
 };
+
+type Validate = {
+  nickname: string;
+  status: boolean;
+};
