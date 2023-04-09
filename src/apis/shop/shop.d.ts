@@ -20,6 +20,19 @@ type ShopProps = {
   place_url: string;
   star_rating_avg: number;
   review_cnt: number;
+  favorite_cnt: number;
+  latitude: string;
+  longitude: string;
+  recent_reviews: ShopReviewProps[];
+  star_rating: number;
+  content: string;
+  purity: string;
+  retouch: string;
+  item: string;
+  member_info: {
+    id: number;
+    nickname: string;
+  };
   favorite: boolean;
 };
 

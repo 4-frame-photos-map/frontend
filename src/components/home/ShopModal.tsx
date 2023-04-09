@@ -1,14 +1,28 @@
 import BrandTag from '@components/common/BrandTag';
+import { useDeleteFavorite } from '@hooks/useDeleteFavorite';
+import { usePostFavorites } from '@hooks/usePostFavorite';
 import Image from 'next/image';
 import { ModalProps } from 'pages/home';
 
 const ShopModal = ({
+  id,
   place_name,
   distance,
   star_rating_avg,
   review_cnt,
   favorite,
+  favorite_cnt,
 }: ModalProps) => {
+  const { mutate: add } = usePostFavorites();
+  const { mutate: del } = useDeleteFavorite();
+
+  const handleAddFavorite = (id: number) => {
+    add(id);
+  };
+  const handleDeleteFavorite = (id: number) => {
+    del(id);
+  };
+
   return (
     <div className="mx-6 h-[98px] rounded-[8px] bg-bg-secondary shadow-shopModal">
       <div className="p-4">
@@ -21,6 +35,7 @@ const ShopModal = ({
               width={24}
               height={24}
               alt="wish"
+              onClick={() => handleDeleteFavorite(id)}
             />
           ) : (
             <Image
@@ -29,6 +44,7 @@ const ShopModal = ({
               height={24}
               alt="wish"
               className="cursor-pointer"
+              onClick={() => handleAddFavorite(id)}
             />
           )}
         </div>

@@ -65,7 +65,12 @@ const ShopDetail = ({ shopId, distance }) => {
 
   return (
     <ShopLayout className="bg-white">
-      <NavBar isLeft={true} isRight={true} />
+      <NavBar
+        isLeft={true}
+        isRight={true}
+        isDetail={true}
+        shopId={shopInfo?.id}
+      />
       <div className="h-[270px] w-full" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>

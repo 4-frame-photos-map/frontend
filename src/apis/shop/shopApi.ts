@@ -23,7 +23,10 @@ class ShopApi {
     return data;
   };
 
-  getShopDetail = async (shopId: number, distance): Promise<ShopDetail> => {
+  getShopDetail = async (
+    shopId: number,
+    distance: string,
+  ): Promise<ShopDetail> => {
     const { data } = await instance.get(
       `/shops/${shopId}?distance=${distance}`,
     );

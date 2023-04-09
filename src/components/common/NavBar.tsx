@@ -3,15 +3,25 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
+import FavoriteButton from '@components/wish/FavoriteButton';
 
 type NavBarProps = {
   title?: string;
   area?: string;
   isLeft?: boolean;
   isRight?: boolean;
+  isDetail?: boolean;
+  shopId?: number;
 };
 
-const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
+const NavBar = ({
+  title,
+  area,
+  isLeft,
+  isRight,
+  isDetail,
+  shopId,
+}: NavBarProps) => {
   const router = useRouter();
   const [input, setInput] = useState<boolean>(false);
   const { register, watch, setValue } = useForm();
@@ -73,10 +83,8 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
           <Area>{area}</Area>
         )}
         {title && <Title>{title}</Title>}
-        {isRight ? (
-          input ? (
-            <></>
-          ) : (
+        {isRight && !isDetail ? (
+          input ? null : (
             <Image
               src={'/svg/navbar/search.svg'}
               alt="검색"
@@ -86,16 +94,17 @@ const NavBar = ({ title, area, isLeft, isRight }: NavBarProps) => {
               onClick={handleOpenInput}
             />
           )
-        ) : (
-          <></>
-        )}
+        ) : null}
+        {isRight && isDetail && shopId ? (
+          <FavoriteButton shopId={shopId} />
+        ) : null}
       </NavItems>
     </NavContainer>
   );
 };
 
 const NavContainer = tw.nav`
-fixed top-0 w-full bg-bg-secondary py-[18px] max-w-[375px] box-border h-16 z-[999]`;
+fixed top-0 w-full bg-bg-secondary py-[18px] max-w-[375px] box-border h-16 z-[900]`;
 
 const NavItems = tw.div`
 mx-[16px] flex items-center justify-between h-full

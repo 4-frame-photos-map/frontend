@@ -9,22 +9,24 @@ import { useGetShopsInRad } from '@hooks/useGetShop';
 import useMapScriptLoad from '@hooks/useMapScriptLoad';
 
 export interface ModalProps {
-  id?: number;
+  id: number;
   place_name: string;
   distance: string;
   place_url?: string;
   star_rating_avg: number;
   review_cnt: number;
+  favorite_cnt: number;
   favorite: boolean;
 }
 
 const modalInfo: ModalProps = {
-  id: 4860,
+  id: 3660,
   place_name: '인생네컷 서울경리단길점',
   distance: '299m',
   place_url: 'http://place.map.kakao.com/896507036',
   star_rating_avg: 0.0,
   review_cnt: 0,
+  favorite_cnt: 2,
   favorite: false,
 };
 
@@ -116,11 +118,13 @@ const Home = () => {
       <div className="absolute bottom-0 w-full pb-[71px]">
         <TrackerButton />
         <ShopModal
+          id={modalInfo.id}
           place_name={modalInfo.place_name}
           distance={modalInfo.distance}
           star_rating_avg={modalInfo.star_rating_avg}
           review_cnt={modalInfo.review_cnt}
           favorite={modalInfo.favorite}
+          favorite_cnt={modalInfo.favorite_cnt}
         />
       </div>
     </PageLayout>
