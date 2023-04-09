@@ -31,10 +31,11 @@ instance.interceptors.response.use(
   async (error) => {
     const { config: originalRequest, response } = error;
     const { data } = response;
-    const UnAuthorizeError = data.error.error_code === '100';
-    const InvalidTokenError = data.error.error_code === '101';
-    const ExpiredTokenError = data.error.error_code === '102';
-
+    console.log(data.error_code);
+    const UnAuthorizeError = data.error_code === '100';
+    const InvalidTokenError = data.error_code === '101';
+    const ExpiredTokenError = data.error_code === '102';
+    const RefreshTokenError = data.error_message === 'refreshToken 불일치';
     if (UnAuthorizeError) {
       alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
       window.location.href = `${CONFIG.LOCAL}/auth/login`;
@@ -51,6 +52,10 @@ instance.interceptors.response.use(
         refreshToken: getToken().refreshToken,
       });
       return instance.request(originalRequest);
+    }
+    if (RefreshTokenError) {
+      alert('유효하지 않은 토큰입니다. 다시 로그인해 주시기 바랍니다.');
+      window.location.href = `${CONFIG.LOCAL}/auth/login`;
     }
   },
 );
