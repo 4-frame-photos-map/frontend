@@ -1,77 +1,38 @@
 import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { QueryClient, dehydrate } from 'react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useGetShopDetail } from '@hooks/useGetShop';
-import { useGetAllShopReviews } from '@hooks/useGetReview';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
+import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
-import ShopLayout from '@components/common/ShopLayout';
+import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
+import Scripts from '@components/common/Scripts';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
 
-  const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
   const mapContainer = useRef<HTMLDivElement>(null);
 
   const { data: shopInfo } = useGetShopDetail(shopId, distance);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
-  useEffect(() => {
-    const $script = document.createElement('script');
-    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false&libraries=services`;
-    $script.addEventListener('load', () => setMapLoaded(true));
-    document.head.appendChild($script);
-  }, []);
-
-  useEffect(() => {
-    if (shopInfo && mapLoaded) {
-      const { kakao } = window;
-      kakao.maps.load(() => {
-        const options = {
-          center: new kakao.maps.LatLng(
-            Number(shopInfo?.latitude),
-            Number(shopInfo?.longitude),
-          ),
-          level: 2,
-        };
-        const map = new kakao.maps.Map(mapContainer.current, options);
-        const imageSrc = '/svg/marker.svg';
-        const imageSize = new kakao.maps.Size(32, 32);
-        const imageOption = { offset: new kakao.maps.Point(20, 20) };
-        const markerImage = new kakao.maps.MarkerImage(
-          imageSrc,
-          imageSize,
-          imageOption,
-        );
-        const markerPosition = new kakao.maps.LatLng(
-          Number(shopInfo?.latitude),
-          Number(shopInfo?.longitude),
-        );
-        const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          image: markerImage,
-        });
-        marker.setMap(map);
-      });
-    }
-  }, [shopInfo, mapLoaded]);
-
   return (
-    <ShopLayout className="bg-white">
+    <ShopLayout className="bg-white pt-[62px]">
+      <Scripts shopInfo={shopInfo as ShopDetail} mapContainer={mapContainer} />
       <NavBar
         isLeft={true}
         isRight={true}
         isDetail={true}
         shopId={shopInfo?.id}
       />
-      <div className="h-[270px] w-full" ref={mapContainer}></div>
+      <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>
           <ShopTag>{shopInfo?.place_name.split(' ')[0]}</ShopTag>
@@ -191,7 +152,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { shopId, distance } = query;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['useGetShopDetail'], () =>
-    shopApi.getShopDetail(Number(shopId), distance),
+    shopApi.getShopDetail(Number(shopId), String(distance)),
   );
   return {
     props: {
