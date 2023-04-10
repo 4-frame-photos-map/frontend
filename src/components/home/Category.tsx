@@ -24,9 +24,17 @@ const Categories: CategoriesProps[] = [
 
 const Category = ({ setBrd }: CategoryData) => {
   const [categoryId, setCategoryId] = useState<number>(1);
+  const [swiper, setSwiper] = useState<any>(null);
+
   const handleCatBtn = (id: number, state: string) => {
     setCategoryId(id);
     setBrd(state);
+    swiper.slideTo(id - 3);
+  };
+
+  const handleSwiper = (swiper: any) => {
+    setSwiper(swiper);
+    swiper.slideTo(categoryId - 3);
   };
 
   return (
@@ -35,8 +43,8 @@ const Category = ({ setBrd }: CategoryData) => {
         <Swiper
           scrollbar={{ draggable: true }}
           slidesPerView={4}
-          slideToClickedSlide={true}
-          spaceBetween={12}
+          spaceBetween={16}
+          onSwiper={handleSwiper}
         >
           {Categories.map(({ id, name, state }) => (
             <SwiperSlide key={id}>
@@ -65,7 +73,7 @@ pt-[72px] overflow-x-hidden
 `;
 
 const ItemsWrapper = tw.ul`
-flex items-center pl-[16px] my-[8px] gap-x-[7px] 
+flex items-center pl-[16px] my-[8px] 
 `;
 
 const Item = tw.li`
