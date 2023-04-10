@@ -40,11 +40,10 @@ const Edit = () => {
     formState: { errors },
   } = useForm<FormValue>({ mode: 'onChange' });
   const [isValidate, setIsValidate] = useState<boolean>(true);
-  const [value, setValue] = useState<string>('');
   const { mutate: editProfile } = usePatchProfile();
-  const nickname = watch('nickname');
+  const value = watch('nickname');
   const validateNickname = async () => {
-    if (nickname?.length >= 2 && nickname?.length <= 10 && !!!errors.nickname) {
+    if (value?.length >= 2 && value?.length <= 10 && !!!errors.nickname) {
       const { status } = await memberApi.getNicknameValidate(value);
       if (status || value.length === 0) {
         setIsValidate(false);
@@ -72,11 +71,10 @@ const Edit = () => {
                 value: /^[가-힣A-Za-z0-9]{2,10}$/g,
                 message: '최소 2자 ~ 최대 10자 까지 입력 가능합니다.',
               },
-              onChange: (e) => setValue(e.target.value),
             })}
             maxLength={10}
             type="text"
-            className={nickname ? 'border-text-strong' : 'border-text-assitive'}
+            className={value ? 'border-text-strong' : 'border-text-assitive'}
           />
           <EditButton
             disabled={isValidate || !!errors.nickname}
