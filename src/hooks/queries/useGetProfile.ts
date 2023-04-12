@@ -8,6 +8,7 @@ export const useGetProfile = () => {
     {
       retry: false,
       refetchOnWindowFocus: false,
+      staleTime: Infinity,
     },
   );
 };
