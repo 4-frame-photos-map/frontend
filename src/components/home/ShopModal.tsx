@@ -2,7 +2,17 @@ import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
 import Image from 'next/image';
-import { ModalProps } from 'pages/home';
+import { useRouter } from 'next/router';
+
+type ShopModalProps = {
+  id: number;
+  place_name: string;
+  distance: string;
+  star_rating_avg: number;
+  review_cnt: number;
+  favorite: boolean;
+  favorite_cnt: number;
+};
 
 const ShopModal = ({
   id,
@@ -12,7 +22,8 @@ const ShopModal = ({
   review_cnt,
   favorite,
   favorite_cnt,
-}: ModalProps) => {
+}: ShopModalProps) => {
+  const router = useRouter();
   const { mutate: add } = usePostFavorites();
   const { mutate: del } = useDeleteFavorite();
 
@@ -24,12 +35,17 @@ const ShopModal = ({
   };
 
   return (
-    <div className="mx-6 h-[98px] rounded-[8px] bg-bg-secondary shadow-shopModal">
+    <div
+      onClick={() =>
+        router.push(`/shopDetail?shopId=${id}&distance=${distance}`)
+      }
+      className="mx-6 h-[98px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal"
+    >
       <div className="p-4">
         <BrandTag name={place_name} />
         <div className="flex justify-between pt-1 pb-2">
           <span className="text-label1">{place_name}</span>
-          {favorite ? (
+          {!favorite ? (
             <Image
               src="/svg/wish/filled-bookmark.svg"
               width={24}
@@ -48,14 +64,18 @@ const ShopModal = ({
             />
           )}
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between text-caption1">
           <div className="flex items-center">
-            <Image src="/svg/star.svg" width={16} height={16} alt="star" />
-            <span className="text-caption1">
+            <span className="flex pr-2">
+              <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
+            <div className="border-l pl-2">
+              <span className="pr-1">찜</span>
+              <span className="font-semibold">{review_cnt}</span>
+            </div>
           </div>
-          <span className="text-caption1">{distance}</span>
+          <span>{distance}</span>
         </div>
       </div>
     </div>
