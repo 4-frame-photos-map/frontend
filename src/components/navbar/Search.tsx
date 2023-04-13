@@ -7,7 +7,6 @@ import {
 } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
-import debounce from 'lodash/debounce';
 import Image from 'next/image';
 import { useGetShopsByKeyword } from '@hooks/queries/useGetShop';
 import SearchResult from '@components/navbar/SearchResult';
@@ -24,6 +23,8 @@ type SearchProps = {
   isMap: boolean;
 };
 
+let timer: NodeJS.Timeout;
+
 const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { register, watch, setValue, handleSubmit } = useForm<FormValue>({
@@ -32,18 +33,18 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const value = watch('search');
   const { data: shops } = useGetShopsByKeyword(value, 127.052068, 37.545704);
 
-  const onSubmit = async (data: FormValue) => {
+  const onSubmit = (data: FormValue) => {
     if (!isMap) {
       setIsList(true);
     }
   };
 
-  const handleSearchChange = useCallback(
-    debounce((inputValue) => {
+  const handleSearchChange = (inputValue: string) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
       setValue('search', inputValue);
-    }, 500),
-    [value],
-  );
+    }, 500);
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
