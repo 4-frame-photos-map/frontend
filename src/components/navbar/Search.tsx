@@ -62,8 +62,7 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
     } else {
       setIsTyping(false);
     }
-    console.log(shops);
-  }, [shops, value]);
+  }, [value]);
 
   return (
     <div className="flex flex-col">
