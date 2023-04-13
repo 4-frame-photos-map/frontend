@@ -20,10 +20,11 @@ export interface FormValue {
 type SearchProps = {
   isList: boolean;
   setIsList: Dispatch<SetStateAction<boolean>>;
+  setIsMap: Dispatch<SetStateAction<boolean>>;
   isMap: boolean;
 };
 
-const Search = ({ isList, setIsList, isMap }: SearchProps) => {
+const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { register, watch, setValue, handleSubmit } = useForm<FormValue>();
   const value = watch('search');
@@ -52,6 +53,7 @@ const Search = ({ isList, setIsList, isMap }: SearchProps) => {
   const handleClearValue = () => {
     setValue('search', '');
     setIsList(false);
+    setIsMap(false);
   };
 
   useEffect(() => {
@@ -87,7 +89,7 @@ const Search = ({ isList, setIsList, isMap }: SearchProps) => {
       {isTyping && !isMap && (
         <SearchContainer>
           <div
-            className="flex cursor-pointer items-center px-4 pt-5"
+            className="flex items-center px-4 pt-5 cursor-pointer"
             onClick={handleSearchClick}
           >
             <Image

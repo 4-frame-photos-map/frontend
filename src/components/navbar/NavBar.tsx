@@ -90,7 +90,12 @@ const NavBar = ({
                 </div>
               </>
             )}
-            <Search isList={isList} setIsList={setIsList} isMap={isMap} />
+            <Search
+              isList={isList}
+              setIsList={setIsList}
+              isMap={isMap}
+              setIsMap={setIsMap}
+            />
           </>
         ) : null}
 
