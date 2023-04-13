@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import shopApi from '@apis/shop/shopApi';
-import NavBar from '@components/navbar/NavBar';
+import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';

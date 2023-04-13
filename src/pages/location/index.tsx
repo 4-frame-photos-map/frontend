@@ -1,4 +1,4 @@
-import NavBar from '@components/navbar/NavBar';
+import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 
 const Location = () => {

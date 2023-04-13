@@ -66,7 +66,6 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
     } else {
       setIsTyping(false);
     }
-    console.log(value);
   }, [value]);
 
   return (

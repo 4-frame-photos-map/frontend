@@ -1,5 +1,5 @@
 import memberApi from '@apis/member/memberApi';
-import NavBar from '@components/navbar/NavBar';
+import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
