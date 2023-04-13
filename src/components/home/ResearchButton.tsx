@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
 
-const ResearchButton = () => {
+type ResearchButtonProps = {
+  onClick: () => void;
+};
+
+const ResearchButton = ({ onClick }: ResearchButtonProps) => {
   return (
-    <ResearchContainer>
+    <ResearchContainer onClick={onClick}>
       <button className="flex items-center rounded-[100px] bg-primary-normal py-[8px] px-[16px] text-label2 text-white">
         <Image
           src="/svg/home/refresh.svg"

@@ -16,10 +16,21 @@ export const useGetShopDetail = (shopId: number, distance: string) => {
 
 export const useGetShopsInRad = (lat: number, lng: number, brd?: string) => {
   return useQuery<Shop[], Error>(
-    ['useGetShopDetail'],
+    ['useGetShopsInRad', brd, lat, lng],
     () => shopApi.getShopsInRad(lat, lng, brd),
     {
       refetchOnWindowFocus: false,
+      enabled: !!lat,
+      select: (shops) => {
+        if (brd) {
+          const selected = shops.filter((shops) =>
+            shops.place_name.includes(brd),
+          );
+          return selected;
+        } else {
+          return shops;
+        }
+      },
     },
   );
 };
