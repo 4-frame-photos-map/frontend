@@ -1,4 +1,4 @@
-import NavBar from '@components/common/NavBar';
+import NavBar from '@components/navbar/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
 import { useGetFavorite } from '@hooks/queries/useGetFavorite';
@@ -27,7 +27,7 @@ const Wish = () => {
 };
 
 const WishList = tw.ul`
-flex flex-col gap-y-1 pt-[64px]
+flex flex-col gap-y-1 pt-14
 `;
 
 export default Wish;
