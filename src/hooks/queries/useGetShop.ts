@@ -1,5 +1,6 @@
 import shopApi from '@apis/shop/shopApi';
 import { queryClient } from 'pages/_app';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 export const useGetShopDetail = (shopId: number, distance: string) => {
@@ -40,15 +41,20 @@ export const useGetShopsByKeyword = (
   lng: number,
   lat: number,
 ) => {
+  useEffect(() => {
+    if (keyword) {
+      shopApi.getShopsByKeyword(keyword, lat, lng).then(() => {
+        queryClient.invalidateQueries({
+          queryKey: ['useGetShopsByKeyword'],
+        });
+      });
+    }
+  }, [keyword]);
+
   return useQuery<Shop[], Error>(
     ['useGetShopsByKeyword', keyword],
     () => shopApi.getShopsByKeyword(keyword, lat, lng),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ['useGetShopsByKeyword'],
-        });
-      },
       enabled: !!keyword,
       refetchOnWindowFocus: false,
       select: (data) =>

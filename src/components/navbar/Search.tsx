@@ -26,12 +26,16 @@ type SearchProps = {
 
 const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const { register, watch, setValue, handleSubmit } = useForm<FormValue>();
+  const { register, watch, setValue, handleSubmit } = useForm<FormValue>({
+    mode: 'onChange',
+  });
   const value = watch('search');
   const { data: shops } = useGetShopsByKeyword(value, 127.052068, 37.545704);
 
   const onSubmit = async (data: FormValue) => {
-    setIsList(true);
+    if (!isMap) {
+      setIsList(true);
+    }
   };
 
   const handleSearchChange = useCallback(
@@ -62,6 +66,7 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
     } else {
       setIsTyping(false);
     }
+    console.log(value);
   }, [value]);
 
   return (
