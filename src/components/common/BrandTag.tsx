@@ -5,20 +5,20 @@ type BrandTagProps = {
 };
 
 const BrandTag = ({ name }: BrandTagProps) => {
+  const brandNames = ['인생네컷', '하루필름', '포토이즘', '포토그레이'];
   return (
     <BadgeContainer
-      className={`${name.includes('인생네컷') && 'bg-brand-purple'} ${
-        name.includes('하루필름') && 'bg-brand-yellow'
-      } ${name.includes('포토이즘') && 'bg-brand-green'}  ${
-        name.includes('포토그레이') && 'bg-brand-pink'
-      }`}
+      className={`bg-brand-others ${
+        name.includes(brandNames[0]) && 'bg-brand-pink'
+      } ${name.includes(brandNames[1]) && 'bg-brand-blue'} ${
+        name.includes(brandNames[2]) && 'bg-brand-black'
+      }  ${name.includes(brandNames[3]) && 'bg-brand-gray'}`}
     >
-      <span className="text-center text-[10px]">
-        {name.includes('인생네컷') && '인생네컷'}
-        {name.includes('하루필름') && '하루필름'}
-        {name.includes('포토이즘') && '포토이즘'}
-        {name.includes('포토그레이') && '포토그레이'}
-      </span>
+      {
+        <span className="text-center text-[10px] text-white">
+          {brandNames.find((brandName) => name.includes(brandName)) || '기타'}
+        </span>
+      }
     </BadgeContainer>
   );
 };
