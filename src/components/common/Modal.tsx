@@ -2,12 +2,13 @@ import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONFIG } from '@config';
+import { ReactNode } from 'react';
 
 type ModalProps = {
   isModal: boolean;
   isKakao?: boolean;
   title: string;
-  message: string;
+  message: string | ReactNode;
   left: string;
   right?: string;
   leftEvent?: () => void;
