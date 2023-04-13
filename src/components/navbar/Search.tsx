@@ -23,8 +23,6 @@ type SearchProps = {
   isMap: boolean;
 };
 
-let timer: NodeJS.Timeout;
-
 const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { register, watch, setValue, handleSubmit } = useForm<FormValue>({
@@ -38,6 +36,8 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
       setIsList(true);
     }
   };
+
+  let timer: NodeJS.Timeout;
 
   const handleSearchChange = (inputValue: string) => {
     clearTimeout(timer);
