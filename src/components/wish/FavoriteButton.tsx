@@ -89,7 +89,7 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
         ))}
 
       {isModal && (
-        <div className="absolute top-0 left-0 h-full w-full">
+        <div className="absolute top-0 left-0 w-full h-full">
           <Modal
             isModal={isModal}
             isKakao={false}
