@@ -6,19 +6,15 @@ import { useRouter } from 'next/router';
 const WishItem = ({ shop }: Favorite) => {
   const router = useRouter();
   return (
-    <li className="w-full bg-white px-6 py-5">
+    <li className="w-full px-6 py-5 bg-white">
       <BrandTag name={shop.place_name} />
       <div className="flex justify-between pt-1 pb-2">
         <span
           className="cursor-pointer text-body1"
           onClick={() =>
-            router.push({
-              pathname: '/shopDetail',
-              query: {
-                shopId: shop.id,
-                distance: shop.distance,
-              },
-            })
+            router.push(
+              `/shopDetail/?shopId=${shop.id}&distance=${shop.distance}`,
+            )
           }
         >
           {shop.place_name}

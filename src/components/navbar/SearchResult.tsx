@@ -16,20 +16,8 @@ const SearchResult = ({
   id,
 }: SearchProps) => {
   const parts = place_name.split(value);
-  const router = useRouter();
   return isTyping ? (
-    <li
-      className="cursor-pointer bg-white px-3 first:pt-5"
-      onClick={() =>
-        router.push({
-          pathname: '/shopDetail',
-          query: {
-            shopId: id,
-            distance: distance,
-          },
-        })
-      }
-    >
+    <li className="px-3 bg-white cursor-pointer first:pt-5">
       <DivisionBar className="my-2" />
       {
         <div className="flex items-center">
@@ -42,7 +30,7 @@ const SearchResult = ({
             />
             <span className="text-caption2 text-line-disable">{distance}</span>
           </div>
-          <div className="ml-4 flex flex-col">
+          <div className="flex flex-col ml-4">
             <div className="flex">
               {parts.map((part, index) => {
                 if (index === 0) {
@@ -53,14 +41,14 @@ const SearchResult = ({
                   );
                 } else if (value === place_name.split(' ')[0]) {
                   return (
-                    <span key={index} className="text-label1 text-black">
+                    <span key={index} className="text-black text-label1">
                       <span className="tracking-[-0.3rem]">&nbsp;</span>
                       {part}
                     </span>
                   );
                 }
                 return (
-                  <span key={index} className="text-label1 text-black">
+                  <span key={index} className="text-black text-label1">
                     {part}
                   </span>
                 );
