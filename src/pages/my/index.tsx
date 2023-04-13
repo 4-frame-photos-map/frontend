@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
-import NavBar from '@components/common/NavBar';
+import NavBar from '@components/navbar/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';

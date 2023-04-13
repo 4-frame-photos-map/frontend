@@ -2,7 +2,7 @@ import SettingList from '@components/my/SettingList';
 import type { SettingListsProps } from '.';
 import tw from 'tailwind-styled-components';
 import PageLayout from '@components/layout/PageLayout';
-import NavBar from '@components/common/NavBar';
+import NavBar from '@components/navbar/NavBar';
 
 const ListsContainer = tw.div`
 flex cursor-pointer flex-col bg-white px-[16px] text-body2 font-normal mt-[62px]

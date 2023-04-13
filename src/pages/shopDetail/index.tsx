@@ -6,13 +6,14 @@ import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import shopApi from '@apis/shop/shopApi';
-import NavBar from '@components/common/NavBar';
+import NavBar from '@components/navbar/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import Scripts from '@components/common/Scripts';
+import BrandTag from '@components/common/BrandTag';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const ShopDetail = ({ shopId, distance }) => {
       <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>
-          <ShopTag>{shopInfo?.place_name.split(' ')[0]}</ShopTag>
+          <BrandTag name={shopInfo?.place_name as string} />
         </ShopTagBox>
         <ShopName>{shopInfo?.place_name}</ShopName>
         <ShopRate>
@@ -125,9 +126,6 @@ flex flex-col px-4 pt-4 pb-2 mb-[52px]
 `;
 const ShopTagBox = tw.div`
 mb-2 text-caption2
-`;
-const ShopTag = tw.span`
-rounded-[2px] bg-[#f12344] px-1 py-[1px]
 `;
 const ShopName = tw.div`
 text-title1 font-semibold

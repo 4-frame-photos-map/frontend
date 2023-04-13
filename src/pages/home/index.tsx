@@ -1,4 +1,4 @@
-import NavBar from '@components/common/NavBar';
+import NavBar from '@components/navbar/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import Category from '@components/home/Category';
 import ResearchButton from '@components/home/ResearchButton';
