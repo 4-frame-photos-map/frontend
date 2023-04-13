@@ -94,7 +94,7 @@ const NavBar = ({
           </>
         ) : null}
 
-        {isLeft && (
+        {isLeft && !isInput && (
           <>
             <Image
               src={'/svg/navbar/prev.svg'}
