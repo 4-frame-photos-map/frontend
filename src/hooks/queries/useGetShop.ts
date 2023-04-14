@@ -1,4 +1,6 @@
 import shopApi from '@apis/shop/shopApi';
+import { queryClient } from 'pages/_app';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 export const useGetShopDetail = (shopId: number, distance: string) => {
@@ -30,6 +32,40 @@ export const useGetShopsInRad = (lat: number, lng: number, brd?: string) => {
           return shops;
         }
       },
+    },
+  );
+};
+
+export const useGetShopsByKeyword = (
+  keyword: string,
+  lng: number,
+  lat: number,
+) => {
+  useEffect(() => {
+    if (keyword) {
+      shopApi.getShopsByKeyword(keyword, lat, lng).then(() => {
+        queryClient.invalidateQueries({
+          queryKey: ['useGetShopsByKeyword'],
+        });
+      });
+    }
+  }, [keyword]);
+
+  return useQuery<Shop[], Error>(
+    ['useGetShopsByKeyword', keyword],
+    () => shopApi.getShopsByKeyword(keyword, lat, lng),
+    {
+      enabled: !!keyword,
+      refetchOnWindowFocus: false,
+      select: (data) =>
+        data?.filter(
+          (shop) =>
+            shop.place_name.includes('인생네컷') ||
+            shop.place_name.includes('하루필름') ||
+            shop.place_name.includes('포토시그니처') ||
+            shop.place_name.includes('포토그레이') ||
+            shop.place_name.includes('포토이즘'),
+        ),
     },
   );
 };
