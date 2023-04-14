@@ -2,12 +2,13 @@ import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONFIG } from '@config';
+import { ReactNode } from 'react';
 
 type ModalProps = {
   isModal: boolean;
   isKakao?: boolean;
   title: string;
-  message: string;
+  message: string | ReactNode;
   left: string;
   right?: string;
   leftEvent?: () => void;
@@ -88,7 +89,7 @@ const Modal = ({
                   alt="kakao"
                   priority
                 />
-                <span className="ml-2 text-body1 font-normal text-black">
+                <span className="ml-2 font-normal text-black text-body1">
                   카카오 로그인
                 </span>
               </Link>
