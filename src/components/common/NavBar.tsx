@@ -1,9 +1,10 @@
+/* eslint-disable tailwindcss/classnames-order */
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import FavoriteButton from '@components/wish/FavoriteButton';
+import Search from '@components/navbar/Search';
 
 type NavBarProps = {
   title?: string;
@@ -23,50 +24,82 @@ const NavBar = ({
   shopId,
 }: NavBarProps) => {
   const router = useRouter();
-  const [input, setInput] = useState<boolean>(false);
-  const { register, watch, setValue } = useForm();
+  const [isInput, setIsInput] = useState<boolean>(false);
+  const [isList, setIsList] = useState<boolean>(false);
+  const [isMap, setIsMap] = useState<boolean>(false);
 
   const handleCloseInput = () => {
-    setInput(false);
+    setIsInput(false);
   };
   const handleOpenInput = () => {
-    setInput(true);
-  };
-
-  const handleClearValue = () => {
-    setValue('search', '');
+    setIsInput(true);
   };
 
   return (
     <NavContainer>
       <NavItems>
-        {input ? (
+        {isInput ? (
           <>
-            <Image
-              src={'/svg/navbar/prev.svg'}
-              width={24}
-              height={24}
-              alt="이전"
-              className="z-[900] cursor-pointer"
-              onClick={handleCloseInput}
-            />
-            <SearchInput
-              {...register('search')}
-              type="text"
-              placeholder="지점/장소 검색"
-            />
-            {watch('search') && (
+            {!isMap && !isList && (
               <Image
-                src="/svg/navbar/clear-button.svg"
+                src={'/svg/navbar/prev.svg'}
                 width={24}
                 height={24}
-                alt="삭제"
-                className="absolute right-8 z-[999] cursor-pointer"
-                onClick={handleClearValue}
+                alt="이전"
+                className="z-[900] cursor-pointer"
+                onClick={handleCloseInput}
               />
             )}
+            {isMap && (
+              <>
+                <div
+                  className="flex flex-col items-center ml-1"
+                  onClick={() => {
+                    setIsMap(false);
+                    setIsList(true);
+                  }}
+                >
+                  <Image
+                    src="/svg/navbar/list.svg"
+                    width={24}
+                    height={24}
+                    alt="list"
+                    className="z-[899] cursor-pointer"
+                  />
+                  <span className="text-caption1 text-status-error">목록</span>
+                </div>
+              </>
+            )}
+            {isList && (
+              <>
+                <div
+                  className="flex flex-col items-center ml-1"
+                  onClick={() => {
+                    setIsList(false);
+                    setIsMap(true);
+                  }}
+                >
+                  <Image
+                    src="/svg/navbar/map.svg"
+                    width={24}
+                    height={24}
+                    alt="map"
+                    className="z-[899] cursor-pointer"
+                  />
+                  <span className="text-caption1 text-status-error">지도</span>
+                </div>
+              </>
+            )}
+            <Search
+              isList={isList}
+              setIsList={setIsList}
+              isMap={isMap}
+              setIsMap={setIsMap}
+            />
           </>
-        ) : isLeft ? (
+        ) : null}
+
+        {isLeft && !isInput && (
           <>
             <Image
               src={'/svg/navbar/prev.svg'}
@@ -79,12 +112,11 @@ const NavBar = ({
               }}
             />
           </>
-        ) : (
-          <Area>{area}</Area>
         )}
+        {Area && !isInput && <Area>{area}</Area>}
         {title && <Title>{title}</Title>}
         {isRight && !isDetail ? (
-          input ? null : (
+          isInput ? null : (
             <Image
               src={'/svg/navbar/search.svg'}
               alt="검색"
@@ -104,10 +136,10 @@ const NavBar = ({
 };
 
 const NavContainer = tw.nav`
-fixed top-0 w-full bg-bg-secondary py-[18px] max-w-[375px] box-border h-16 z-[900]`;
+fixed top-0 w-full bg-bg-secondary max-w-[375px] box-border z-[900] h-[68px]`;
 
 const NavItems = tw.div`
-mx-[16px] flex items-center justify-between h-full
+mx-[16px] flex items-center justify-between h-full pt-1
 `;
 
 const Area = tw.span`
@@ -116,10 +148,6 @@ text-[18px] font-semibold
 
 const Title = tw.span`
 absolute inset-x-0 mx-0 my-auto text-center text-[18px] font-semibold
-`;
-
-const SearchInput = tw.input`
-basis-5/6 bg-bg-primary rounded-[100px] px-[12px] py-[7px] z-[900] mr-[7px] relative
 `;
 
 export default NavBar;
