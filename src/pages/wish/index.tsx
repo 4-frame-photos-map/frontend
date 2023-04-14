@@ -27,7 +27,7 @@ const Wish = () => {
 };
 
 const WishList = tw.ul`
-flex flex-col gap-y-1 pt-[64px]
+flex flex-col gap-y-1 pt-14
 `;
 
 export default Wish;
