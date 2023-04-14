@@ -5,7 +5,7 @@ import { CONFIG } from '@config';
 import { ReactNode } from 'react';
 
 type ModalProps = {
-  isModal: boolean;
+  isModal?: boolean;
   isKakao?: boolean;
   title: string;
   message: string;
@@ -16,7 +16,7 @@ type ModalProps = {
 };
 
 const ModalBG = tw.div`
-fixed top-0 w-full max-w-[375px] mx-auto flex h-full items-center justify-center bg-text-alternative p-6 z-[999]
+fixed top-0 w-full max-w-[375px] mx-auto flex h-full items-center justify-center bg-[rgba(51,51,53,0.6)] p-6 z-[999]
 `;
 
 const ModalContainer = tw.div`
