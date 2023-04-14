@@ -53,18 +53,13 @@ const Login = () => {
         </p>
       </div>
       {isModal && (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 h-full w-full">
           <Modal
             isModal={isModal}
             isKakao={false}
             title="반가워요!"
             message={
-              <>
-                로그인 없이 이용하시면 서비스 이용에 제한이 있<br />
-                어요.
-                <br />
-                이대로 로그인 없이 이용하시겠어요?
-              </>
+              '로그인 없이 이용하시면 서비스 이용에 제한이 있\n어요.\n 이대로 로그인 없이 이용하시겠어요?'
             }
             left="로그인 하기"
             right="이대로 진행"

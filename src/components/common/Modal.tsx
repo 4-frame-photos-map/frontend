@@ -8,7 +8,7 @@ type ModalProps = {
   isModal: boolean;
   isKakao?: boolean;
   title: string;
-  message: string | ReactNode;
+  message: string;
   left: string;
   right?: string;
   leftEvent?: () => void;
@@ -28,7 +28,7 @@ text-title1 font-semibold text-center
 `;
 
 const ModalMessage = tw.p`
-mt-4 text-[0.875rem] text-text-alternative text-center
+mt-4 text-[0.875rem] text-text-alternative text-center whitespace-pre-line
 `;
 
 const ModalEventContainer = tw.div`
@@ -89,7 +89,7 @@ const Modal = ({
                   alt="kakao"
                   priority
                 />
-                <span className="ml-2 font-normal text-black text-body1">
+                <span className="ml-2 text-body1 font-normal text-black">
                   카카오 로그인
                 </span>
               </Link>
