@@ -13,6 +13,7 @@ import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import Scripts from '@components/common/Scripts';
+import BrandTag from '@components/common/BrandTag';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const ShopDetail = ({ shopId, distance }) => {
       <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>
-          <ShopTag>{shopInfo?.place_name.split(' ')[0]}</ShopTag>
+          <BrandTag name={shopInfo?.place_name as string} />
         </ShopTagBox>
         <ShopName>{shopInfo?.place_name}</ShopName>
         <ShopRate>
@@ -44,7 +45,7 @@ const ShopDetail = ({ shopId, distance }) => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="border-l border-text-alternative px-2">
+            <div className="px-2 border-l border-text-alternative">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}
@@ -125,9 +126,6 @@ flex flex-col px-4 pt-4 pb-2 mb-[52px]
 `;
 const ShopTagBox = tw.div`
 mb-2 text-caption2
-`;
-const ShopTag = tw.span`
-rounded-[2px] bg-[#f12344] px-1 py-[1px]
 `;
 const ShopName = tw.div`
 text-title1 font-semibold

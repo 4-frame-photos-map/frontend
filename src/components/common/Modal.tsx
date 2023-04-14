@@ -2,6 +2,7 @@ import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONFIG } from '@config';
+import { ReactNode } from 'react';
 
 type ModalProps = {
   isModal: boolean;
@@ -27,7 +28,7 @@ text-title1 font-semibold text-center
 `;
 
 const ModalMessage = tw.p`
-mt-4 text-[0.875rem] text-text-alternative text-center
+mt-4 text-[0.875rem] text-text-alternative text-center whitespace-pre-line
 `;
 
 const ModalEventContainer = tw.div`

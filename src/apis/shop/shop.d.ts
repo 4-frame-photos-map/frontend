@@ -19,6 +19,7 @@ type ShopProps = {
   review_cnt: number;
   favorite_cnt: number;
   favorite: boolean;
+  road_address_name?: string;
 };
 
 type ShopReviewProps = {
