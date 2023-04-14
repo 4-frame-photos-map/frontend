@@ -56,10 +56,11 @@ module.exports = {
           error: '#FC5A2F',
         },
         brand: {
-          purple: '#9D7FF2',
-          yellow: '#FCF12F',
-          green: '#29DC1E',
-          pink: '#EA6FDE',
+          black: '#333333',
+          pink: '#FF82A2',
+          blue: '#86A1FF',
+          gray: '#9D9D9D',
+          others: '#F4F4F5',
         },
         primary: {
           normal: '#333333',
