@@ -69,7 +69,7 @@ const Category = ({ setBrd }: CategoryData) => {
 };
 
 const CategoryBar = tw.div`
-pt-[72px] overflow-x-hidden
+mt-[68px] overflow-x-hidden
 `;
 
 const ItemsWrapper = tw.ul`
