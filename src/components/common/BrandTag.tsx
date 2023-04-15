@@ -6,7 +6,6 @@ type BrandTagProps = {
 
 const BrandTag = ({ name }: BrandTagProps) => {
   const brandNames = ['인생네컷', '하루필름', '포토이즘', '포토그레이'];
-  console.log(brandNames.includes(name));
   return (
     <BadgeContainer
       className={`bg-brand-others ${
