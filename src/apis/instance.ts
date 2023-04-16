@@ -31,7 +31,6 @@ instance.interceptors.response.use(
   async (error) => {
     const { config: originalRequest, response } = error;
     const { data } = response;
-    console.log(data.error_code);
     const UnAuthorizeError = data.error_code === '100';
     const InvalidTokenError = data.error_code === '101';
     const ExpiredTokenError = data.error_code === '102';
