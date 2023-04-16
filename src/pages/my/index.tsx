@@ -7,30 +7,6 @@ import SettingList from '@components/my/SettingList';
 import { useGetProfile } from '@hooks/queries/useGetProfile';
 import { useRouter } from 'next/router';
 
-const GreetingBox = tw.div`
-flex h-[60px] justify-between px-[16px] mt-[62px]
-`;
-
-const Greeting = tw.div`
-flex items-center text-title1 font-normal
-`;
-
-const SettingBox = tw.div`
-flex cursor-pointer rounded-xl border bg-bg-tertiary p-1
-`;
-
-const ItemsContainer = tw.div`
-flex w-full justify-between px-[16px] py-[24px]
-`;
-
-const ListsContainer = tw.div`
-flex cursor-pointer flex-col px-[16px] text-body2 font-normal
-`;
-
-const DivisionBar = tw.div`
-h-[4px] w-full bg-bg-primary
-`;
-
 export type SettingListsProps = {
   id: number;
   text: string;
@@ -89,5 +65,29 @@ const My = () => {
     </PageLayout>
   );
 };
+
+const GreetingBox = tw.div`
+flex h-[60px] justify-between px-[16px] mt-[62px]
+`;
+
+const Greeting = tw.div`
+flex items-center text-title1 font-normal
+`;
+
+const SettingBox = tw.div`
+flex cursor-pointer rounded-xl border bg-bg-tertiary p-1
+`;
+
+const ItemsContainer = tw.div`
+flex w-full justify-between px-[16px] py-[24px]
+`;
+
+const ListsContainer = tw.div`
+flex cursor-pointer flex-col px-[16px] text-body2 font-normal
+`;
+
+const DivisionBar = tw.div`
+h-[4px] w-full bg-bg-primary
+`;
 
 export default My;
