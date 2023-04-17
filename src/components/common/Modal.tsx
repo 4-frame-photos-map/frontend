@@ -79,7 +79,11 @@ const Modal = ({
           ) : (
             <KakaoButton>
               <Link
-                href={`https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`}
+                href={
+                  CONFIG.ENV === 'development'
+                    ? `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`
+                    : `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.DOMAIN}/auth/kakao&response_type=code`
+                }
                 className="flex items-center"
               >
                 <Image
