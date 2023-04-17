@@ -1,6 +1,7 @@
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import { UseFormReturn } from 'react-hook-form';
+import { useRef } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -24,6 +25,18 @@ const Checkbox = ({
   setIsSet,
   setValue,
 }: CheckboxProps) => {
+  const previousStatusRef = useRef(status);
+
+  const toggleStatus = (newStatus: string) => {
+    if (previousStatusRef.current === newStatus) {
+      setValue(id, undefined);
+      previousStatusRef.current = undefined;
+    } else {
+      setValue(id, newStatus);
+      previousStatusRef.current = newStatus;
+    }
+  };
+
   return (
     <CheckboxContainer>
       <CheckboxTitle>{label}</CheckboxTitle>
@@ -59,7 +72,7 @@ const Checkbox = ({
             value="GOOD"
             checked={status === 'GOOD' ? true : false}
             onChange={() => {
-              setValue(id, 'GOOD');
+              toggleStatus('GOOD');
               if (setIsSet) {
                 setIsSet(false);
               }
@@ -99,7 +112,7 @@ const Checkbox = ({
             value="BAD"
             checked={status === 'BAD' ? true : false}
             onChange={() => {
-              setValue(id, 'BAD');
+              toggleStatus('BAD');
               if (setIsSet) {
                 setIsSet(false);
               }
