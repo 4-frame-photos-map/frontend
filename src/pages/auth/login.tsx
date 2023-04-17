@@ -34,7 +34,11 @@ const Login = () => {
         priority={true}
       />
       <Link
-        href={`https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`}
+        href={
+          CONFIG.ENV === 'development'
+            ? `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`
+            : `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.DOMAIN}/auth/kakao&response_type=code`
+        }
         className="mx-[35px] mt-[140px] flex h-[45px] items-center justify-center gap-[8px] rounded-[6px] bg-[#FEE500] px-[80px]"
       >
         <Image src="/svg/kakao.svg" alt="Kakao Icon" width={18} height={18} />
