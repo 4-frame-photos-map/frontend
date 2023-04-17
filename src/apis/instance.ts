@@ -37,12 +37,19 @@ instance.interceptors.response.use(
     const RefreshTokenError = data.error_message === 'refreshToken 불일치';
     if (UnAuthorizeError) {
       alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
-      window.location.href = `${CONFIG.LOCAL}/auth/login`;
-      return;
+      if (CONFIG.ENV === 'development') {
+        window.location.href = `${CONFIG.LOCAL}/auth/login`;
+      } else if (CONFIG.ENV === 'production') {
+        window.location.href = `${CONFIG.DOMAIN}/auth/login`;
+      }
     }
     if (InvalidTokenError) {
       alert('유효하지 않은 토큰입니다. 다시 로그인해 주시기 바랍니다.');
-      window.location.href = `${CONFIG.LOCAL}/auth/login`;
+      if (CONFIG.ENV === 'development') {
+        window.location.href = `${CONFIG.LOCAL}/auth/login`;
+      } else if (CONFIG.ENV === 'production') {
+        window.location.href = `${CONFIG.DOMAIN}/auth/login`;
+      }
     }
     if (ExpiredTokenError) {
       const accessToken = await ReissueToken();
@@ -54,7 +61,11 @@ instance.interceptors.response.use(
     }
     if (RefreshTokenError) {
       alert('유효하지 않은 토큰입니다. 다시 로그인해 주시기 바랍니다.');
-      window.location.href = `${CONFIG.LOCAL}/auth/login`;
+      if (CONFIG.ENV === 'development') {
+        window.location.href = `${CONFIG.LOCAL}/auth/login`;
+      } else if (CONFIG.ENV === 'production') {
+        window.location.href = `${CONFIG.DOMAIN}/auth/login`;
+      }
     }
   },
 );
