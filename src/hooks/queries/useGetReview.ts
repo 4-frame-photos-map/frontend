@@ -32,7 +32,7 @@ export const useGetAllShopReviews = (shopId: number) => {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!shopId && !!getLocalStorage('@token'),
+      enabled: !!shopId,
     },
   );
 };
