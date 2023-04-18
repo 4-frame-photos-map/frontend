@@ -13,6 +13,7 @@ type NavBarProps = {
   isRight?: boolean;
   isDetail?: boolean;
   shopId?: number;
+  distance: string;
 };
 
 const NavBar = ({
@@ -22,6 +23,7 @@ const NavBar = ({
   isRight,
   isDetail,
   shopId,
+  distance,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -53,7 +55,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -73,7 +75,7 @@ const NavBar = ({
             {isList && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -128,7 +130,7 @@ const NavBar = ({
           )
         ) : null}
         {isRight && isDetail && shopId ? (
-          <FavoriteButton shopId={shopId} />
+          <FavoriteButton shopId={shopId} distance={distance} />
         ) : null}
       </NavItems>
     </NavContainer>

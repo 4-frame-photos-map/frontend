@@ -19,7 +19,11 @@ const WishItem = ({ shop }: Favorite) => {
         >
           {shop.place_name}
         </span>
-        <FavoriteButton shopId={shop.id} isWish={true} />
+        <FavoriteButton
+          shopId={shop.id}
+          isWish={true}
+          distance={shop.distance}
+        />
       </div>
       <div className="flex justify-between">
         <div className="flex items-center gap-1">

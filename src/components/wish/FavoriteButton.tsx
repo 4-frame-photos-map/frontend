@@ -1,21 +1,22 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { queryClient } from 'pages/_app';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
-import { useGetFavorite } from '@hooks/queries/useGetFavorite';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import tw from 'tailwind-styled-components';
 import { getLocalStorage } from '@utils/localStorage';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
 
 type FavortieButtonProps = {
   shopId: number;
   isWish?: boolean;
+  distance: string;
 };
 
-const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
-  const { data: favorites } = useGetFavorite(127.052068, 37.545704, 'created');
+const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
+  const { data: shopInfo, isFetched } = useGetShopDetail(shopId, distance);
   const { mutate: del, isSuccess, isError } = useDeleteFavorite();
   const { mutate: add } = usePostFavorites();
   const favoritesCache = queryClient.getQueryData<Favorite[]>([
@@ -40,7 +41,6 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
   };
 
   const favCacheArray = favoritesCache?.map((fav) => fav.shop.id);
-  const favArray = favorites?.map((fav) => fav.shop.id);
 
   return (
     <>
@@ -67,8 +67,30 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
             onClick={() => handleAddFavorite(shopId)}
           />
         ))}
+
       {!isWish &&
-        (favArray?.includes(shopId) ? (
+        isFetched &&
+        (shopInfo?.favorite ? (
+          !getLocalStorage('@token') ? (
+            <Image
+              src="/svg/wish/lined-bookmark.svg"
+              width={24}
+              height={24}
+              alt="bookmark"
+              className="z-[900] cursor-pointer"
+              onClick={() => setIsLogin(true)}
+            />
+          ) : (
+            <Image
+              src="/svg/wish/lined-bookmark.svg"
+              width={24}
+              height={24}
+              alt="bookmark"
+              className="z-[900] cursor-pointer"
+              onClick={() => handleAddFavorite(shopId)}
+            />
+          )
+        ) : (
           <Image
             src="/svg/wish/filled-bookmark.svg"
             width={24}
@@ -79,24 +101,6 @@ const FavoriteButton = ({ shopId, isWish }: FavortieButtonProps) => {
               handleDeleteFavorite(shopId);
               handleToast();
             }}
-          />
-        ) : !getLocalStorage('@token') ? (
-          <Image
-            src="/svg/wish/lined-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="z-[900] cursor-pointer"
-            onClick={() => setIsLogin(true)}
-          />
-        ) : (
-          <Image
-            src="/svg/wish/lined-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="z-[900] cursor-pointer"
-            onClick={() => handleAddFavorite(shopId)}
           />
         ))}
 
