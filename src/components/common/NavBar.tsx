@@ -5,6 +5,7 @@ import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import FavoriteButton from '@components/wish/FavoriteButton';
 import Search from '@components/navbar/Search';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
 
 type NavBarProps = {
   title?: string;
@@ -13,7 +14,7 @@ type NavBarProps = {
   isRight?: boolean;
   isDetail?: boolean;
   shopId?: number;
-  distance: string;
+  distance?: string;
 };
 
 const NavBar = ({
@@ -55,7 +56,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -75,7 +76,7 @@ const NavBar = ({
             {isList && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -129,7 +130,7 @@ const NavBar = ({
             />
           )
         ) : null}
-        {isRight && isDetail && shopId ? (
+        {isDetail && shopId && distance ? (
           <FavoriteButton shopId={shopId} distance={distance} />
         ) : null}
       </NavItems>

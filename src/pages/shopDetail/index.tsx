@@ -29,7 +29,6 @@ const ShopDetail = ({ shopId, distance }) => {
       <Scripts shopInfo={shopInfo as ShopDetail} mapContainer={mapContainer} />
       <NavBar
         isLeft={true}
-        isRight={true}
         isDetail={true}
         shopId={shopInfo?.id}
         distance={distance}
@@ -46,7 +45,7 @@ const ShopDetail = ({ shopId, distance }) => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="border-l border-text-alternative px-2">
+            <div className="px-2 border-l border-text-alternative">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}
