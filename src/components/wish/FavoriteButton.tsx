@@ -74,26 +74,6 @@ const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
       {!isWish &&
         isFetched &&
         (shopInfo?.favorite ? (
-          !getToken().accessToken ? (
-            <Image
-              src="/svg/wish/lined-bookmark.svg"
-              width={24}
-              height={24}
-              alt="bookmark"
-              className="z-[900] cursor-pointer"
-              onClick={() => setIsLogin(true)}
-            />
-          ) : (
-            <Image
-              src="/svg/wish/lined-bookmark.svg"
-              width={24}
-              height={24}
-              alt="bookmark"
-              className="z-[900] cursor-pointer"
-              onClick={() => handleAddFavorite(shopId)}
-            />
-          )
-        ) : (
           <Image
             src="/svg/wish/filled-bookmark.svg"
             width={24}
@@ -104,6 +84,24 @@ const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
               handleDeleteFavorite(shopId);
               handleToast();
             }}
+          />
+        ) : !getToken().accessToken ? (
+          <Image
+            src="/svg/wish/lined-bookmark.svg"
+            width={24}
+            height={24}
+            alt="bookmark"
+            className="z-[900] cursor-pointer"
+            onClick={() => setIsLogin(true)}
+          />
+        ) : (
+          <Image
+            src="/svg/wish/lined-bookmark.svg"
+            width={24}
+            height={24}
+            alt="bookmark"
+            className="z-[900] cursor-pointer"
+            onClick={() => handleAddFavorite(shopId)}
           />
         ))}
 
