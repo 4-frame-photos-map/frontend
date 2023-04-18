@@ -1,4 +1,5 @@
 import reviewApi from '@apis/review/reviewApi';
+import { getLocalStorage } from '@utils/localStorage';
 import { useQuery } from 'react-query';
 
 export const useGetAllUserReviews = () => {
@@ -31,7 +32,7 @@ export const useGetAllShopReviews = (shopId: number) => {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!shopId,
+      enabled: !!shopId && !!getLocalStorage('@token'), // shopId가 true면 뒤에 판단
     },
   );
 };
