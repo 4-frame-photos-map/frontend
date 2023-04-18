@@ -10,6 +10,9 @@ export const usePostFavorites = () => {
         queryClient.invalidateQueries({
           queryKey: ['useGetFavorites'],
         });
+        queryClient.invalidateQueries({
+          queryKey: ['useGetShopDetail'],
+        });
       },
     },
   );
