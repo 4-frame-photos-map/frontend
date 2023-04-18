@@ -26,9 +26,7 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
   const { data: shops } = useGetShopsByKeyword(value, 127.052068, 37.545704);
 
   const onSubmit = (data: FormValue) => {
-    if (!isMap) {
-      setIsList(true);
-    }
+    setValue('search', data.search);
   };
 
   let timer: NodeJS.Timeout;
@@ -71,7 +69,6 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
           type="text"
           placeholder="지점/장소 검색"
           onChange={handleInputChange}
-          className="relative"
         />
       </SearchForm>
       {watch('search') && (
@@ -80,7 +77,7 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
           width={24}
           height={24}
           alt="삭제"
-          className="absolute right-8 top-6 z-[999] cursor-pointer"
+          className="absolute right-7 top-6 z-[999] cursor-pointer"
           onClick={handleClearValue}
         />
       )}
@@ -121,15 +118,15 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
 };
 
 const SearchInput = tw.input`
-  bg-bg-primary rounded-[100px] pl-4 pr-24 py-[7px] z-[900] mr-[9px] relative
-  `;
+bg-bg-primary rounded-[100px] py-[7px] z-[900] w-[300px] pl-4
+`;
 
 const SearchForm = tw.form`
-  basis-5/6
-  `;
+ml-4
+`;
 
 const SearchContainer = tw.ul`
-  bg-white absolute top-0 left-0 w-full mt-16 overflow-y-auto h-screen pb-32
-  `;
+bg-white absolute top-0 left-0 w-full mt-16 overflow-y-auto h-screen pb-32
+`;
 
 export default Search;
