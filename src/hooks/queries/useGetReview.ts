@@ -1,5 +1,4 @@
 import reviewApi from '@apis/review/reviewApi';
-import { getLocalStorage } from '@utils/localStorage';
 import { useQuery } from 'react-query';
 
 export const useGetAllUserReviews = () => {
