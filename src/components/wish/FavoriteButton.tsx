@@ -6,7 +6,6 @@ import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import tw from 'tailwind-styled-components';
-import { getLocalStorage } from '@utils/localStorage';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { getToken } from '@utils/token';
 
@@ -23,8 +22,6 @@ const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
   const favoritesCache = queryClient.getQueryData<Favorite[]>([
     'useGetFavorites',
   ]);
-
-  console.log(!getToken().accessToken);
 
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
