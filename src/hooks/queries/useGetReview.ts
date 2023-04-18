@@ -32,7 +32,7 @@ export const useGetAllShopReviews = (shopId: number) => {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!shopId && !!getLocalStorage('@token'), // shopId가 true면 뒤에 판단
+      enabled: !!shopId && !!getLocalStorage('@token'),
     },
   );
 };

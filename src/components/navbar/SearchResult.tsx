@@ -12,7 +12,6 @@ const SearchResult = ({
   place_name,
   distance,
   road_address_name,
-  id,
 }: SearchProps) => {
   const parts = place_name.split(value);
   return isTyping ? (
