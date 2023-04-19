@@ -1,8 +1,9 @@
 import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
-import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
+import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 type ShopModalProps = {
   id: number;
@@ -24,28 +25,33 @@ const ShopModal = ({
   favorite_cnt,
 }: ShopModalProps) => {
   const router = useRouter();
-  const { mutate: add } = usePostFavorites();
+  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
+  const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite();
 
   const handleAddFavorite = (id: number) => {
     add(id);
+    setIsFavorite(true);
   };
   const handleDeleteFavorite = (id: number) => {
     del(id);
+    setIsFavorite(false);
   };
 
   return (
-    <div
-      onClick={() =>
-        router.push(`/shopDetail?shopId=${id}&distance=${distance}`)
-      }
-      className="mx-6 h-[98px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal"
-    >
+    <div className="mx-6 h-[98px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal">
       <div className="p-4">
         <BrandTag name={place_name} />
         <div className="flex justify-between pt-1 pb-2">
-          <span className="text-label1">{place_name}</span>
-          {!favorite ? (
+          <span
+            className="text-label1"
+            onClick={() =>
+              router.push(`/shopDetail?shopId=${id}&distance=${distance}`)
+            }
+          >
+            {place_name}
+          </span>
+          {isFavorite ? (
             <Image
               src="/svg/wish/filled-bookmark.svg"
               width={24}
@@ -70,9 +76,9 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="border-l pl-2">
+            <div className="pl-2 border-l">
               <span className="pr-1">찜</span>
-              <span className="font-semibold">{review_cnt}</span>
+              <span className="font-semibold">{favorite_cnt}</span>
             </div>
           </div>
           <span>{distance}</span>
