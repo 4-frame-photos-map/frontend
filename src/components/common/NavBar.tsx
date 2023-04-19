@@ -1,11 +1,9 @@
-/* eslint-disable tailwindcss/classnames-order */
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import FavoriteButton from '@components/wish/FavoriteButton';
 import Search from '@components/navbar/Search';
-import { useGetShopDetail } from '@hooks/queries/useGetShop';
 
 type NavBarProps = {
   title?: string;
@@ -14,7 +12,7 @@ type NavBarProps = {
   isRight?: boolean;
   isDetail?: boolean;
   shopId?: number;
-  distance?: string;
+  isFavorite?: boolean;
 };
 
 const NavBar = ({
@@ -24,7 +22,7 @@ const NavBar = ({
   isRight,
   isDetail,
   shopId,
-  distance,
+  isFavorite,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -130,9 +128,9 @@ const NavBar = ({
             />
           )
         ) : null}
-        {isDetail && shopId && distance ? (
-          <FavoriteButton shopId={shopId} distance={distance} />
-        ) : null}
+        {isDetail && shopId && (
+          <FavoriteButton shopId={shopId} isFavorite={isFavorite} />
+        )}
       </NavItems>
     </NavContainer>
   );

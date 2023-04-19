@@ -1,27 +1,20 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { queryClient } from 'pages/_app';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
-import { usePostFavorites } from '@hooks/mutations/usePostFavorite';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import tw from 'tailwind-styled-components';
-import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { getToken } from '@utils/token';
+import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 
 type FavortieButtonProps = {
   shopId: number;
-  isWish?: boolean;
-  distance: string;
+  isFavorite?: boolean;
 };
 
-const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
-  const { data: shopInfo, isFetched } = useGetShopDetail(shopId, distance);
+const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
   const { mutate: del, isSuccess, isError } = useDeleteFavorite();
-  const { mutate: add } = usePostFavorites();
-  const favoritesCache = queryClient.getQueryData<Favorite[]>([
-    'useGetFavorites',
-  ]);
+  const { mutate: add } = usePostFavorite();
 
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -40,67 +33,39 @@ const FavoriteButton = ({ shopId, isWish, distance }: FavortieButtonProps) => {
     setToast(true);
   };
 
-  const favCacheArray = favoritesCache?.map((fav) => fav.shop.id);
-
   return (
     <>
-      {isWish &&
-        (favCacheArray?.includes(shopId) ? (
-          <Image
-            src="/svg/wish/filled-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="cursor-pointer"
-            onClick={() => {
-              setIsModal(true);
-              setToast(true);
-            }}
-          />
-        ) : (
-          <Image
-            src="/svg/wish/lined-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="cursor-pointer"
-            onClick={() => handleAddFavorite(shopId)}
-          />
-        ))}
-
-      {!isWish &&
-        isFetched &&
-        (shopInfo?.favorite ? (
-          <Image
-            src="/svg/wish/filled-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="z-[900] cursor-pointer"
-            onClick={() => {
-              handleDeleteFavorite(shopId);
-              handleToast();
-            }}
-          />
-        ) : !getToken().accessToken ? (
-          <Image
-            src="/svg/wish/lined-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="z-[900] cursor-pointer"
-            onClick={() => setIsLogin(true)}
-          />
-        ) : (
-          <Image
-            src="/svg/wish/lined-bookmark.svg"
-            width={24}
-            height={24}
-            alt="bookmark"
-            className="z-[900] cursor-pointer"
-            onClick={() => handleAddFavorite(shopId)}
-          />
-        ))}
+      {isFavorite ? (
+        <Image
+          src="/svg/wish/filled-bookmark.svg"
+          width={24}
+          height={24}
+          alt="bookmark"
+          className="z-[900] cursor-pointer"
+          onClick={() => {
+            handleDeleteFavorite(shopId);
+            handleToast();
+          }}
+        />
+      ) : !getToken().accessToken ? (
+        <Image
+          src="/svg/wish/lined-bookmark.svg"
+          width={24}
+          height={24}
+          alt="bookmark"
+          className="z-[900] cursor-pointer"
+          onClick={() => setIsLogin(true)}
+        />
+      ) : (
+        <Image
+          src="/svg/wish/lined-bookmark.svg"
+          width={24}
+          height={24}
+          alt="bookmark"
+          className="z-[900] cursor-pointer"
+          onClick={() => handleAddFavorite(shopId)}
+        />
+      )}
 
       {isModal && (
         <ModalLayout>

@@ -31,7 +31,7 @@ const ShopDetail = ({ shopId, distance }) => {
         isLeft={true}
         isDetail={true}
         shopId={shopInfo?.id}
-        distance={distance}
+        isFavorite={shopInfo?.favorite}
       />
       <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>
