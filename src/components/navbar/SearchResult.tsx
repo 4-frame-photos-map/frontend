@@ -12,7 +12,6 @@ const SearchResult = ({
   place_name,
   distance,
   road_address_name,
-  id,
 }: SearchProps) => {
   const parts = place_name.split(value);
   return isTyping ? (
@@ -31,29 +30,29 @@ const SearchResult = ({
           </div>
           <div className="ml-4 flex flex-col">
             <div className="flex">
-              {parts.map((part, index) => {
-                if (index === 0) {
-                  return (
-                    <span key={index} className="text-label1 text-status-error">
+              {parts.length > 1 ? (
+                parts[0] !== parts[0]?.trim() ? (
+                  <>
+                    <span className="text-label1 text-black">{parts[0]}</span>
+                    <span className="text-label1 text-status-error">
+                      &nbsp;{value}
+                    </span>
+                    <span className="text-label1 text-black">{parts[1]}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-label1 text-black">{parts[0]}</span>
+                    <span className="text-label1 text-status-error">
                       {value}
                     </span>
-                  );
-                } else if (value === place_name.split(' ')[0]) {
-                  return (
-                    <span key={index} className="text-label1 text-black">
-                      <span className="tracking-[-0.3rem]">&nbsp;</span>
-                      {part}
-                    </span>
-                  );
-                }
-                return (
-                  <span key={index} className="text-label1 text-black">
-                    {part}
-                  </span>
-                );
-              })}
+                    <span className="text-label1 text-black">{parts[1]}</span>
+                  </>
+                )
+              ) : (
+                place_name
+              )}
             </div>
-            <span className=" text-caption1 text-text-alternative">
+            <span className="text-caption1 text-text-alternative">
               {road_address_name}
             </span>
           </div>

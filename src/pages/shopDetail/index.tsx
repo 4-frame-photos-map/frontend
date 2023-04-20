@@ -29,9 +29,9 @@ const ShopDetail = ({ shopId, distance }) => {
       <Scripts shopInfo={shopInfo as ShopDetail} mapContainer={mapContainer} />
       <NavBar
         isLeft={true}
-        isRight={true}
         isDetail={true}
         shopId={shopInfo?.id}
+        isFavorite={shopInfo?.favorite}
       />
       <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>

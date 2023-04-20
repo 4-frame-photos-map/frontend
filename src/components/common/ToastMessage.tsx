@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type ToastProps = {
   text: string;
-  setToast?: Dispatch<SetStateAction<boolean>>;
+  setToast: Dispatch<SetStateAction<boolean>>;
 };
 
 const ToastMessage = ({ text, setToast }: ToastProps) => {
@@ -10,7 +10,7 @@ const ToastMessage = ({ text, setToast }: ToastProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpacity(0);
-      // setToast(false);
+      setToast(false);
     }, 1000);
     return () => {
       clearTimeout(timer);
@@ -24,7 +24,7 @@ const ToastMessage = ({ text, setToast }: ToastProps) => {
           className={`mx-12 flex items-center justify-center rounded bg-black px-4 py-3`}
           style={{ opacity: opacity, transition: 'opacity 0.5s ease' }}
         >
-          <span className="text-label2 text-white">{text}</span>
+          <span className="text-white text-label2">{text}</span>
         </div>
       }
     </>

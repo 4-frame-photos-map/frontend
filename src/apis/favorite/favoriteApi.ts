@@ -1,13 +1,9 @@
 import instance from '@apis/instance';
 
 class FavoriteApi {
-  getAllFavorites = async (
-    lng: number,
-    lat: number,
-    sort?: string,
-  ): Promise<Favorite[]> => {
+  getAllFavorites = async (lng: number, lat: number): Promise<Favorite[]> => {
     const { data } = await instance.get(
-      `/favorites?longitude=${lng}&latitude=${lat}&sort=${sort}`,
+      `/favorites?longitude=${lng}&latitude=${lat}`,
     );
     return data;
   };

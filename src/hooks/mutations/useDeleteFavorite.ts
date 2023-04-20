@@ -11,6 +11,9 @@ export const useDeleteFavorite = () => {
           queryClient.invalidateQueries({
             queryKey: ['useGetFavorites'],
           });
+          queryClient.invalidateQueries({
+            queryKey: ['useGetShopDetail'],
+          });
         }, 1000);
       },
     },
