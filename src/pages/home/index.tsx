@@ -6,34 +6,32 @@ import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
 import { useEffect, useState } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
-import useMapScriptLoad from '@hooks/useMapScriptLoad';
 import Map from '@components/common/Map';
 
+type Position = {
+  lat: number;
+  lng: number;
+};
+
 const Home = () => {
-  const [mapLoaded, setMapLoaded] = useState<boolean>(false);
   const [brd, setBrd] = useState<string>('');
   const [modalProps, setModalProps] = useState<Shop>();
   const [shopsInfo, setShopsInfo] = useState<Shop[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
-  const [location, setLocation] = useState<{ lat: number; lng: number }>({
+  const [curPos, setCurPos] = useState<Position>({
     lat: 0,
     lng: 0,
   });
-  const [mapPos, setMapPos] = useState<{ lat: number; lng: number }>({
+  const [location, setLocation] = useState<Position>({
+    lat: 0,
+    lng: 0,
+  });
+  const [mapPos, setMapPos] = useState<Position>({
     lat: 0,
     lng: 0,
   });
 
   const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
-
-  useMapScriptLoad(setMapLoaded);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords;
-      setLocation({ lat: latitude, lng: longitude });
-    });
-  }, []);
 
   useEffect(() => {
     setShopsInfo(shopInfo);
@@ -41,15 +39,12 @@ const Home = () => {
 
   const handleTracker = () => {
     const { kakao } = window;
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords;
-      setLocation({ lat: latitude, lng: longitude });
-      const moveLatLng = new kakao.maps.LatLng(latitude, longitude);
-      kakaoMap.setLevel(3);
-      kakaoMap.panTo(moveLatLng);
-    });
+    const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
+    kakaoMap.setLevel(3);
+    kakaoMap.panTo(moveLatLng);
     setModalProps(undefined);
     setMapPos({ lat: location.lat, lng: location.lng });
+    setLocation({ lat: curPos.lat, lng: curPos.lng });
   };
 
   const handleResearch = () => {
@@ -62,18 +57,18 @@ const Home = () => {
       <NavBar area="지도 지역명" isRight={true} />
       <div className="relative z-10">
         <Category setBrd={setBrd} />
-        {location.lat !== mapPos.lat && mapPos.lat !== 0 && (
-          <ResearchButton onClick={handleResearch} />
-        )}
+        {location.lat !== mapPos.lat &&
+          location.lng !== mapPos.lng &&
+          mapPos.lat !== 0 && <ResearchButton onClick={handleResearch} />}
       </div>
       <Map
-        position={location}
-        isLoaded={mapLoaded}
         shopInfo={shopsInfo}
         kakaoMap={kakaoMap}
+        setLocation={setLocation}
         setKakaoMap={setKakaoMap}
         setModalProps={setModalProps}
         setMapPos={setMapPos}
+        setCurPos={setCurPos}
       />
       <div className="absolute bottom-0 w-full pb-[71px]">
         <TrackerButton onClick={handleTracker} />
