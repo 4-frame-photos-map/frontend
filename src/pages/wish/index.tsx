@@ -5,7 +5,7 @@ import { useGetFavorite } from '@hooks/queries/useGetFavorite';
 import tw from 'tailwind-styled-components';
 
 const Wish = () => {
-  const { data: favorites } = useGetFavorite(127.052068, 37.545704, 'created');
+  const { data: favorites } = useGetFavorite(127.052068, 37.545704);
   return (
     <PageLayout>
       <NavBar title={'저장'} isRight={true} isLeft={true} />

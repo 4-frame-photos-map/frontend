@@ -57,15 +57,6 @@ export const useGetShopsByKeyword = (
     {
       enabled: !!keyword,
       refetchOnWindowFocus: false,
-      select: (data) =>
-        data?.filter(
-          (shop) =>
-            shop.place_name.includes('인생네컷') ||
-            shop.place_name.includes('하루필름') ||
-            shop.place_name.includes('포토시그니처') ||
-            shop.place_name.includes('포토그레이') ||
-            shop.place_name.includes('포토이즘'),
-        ),
     },
   );
 };
