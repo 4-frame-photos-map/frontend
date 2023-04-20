@@ -107,7 +107,7 @@ const WishItem = ({ shop }: Favorite) => {
         </ModalLayout>
       )}
       {toast && isSuccess && (
-        <div className="fixed bottom-0 z-[900] pb-[71px]">
+        <div className="fixed bottom-0 z-[900] min-w-[375px] pb-[71px]">
           <ToastMessage
             text="저장페이지에서 지점이 삭제되었습니다."
             setToast={setToast}
