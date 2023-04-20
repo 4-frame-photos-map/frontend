@@ -1,55 +1,76 @@
 import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
 import { getSelectedImg, getDefaultImg } from '@utils/getImgSrc';
+import { CONFIG } from '@config';
+
+type Position = {
+  lat: number;
+  lng: number;
+};
+
 type MapProps = {
   shopInfo: Shop[] | undefined;
-  isLoaded: boolean;
-  position: { lat: number; lng: number };
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
   setModalProps: Dispatch<SetStateAction<Shop | undefined>>;
-  setMapPos: Dispatch<SetStateAction<{ lat: number; lng: number }>>;
+  setLocation: Dispatch<SetStateAction<Position>>;
+  setMapPos: Dispatch<SetStateAction<Position>>;
+  setCurPos: Dispatch<SetStateAction<Position>>;
 };
 
 const Map = ({
-  position,
-  isLoaded,
   shopInfo,
   kakaoMap,
   setKakaoMap,
   setModalProps,
+  setLocation,
   setMapPos,
+  setCurPos,
 }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [markers, setMarkers] = useState<any[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
+    const $script = document.createElement('script');
+    $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${CONFIG.API_KEYS.MAP}&autoload=false&libraries=services`;
+    document.head.appendChild($script);
+    $script.onload = () => {
+      setIsLoaded(true);
+    };
     if (isLoaded) {
-      if (position?.lat === 0) return;
       const { kakao } = window;
       window.kakao.maps.load(() => {
-        const options = {
-          center: new kakao.maps.LatLng(position?.lat, position?.lng),
+        const mapOption = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667),
           level: 3,
         };
-        const map = new kakao.maps.Map(mapContainer.current, options);
+        const map = new kakao.maps.Map(mapContainer.current, mapOption);
+        setLocation({ lat: 33.450701, lng: 126.570667 });
+        setCurPos({ lat: 33.450701, lng: 126.570667 });
         setKakaoMap(map);
-        const imageSrc = '/svg/home/tracking.svg';
-        const imageSize = new kakao.maps.Size(32, 32);
-        const imageOption = { offset: new kakao.maps.Point(20, 20) };
-        const markerPosition = new kakao.maps.LatLng(
-          position?.lat,
-          position?.lng,
-        );
-        const markerImage = new kakao.maps.MarkerImage(
-          imageSrc,
-          imageSize,
-          imageOption,
-        );
-        const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          image: markerImage,
-        });
-        marker.setMap(map);
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(({ coords }) => {
+            const { latitude, longitude } = coords;
+            setLocation({ lat: latitude, lng: longitude });
+            setCurPos({ lat: latitude, lng: longitude });
+            const locPosition = new kakao.maps.LatLng(latitude, longitude);
+            const imageSrc = '/svg/home/tracking.svg';
+            const imageSize = new kakao.maps.Size(32, 32);
+            const imageOption = { offset: new kakao.maps.Point(20, 20) };
+            const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            const markerImage = new kakao.maps.MarkerImage(
+              imageSrc,
+              imageSize,
+              imageOption,
+            );
+            const marker = new kakao.maps.Marker({
+              position: markerPosition,
+              image: markerImage,
+            });
+            marker.setMap(map);
+            map.setCenter(locPosition);
+          });
+        }
       });
     }
   }, [isLoaded]);
