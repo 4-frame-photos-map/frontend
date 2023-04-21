@@ -33,9 +33,17 @@ const Home = () => {
 
   const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
 
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(
+    modalProps?.favorite,
+  );
+
   useEffect(() => {
     setShopsInfo(shopInfo);
   }, [shopInfo]);
+
+  useEffect(() => {
+    setIsFavorite(modalProps?.favorite);
+  }, [modalProps]);
 
   const handleTracker = () => {
     const { kakao } = window;
@@ -81,6 +89,8 @@ const Home = () => {
             review_cnt={modalProps.review_cnt}
             favorite={modalProps.favorite}
             favorite_cnt={modalProps.favorite_cnt}
+            isFavorite={isFavorite}
+            setIsFavorite={setIsFavorite}
           />
         )}
       </div>

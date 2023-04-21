@@ -3,7 +3,7 @@ import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type ShopModalProps = {
   id: number;
@@ -13,6 +13,8 @@ type ShopModalProps = {
   review_cnt: number;
   favorite: boolean;
   favorite_cnt: number;
+  isFavorite?: boolean;
+  setIsFavorite: Dispatch<SetStateAction<boolean | undefined>>;
 };
 
 const ShopModal = ({
@@ -23,9 +25,10 @@ const ShopModal = ({
   review_cnt,
   favorite,
   favorite_cnt,
+  isFavorite,
+  setIsFavorite,
 }: ShopModalProps) => {
   const router = useRouter();
-  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite();
 
@@ -57,7 +60,9 @@ const ShopModal = ({
               width={24}
               height={24}
               alt="wish"
-              onClick={() => handleDeleteFavorite(id)}
+              onClick={() => {
+                handleDeleteFavorite(id);
+              }}
             />
           ) : (
             <Image

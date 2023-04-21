@@ -14,6 +14,9 @@ export const useDeleteFavorite = () => {
           queryClient.invalidateQueries({
             queryKey: ['useGetShopDetail'],
           });
+          queryClient.invalidateQueries({
+            queryKey: ['useGetShopsInRad'],
+          });
         }, 1000);
       },
     },
