@@ -139,7 +139,6 @@ const Map = ({
     <>
       <div
         className="absolute top-0 z-0 h-full w-full max-w-[375px]"
-        // className="absolute top-0 z-0 mt-16 h-[calc(100vh-7rem)] w-full"
         ref={mapContainer}
       ></div>
     </>
