@@ -116,6 +116,7 @@ const Map = ({
           });
           new kakao.maps.event.addListener(marker, 'click', () => {
             setModalProps(shop);
+            kakaoMap.panTo(position);
             if (!!selectedMarker || selectedMarker !== marker) {
               if (selectedMarker) {
                 const normalImage = new kakao.maps.MarkerImage(
