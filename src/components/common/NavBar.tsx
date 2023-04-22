@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, SetStateAction, Dispatch } from 'react';
 import tw from 'tailwind-styled-components';
 import FavoriteButton from '@components/wish/FavoriteButton';
 import Search from '@components/navbar/Search';
@@ -13,6 +13,8 @@ type NavBarProps = {
   isDetail?: boolean;
   shopId?: number;
   isFavorite?: boolean;
+  location?: Position;
+  setShopsInfo?: Dispatch<SetStateAction<Shop[] | undefined>>;
 };
 
 const NavBar = ({
@@ -23,12 +25,14 @@ const NavBar = ({
   isDetail,
   shopId,
   isFavorite,
+  location,
+  setShopsInfo,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
   const [isList, setIsList] = useState<boolean>(false);
   const [isMap, setIsMap] = useState<boolean>(false);
-
+  const [shopInfo, setShopInfo] = useState<Shop[]>();
   const handleCloseInput = () => {
     setIsInput(false);
   };
@@ -54,7 +58,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -71,13 +75,14 @@ const NavBar = ({
                 </div>
               </>
             )}
-            {isList && (
+            {isList && setShopsInfo && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
+                    setShopsInfo(shopInfo);
                   }}
                 >
                   <Image
@@ -91,12 +96,16 @@ const NavBar = ({
                 </div>
               </>
             )}
-            <Search
-              isList={isList}
-              setIsList={setIsList}
-              isMap={isMap}
-              setIsMap={setIsMap}
-            />
+            {location && (
+              <Search
+                isList={isList}
+                setIsList={setIsList}
+                isMap={isMap}
+                setIsMap={setIsMap}
+                location={location}
+                setShopsInfo={setShopInfo}
+              />
+            )}
           </>
         ) : null}
 

@@ -8,11 +8,6 @@ import { useEffect, useState } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import Map from '@components/common/Map';
 
-type Position = {
-  lat: number;
-  lng: number;
-};
-
 const Home = () => {
   const [brd, setBrd] = useState<string>('');
   const [modalProps, setModalProps] = useState<Shop>();
@@ -62,8 +57,13 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <NavBar area="지도 지역명" isRight={true} />
-      <div className="fixed z-10">
+      <NavBar
+        area="지도 지역명"
+        isRight={true}
+        location={curPos}
+        setShopsInfo={setShopsInfo}
+      />
+      <div className="relative z-10">
         <Category setBrd={setBrd} />
         {location.lat !== mapPos.lat &&
           location.lng !== mapPos.lng &&
