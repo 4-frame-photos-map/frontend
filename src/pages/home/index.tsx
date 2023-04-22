@@ -63,7 +63,7 @@ const Home = () => {
   return (
     <PageLayout>
       <NavBar area="지도 지역명" isRight={true} />
-      <div className="relative z-10">
+      <div className="fixed z-10">
         <Category setBrd={setBrd} />
         {location.lat !== mapPos.lat &&
           location.lng !== mapPos.lng &&
@@ -78,7 +78,7 @@ const Home = () => {
         setMapPos={setMapPos}
         setCurPos={setCurPos}
       />
-      <div className="absolute bottom-0 w-full pb-[71px]">
+      <div className="fixed bottom-0 w-full max-w-[375px] pb-[71px]">
         <TrackerButton onClick={handleTracker} />
         {modalProps && (
           <ShopModal
