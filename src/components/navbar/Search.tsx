@@ -15,15 +15,33 @@ type SearchProps = {
   setIsList: Dispatch<SetStateAction<boolean>>;
   setIsMap: Dispatch<SetStateAction<boolean>>;
   isMap: boolean;
+  location: Position;
+  setShopsInfo: Dispatch<SetStateAction<Shop[] | undefined>>;
 };
 
-const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
+const Search = ({
+  isList,
+  setIsList,
+  isMap,
+  setIsMap,
+  location,
+  setShopsInfo,
+}: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { register, watch, setValue, handleSubmit } = useForm<FormValue>({
     mode: 'onChange',
   });
   const value = watch('search');
-  const { data: shops } = useGetShopsByKeyword(value, 127.052068, 37.545704);
+
+  const { data: shops } = useGetShopsByKeyword(
+    value,
+    location.lng,
+    location.lat,
+  );
+
+  useEffect(() => {
+    setShopsInfo(shops);
+  }, [shops]);
 
   const onSubmit = (data: FormValue) => {
     setValue('search', data.search);
@@ -84,7 +102,7 @@ const Search = ({ isList, setIsList, isMap, setIsMap }: SearchProps) => {
       {isTyping && !isMap && (
         <SearchContainer>
           <div
-            className="flex items-center px-4 pt-5 cursor-pointer"
+            className="flex cursor-pointer items-center px-4 pt-5"
             onClick={handleSearchClick}
           >
             <Image
