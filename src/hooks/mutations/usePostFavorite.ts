@@ -13,9 +13,6 @@ export const usePostFavorite = () => {
         queryClient.invalidateQueries({
           queryKey: ['useGetShopDetail'],
         });
-        queryClient.invalidateQueries({
-          queryKey: ['useGetShopsInRad'],
-        });
       },
     },
   );
