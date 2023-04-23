@@ -1,8 +1,10 @@
+import tw from 'tailwind-styled-components';
+import Image from 'next/image';
 import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { Dispatch, SetStateAction } from 'react';
 
 type ShopModalProps = {
@@ -11,10 +13,9 @@ type ShopModalProps = {
   distance: string;
   star_rating_avg: number;
   review_cnt: number;
-  favorite: boolean;
   favorite_cnt: number;
-  isFavorite?: boolean;
-  setIsFavorite: Dispatch<SetStateAction<boolean | undefined>>;
+  isLogin: boolean;
+  setIsModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const ShopModal = ({
@@ -23,22 +24,26 @@ const ShopModal = ({
   distance,
   star_rating_avg,
   review_cnt,
-  favorite,
   favorite_cnt,
-  isFavorite,
-  setIsFavorite,
+  isLogin,
+  setIsModal,
 }: ShopModalProps) => {
   const router = useRouter();
-  const { mutate: add } = usePostFavorite();
-  const { mutate: del } = useDeleteFavorite();
 
-  const handleAddFavorite = (id: number) => {
-    add(id);
-    setIsFavorite(true);
-  };
-  const handleDeleteFavorite = (id: number) => {
-    del(id);
-    setIsFavorite(false);
+  const { data: shopInfo } = useGetShopDetail(id, distance);
+  const { mutate: add } = usePostFavorite();
+  const { mutate: del } = useDeleteFavorite('/home');
+
+  const handleFavorite = (id: number) => {
+    if (!isLogin) {
+      setIsModal(true);
+    } else {
+      if (shopInfo?.favorite) {
+        del(id);
+      } else {
+        add(id);
+      }
+    }
   };
 
   return (
@@ -54,14 +59,14 @@ const ShopModal = ({
           >
             {place_name}
           </span>
-          {isFavorite ? (
+          {shopInfo?.favorite ? (
             <Image
               src="/svg/wish/filled-bookmark.svg"
               width={24}
               height={24}
               alt="wish"
               onClick={() => {
-                handleDeleteFavorite(id);
+                handleFavorite(id);
               }}
             />
           ) : (
@@ -71,7 +76,7 @@ const ShopModal = ({
               height={24}
               alt="wish"
               className="cursor-pointer"
-              onClick={() => handleAddFavorite(id)}
+              onClick={() => handleFavorite(id)}
             />
           )}
         </div>
@@ -81,7 +86,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="pl-2 border-l">
+            <div className="border-l pl-2">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{favorite_cnt}</span>
             </div>
@@ -92,5 +97,9 @@ const ShopModal = ({
     </div>
   );
 };
+
+const ModalLayout = tw.div`
+absolute top-0 left-0 w-full h-full z-[999]
+`;
 
 export default ShopModal;
