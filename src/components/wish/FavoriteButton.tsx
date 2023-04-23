@@ -13,7 +13,7 @@ type FavortieButtonProps = {
 };
 
 const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
-  const { mutate: del, isSuccess, isError } = useDeleteFavorite();
+  const { mutate: del, isSuccess, isError } = useDeleteFavorite('/shopDetail');
   const { mutate: add } = usePostFavorite();
 
   const [isModal, setIsModal] = useState<boolean>(false);

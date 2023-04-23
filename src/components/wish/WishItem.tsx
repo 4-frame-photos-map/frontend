@@ -13,7 +13,7 @@ const WishItem = ({ shop }: Favorite) => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
-  const { mutate: del, isSuccess, isError } = useDeleteFavorite();
+  const { mutate: del, isSuccess, isError } = useDeleteFavorite('/wish');
   const { mutate: add } = usePostFavorite();
 
   const handleAddFavorite = (shopId: number) => {
