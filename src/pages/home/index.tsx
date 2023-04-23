@@ -28,9 +28,17 @@ const Home = () => {
 
   const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
 
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(
+    modalProps?.favorite,
+  );
+
   useEffect(() => {
     setShopsInfo(shopInfo);
   }, [shopInfo]);
+
+  useEffect(() => {
+    setIsFavorite(modalProps?.favorite);
+  }, [modalProps]);
 
   const handleTracker = () => {
     const { kakao } = window;
@@ -70,7 +78,7 @@ const Home = () => {
         setMapPos={setMapPos}
         setCurPos={setCurPos}
       />
-      <div className="absolute bottom-0 w-full pb-[71px]">
+      <div className="fixed bottom-0 w-full max-w-[375px] pb-[71px]">
         <TrackerButton onClick={handleTracker} />
         {modalProps && (
           <ShopModal
@@ -81,6 +89,8 @@ const Home = () => {
             review_cnt={modalProps.review_cnt}
             favorite={modalProps.favorite}
             favorite_cnt={modalProps.favorite_cnt}
+            isFavorite={isFavorite}
+            setIsFavorite={setIsFavorite}
           />
         )}
       </div>
