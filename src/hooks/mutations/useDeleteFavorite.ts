@@ -25,7 +25,7 @@ const Querykey = {
   },
 };
 
-export const useDeleteFavorite = (path: any) => {
+export const useDeleteFavorite = (path: string) => {
   return useMutation<void, void, number, unknown>(
     'useDeleteFavorite',
     (shopId: number) => favoriteApi.delFavorites(shopId),
@@ -35,13 +35,13 @@ export const useDeleteFavorite = (path: any) => {
         const previousValue = queryClient.getQueryData([
           Querykey[path].queryKey,
         ]);
-        queryClient.setQueriesData([Querykey[path].queryKey], (old: any) =>
+        queryClient.setQueryData([Querykey[path].queryKey], (old: any) =>
           Querykey[path].convertFunc(old, shopId),
         );
         return { previousValue };
       },
       onError: (context: any) => {
-        queryClient.setQueriesData(
+        queryClient.setQueryData(
           [Querykey[path].queryKey],
           context.previousValue,
         );
