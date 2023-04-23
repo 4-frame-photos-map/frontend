@@ -1,14 +1,18 @@
+import { useEffect, useState } from 'react';
+import { useGetShopsInRad } from '@hooks/queries/useGetShop';
+import { getToken } from '@utils/token';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import Category from '@components/home/Category';
 import ResearchButton from '@components/home/ResearchButton';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
-import { useEffect, useState } from 'react';
-import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import Map from '@components/common/Map';
+import Modal from '@components/common/Modal';
 
 const Home = () => {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const [brd, setBrd] = useState<string>('');
   const [modalProps, setModalProps] = useState<Shop>();
   const [shopsInfo, setShopsInfo] = useState<Shop[]>();
@@ -28,17 +32,15 @@ const Home = () => {
 
   const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
 
-  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(
-    modalProps?.favorite,
-  );
+  useEffect(() => {
+    if (getToken().accessToken) {
+      setIsLogin(true);
+    }
+  }, []);
 
   useEffect(() => {
     setShopsInfo(shopInfo);
   }, [shopInfo]);
-
-  useEffect(() => {
-    setIsFavorite(modalProps?.favorite);
-  }, [modalProps]);
 
   const handleTracker = () => {
     const { kakao } = window;
@@ -57,6 +59,16 @@ const Home = () => {
 
   return (
     <PageLayout>
+      {isModal && (
+        <Modal
+          isModal={isModal}
+          isKakao={true}
+          title="로그인 상태가 아니에요!"
+          message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
+          left="아니요"
+          leftEvent={() => setIsModal(false)}
+        />
+      )}
       <NavBar
         area="지도 지역명"
         isRight={true}
@@ -87,10 +99,9 @@ const Home = () => {
             distance={modalProps.distance}
             star_rating_avg={modalProps.star_rating_avg}
             review_cnt={modalProps.review_cnt}
-            favorite={modalProps.favorite}
             favorite_cnt={modalProps.favorite_cnt}
-            isFavorite={isFavorite}
-            setIsFavorite={setIsFavorite}
+            isLogin={isLogin}
+            setIsModal={setIsModal}
           />
         )}
       </div>
