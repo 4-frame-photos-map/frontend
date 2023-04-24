@@ -99,7 +99,6 @@ const Home = () => {
             distance={modalProps.distance}
             star_rating_avg={modalProps.star_rating_avg}
             review_cnt={modalProps.review_cnt}
-            favorite_cnt={modalProps.favorite_cnt}
             isLogin={isLogin}
             setIsModal={setIsModal}
           />
