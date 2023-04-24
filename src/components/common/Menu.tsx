@@ -8,7 +8,7 @@ const Menu = () => {
     <div className="fixed bottom-0 z-[900] w-full max-w-[375px] overflow-hidden border-t-[1px] border-line-normal bg-bg-secondary py-[10px]">
       <div className="flex h-full items-center justify-center space-x-16 px-[20px] text-[10px]">
         <Link href="/home">
-          <div className="text-center">
+          <div className="flex flex-col items-center gap-y-1">
             <Image
               src={
                 router.pathname.includes('/home')
@@ -31,7 +31,7 @@ const Menu = () => {
           </div>
         </Link>
         <Link href="/location">
-          <div className="text-center">
+          <div className="flex flex-col items-center gap-y-1">
             <Image
               src={
                 router.pathname.includes('/location')
@@ -43,7 +43,7 @@ const Menu = () => {
               alt="location"
             />
             <p
-              className={`whitespace-nowrap text-[10px] font-normal leading-[10px] ${
+              className={`whitespace-nowrap text-center text-[10px] font-normal leading-[10px] ${
                 router.pathname.includes('/location')
                   ? 'text-black'
                   : 'text-text-assitive'
@@ -54,7 +54,7 @@ const Menu = () => {
           </div>
         </Link>
         <Link href="/wish">
-          <div className="text-center">
+          <div className="flex flex-col items-center gap-y-1">
             <Image
               src={
                 router.pathname.includes('/wish')
@@ -77,7 +77,7 @@ const Menu = () => {
           </div>
         </Link>
         <Link href="/my">
-          <div className="text-center">
+          <div className="flex flex-col items-center gap-y-1">
             <Image
               src={
                 router.pathname.includes('/my')
