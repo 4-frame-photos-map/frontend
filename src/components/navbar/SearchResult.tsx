@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
 
 type SearchProps = Shop & {
@@ -9,16 +10,23 @@ type SearchProps = Shop & {
 const SearchResult = ({
   isTyping,
   value,
+  id,
   place_name,
   distance,
   road_address_name,
 }: SearchProps) => {
+  const router = useRouter();
   const parts = place_name.split(value);
   return isTyping ? (
     <li className="cursor-pointer bg-white px-3 first:pt-5">
       <DivisionBar />
       {
-        <div className="flex items-center">
+        <div
+          className="flex items-center"
+          onClick={() =>
+            router.push(`/shopDetail/?shopId=${id}&distance=${distance}`)
+          }
+        >
           <div className="flex flex-col items-center">
             <Image
               src="/svg/navbar/location.svg"

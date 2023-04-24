@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { QueryClient, dehydrate } from 'react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
+import { CONFIG } from '@config';
 import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
@@ -12,28 +13,28 @@ import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
-import Scripts from '@components/common/Scripts';
 import BrandTag from '@components/common/BrandTag';
+import Scripts from '@components/common/Scripts';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
+  const mapContainer = useRef<HTMLDivElement>(null);
 
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
-  const mapContainer = useRef<HTMLDivElement>(null);
 
   const { data: shopInfo } = useGetShopDetail(shopId, distance);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   return (
     <ShopLayout className="bg-white pt-[62px]">
-      <Scripts shopInfo={shopInfo as ShopDetail} mapContainer={mapContainer} />
+      {shopInfo && <Scripts shopInfo={shopInfo} mapContainer={mapContainer} />}
+      <Map ref={mapContainer}></Map>
       <NavBar
         isLeft={true}
         isDetail={true}
         shopId={shopInfo?.id}
         isFavorite={shopInfo?.favorite}
       />
-      <div className="h-[270px] w-full pt-[62px]" ref={mapContainer}></div>
       <ShopInfoBox>
         <ShopTagBox>
           <BrandTag name={shopInfo?.place_name as string} />
@@ -45,7 +46,7 @@ const ShopDetail = ({ shopId, distance }) => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="px-2 border-l border-text-alternative">
+            <div className="border-l border-text-alternative px-2">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}
@@ -121,6 +122,9 @@ const ShopDetail = ({ shopId, distance }) => {
   );
 };
 
+const Map = tw.div`
+h-[270px] w-full pt-[62px]
+`;
 const ShopInfoBox = tw.div`
 flex flex-col px-4 pt-4 pb-2 mb-[52px]
 `;
