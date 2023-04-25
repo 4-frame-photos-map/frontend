@@ -38,7 +38,7 @@ const Edit = () => {
   };
   return (
     <PageLayout className="bg-white">
-      <NavBar title="닉네임 변경" isLeft={true} />
+      <NavBar centerTitle="닉네임 변경" isLeft={true} />
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>
         <EditInputBox>

@@ -33,7 +33,7 @@ const My = () => {
   const { data: user } = useGetProfile();
   return (
     <PageLayout className="bg-white">
-      <NavBar title="마이페이지" isLeft={true} />
+      <NavBar centerTitle="마이페이지" isLeft={true} />
       <GreetingBox>
         <Greeting>
           <span className="font-semibold">{user?.nickname}</span>님 안녕하세요!
