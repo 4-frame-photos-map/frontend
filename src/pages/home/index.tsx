@@ -76,7 +76,7 @@ const Home = () => {
         />
       )}
       <NavBar
-        leftTitle="지도 지역명"
+        leftTitle={shopInfo?.address}
         isRight={true}
         location={curPos}
         setShopsInfo={setShopsInfo}
