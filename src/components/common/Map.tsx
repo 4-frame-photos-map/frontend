@@ -8,10 +8,10 @@ type Position = {
 };
 
 type MapProps = {
-  shopInfo: Shop[] | undefined;
+  shopInfo: ShopProps[] | undefined;
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
-  setModalProps: Dispatch<SetStateAction<Shop | undefined>>;
+  setModalProps: Dispatch<SetStateAction<ShopProps | undefined>>;
   setLocation: Dispatch<SetStateAction<Position>>;
   setMapPos: Dispatch<SetStateAction<Position>>;
   setCurPos: Dispatch<SetStateAction<Position>>;
