@@ -14,7 +14,7 @@ type NavBarProps = {
   shopId?: number;
   isFavorite?: boolean;
   location?: Position;
-  setShopsInfo?: Dispatch<SetStateAction<Shop[] | undefined>>;
+  setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
 };
 
 const NavBar = ({
@@ -58,7 +58,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -78,7 +78,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
