@@ -7,7 +7,7 @@ class ShopApi {
     lng: number,
   ): Promise<Shop[]> => {
     const { data } = await instance.get(
-      `/shops?keyword=${keyword}&latitude=${lat}&longitude=${lng}`,
+      `/shops?keyword=${keyword}&userLat=${lat}&userLng=${lng}`,
     );
     return data;
   };
@@ -15,10 +15,12 @@ class ShopApi {
   getShopsInRad = async (
     lat: number,
     lng: number,
+    mapLat: number,
+    mapLng: number,
     brd?: string,
-  ): Promise<Shop[]> => {
+  ): Promise<ShopInRad> => {
     const { data } = await instance.get(
-      `/shops/brand?latitude=${lat}&longitude=${lng}&brand=${brd}`,
+      `/shops/brand?userLat=${lat}&userLng=${lng}&mapLat=${mapLat}&mapLng=${mapLng}&brand=${brd}`,
     );
     return data;
   };
