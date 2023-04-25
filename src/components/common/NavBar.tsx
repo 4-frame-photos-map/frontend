@@ -58,7 +58,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -78,7 +78,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -123,7 +123,11 @@ const NavBar = ({
             />
           </>
         )}
-        {leftTitle && !isInput && <LeftTitle>{leftTitle}</LeftTitle>}
+        {leftTitle && !isInput ? (
+          <LeftTitle>{leftTitle}</LeftTitle>
+        ) : (
+          <div></div>
+        )}
         {centerTitle && <CenterTitle>{centerTitle}</CenterTitle>}
         {isRight && !isDetail ? (
           isInput ? null : (
@@ -149,7 +153,7 @@ const NavContainer = tw.nav`
 fixed top-0 w-full bg-bg-secondary max-w-[375px] box-border z-[900] h-[68px]`;
 
 const NavItems = tw.div`
-mx-[16px] flex items-center justify-between h-full pt-1
+mx-4 flex items-center justify-between h-full pt-1
 `;
 
 const LeftTitle = tw.span`
