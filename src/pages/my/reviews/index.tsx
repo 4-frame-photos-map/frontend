@@ -17,7 +17,7 @@ const Reviews = () => {
   const { mutate: deleteReview } = useDeleteReview();
   return (
     <PageLayout>
-      <NavBar title="내 후기" isLeft={true} />
+      <NavBar centerTitle="내 후기" isLeft={true} />
       <div className="my-[52px]">
         {reviews?.map((review, idx) => (
           <div key={idx}>
@@ -36,7 +36,7 @@ const Reviews = () => {
             <ContentBox>
               <div>
                 <span className="text-caption1">인생네컷</span>
-                <div className="mb-4 text-title1 font-semibold">브랜드</div>
+                <div className="mb-4 font-semibold text-title1">브랜드</div>
               </div>
               <ReviewItem
                 create_date={review.create_date}
