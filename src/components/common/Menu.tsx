@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import tw from 'tailwind-styled-components';
 
 const Menu = () => {
   const router = useRouter();
   return (
-    <div className="fixed bottom-0 z-[900] w-full max-w-[375px] overflow-hidden border-t-[1px] border-line-normal bg-bg-secondary py-[10px]">
+    <MenuBox>
       <div className="flex h-full items-center justify-center space-x-16 px-[20px] text-[10px]">
         <Link href="/home">
-          <div className="text-center">
+          <MenuItemContainer>
             <Image
               src={
                 router.pathname.includes('/home')
@@ -28,10 +29,10 @@ const Menu = () => {
             >
               홈
             </p>
-          </div>
+          </MenuItemContainer>
         </Link>
         <Link href="/location">
-          <div className="text-center">
+          <MenuItemContainer>
             <Image
               src={
                 router.pathname.includes('/location')
@@ -43,7 +44,7 @@ const Menu = () => {
               alt="location"
             />
             <p
-              className={`whitespace-nowrap text-[10px] font-normal leading-[10px] ${
+              className={`whitespace-nowrap text-center text-[10px] font-normal leading-[10px] ${
                 router.pathname.includes('/location')
                   ? 'text-black'
                   : 'text-text-assitive'
@@ -51,10 +52,10 @@ const Menu = () => {
             >
               내 주변
             </p>
-          </div>
+          </MenuItemContainer>
         </Link>
         <Link href="/wish">
-          <div className="text-center">
+          <MenuItemContainer>
             <Image
               src={
                 router.pathname.includes('/wish')
@@ -74,10 +75,10 @@ const Menu = () => {
             >
               찜 목록
             </p>
-          </div>
+          </MenuItemContainer>
         </Link>
         <Link href="/my">
-          <div className="text-center">
+          <MenuItemContainer>
             <Image
               src={
                 router.pathname.includes('/my')
@@ -97,11 +98,19 @@ const Menu = () => {
             >
               마이
             </p>
-          </div>
+          </MenuItemContainer>
         </Link>
       </div>
-    </div>
+    </MenuBox>
   );
 };
+
+const MenuItemContainer = tw.div`
+flex flex-col items-center gap-y-1
+`;
+
+const MenuBox = tw.div`
+fixed bottom-0 z-[900] w-full max-w-[375px] overflow-hidden border-t-[1px] border-line-normal bg-bg-secondary py-[10px]
+`;
 
 export default Menu;

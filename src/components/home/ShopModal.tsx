@@ -13,7 +13,6 @@ type ShopModalProps = {
   distance: string;
   star_rating_avg: number;
   review_cnt: number;
-  favorite_cnt: number;
   isLogin: boolean;
   setIsModal: Dispatch<SetStateAction<boolean>>;
 };
@@ -24,7 +23,6 @@ const ShopModal = ({
   distance,
   star_rating_avg,
   review_cnt,
-  favorite_cnt,
   isLogin,
   setIsModal,
 }: ShopModalProps) => {
@@ -88,7 +86,7 @@ const ShopModal = ({
             </span>
             <div className="border-l pl-2">
               <span className="pr-1">찜</span>
-              <span className="font-semibold">{favorite_cnt}</span>
+              <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>
           </div>
           <span>{distance}</span>
