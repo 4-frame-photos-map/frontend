@@ -6,8 +6,8 @@ import FavoriteButton from '@components/wish/FavoriteButton';
 import Search from '@components/navbar/Search';
 
 type NavBarProps = {
-  title?: string;
-  area?: string;
+  leftTitle?: string;
+  centerTitle?: string;
   isLeft?: boolean;
   isRight?: boolean;
   isDetail?: boolean;
@@ -18,8 +18,8 @@ type NavBarProps = {
 };
 
 const NavBar = ({
-  title,
-  area,
+  leftTitle,
+  centerTitle,
   isLeft,
   isRight,
   isDetail,
@@ -58,7 +58,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -78,7 +78,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -123,8 +123,8 @@ const NavBar = ({
             />
           </>
         )}
-        {Area && !isInput && <Area>{area}</Area>}
-        {title && <Title>{title}</Title>}
+        {leftTitle && !isInput && <LeftTitle>{leftTitle}</LeftTitle>}
+        {centerTitle && <CenterTitle>{centerTitle}</CenterTitle>}
         {isRight && !isDetail ? (
           isInput ? null : (
             <Image
@@ -152,12 +152,12 @@ const NavItems = tw.div`
 mx-[16px] flex items-center justify-between h-full pt-1
 `;
 
-const Area = tw.span`
-text-[18px] font-semibold
+const LeftTitle = tw.span`
+text-title2 font-semibold
 `;
 
-const Title = tw.span`
-absolute inset-x-0 mx-0 my-auto text-center text-[18px] font-semibold
+const CenterTitle = tw.span`
+absolute inset-x-0 mx-0 my-auto text-center text-title2 font-semibold
 `;
 
 export default NavBar;

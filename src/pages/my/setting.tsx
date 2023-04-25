@@ -50,7 +50,7 @@ const Setting = () => {
         leftEvent={() => setIsWithdrawModal(false)}
         rightEvent={handleWithdraw}
       />
-      <NavBar title="설정" isLeft={true} />
+      <NavBar centerTitle="설정" isLeft={true} />
       <ListsContainer>
         {SettingLists.map(({ id, text, path }) => (
           <SettingList key={id} text={text} path={path} />
