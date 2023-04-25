@@ -15,23 +15,19 @@ export const useGetShopDetail = (shopId: number, distance: string) => {
   );
 };
 
-export const useGetShopsInRad = (lat: number, lng: number, brd?: string) => {
-  return useQuery<Shop[], Error>(
-    ['useGetShopsInRad', brd, lat, lng],
-    () => shopApi.getShopsInRad(lat, lng, brd),
+export const useGetShopsInRad = (
+  lat: number,
+  lng: number,
+  mapLat: number,
+  mapLng: number,
+  brd?: string,
+) => {
+  return useQuery<ShopInRad, Error>(
+    ['useGetShopsInRad', brd, mapLat, mapLng],
+    () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd),
     {
       refetchOnWindowFocus: false,
       enabled: !!lat,
-      select: (shops) => {
-        if (brd) {
-          const selected = shops.filter((shops) =>
-            shops.place_name.includes(brd),
-          );
-          return selected;
-        } else {
-          return shops;
-        }
-      },
     },
   );
 };

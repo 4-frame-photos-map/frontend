@@ -1,10 +1,13 @@
 type Shop = ShopProps & {
-  favorite_cnt: number;
-  brand: BrandProps[];
+  place_address: string;
+};
+
+type ShopInRad = ShopProps & {
+  address: string;
+  shops: ShopProps[];
 };
 
 type ShopDetail = ShopProps & {
-  road_address_name: string;
   recent_reviews: ShopReviewProps[];
 };
 
@@ -18,8 +21,8 @@ type ShopProps = {
   star_rating_avg: number;
   review_cnt: number;
   favorite_cnt: number;
+  brand?: BrandProps;
   favorite: boolean;
-  road_address_name?: string;
 };
 
 type ShopReviewProps = {
