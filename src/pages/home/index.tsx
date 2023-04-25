@@ -14,8 +14,8 @@ const Home = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [brd, setBrd] = useState<string>('');
-  const [modalProps, setModalProps] = useState<Shop>();
-  const [shopsInfo, setShopsInfo] = useState<Shop[]>();
+  const [modalProps, setModalProps] = useState<ShopProps>();
+  const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
   const [curPos, setCurPos] = useState<Position>({
     lat: 0,
@@ -30,7 +30,13 @@ const Home = () => {
     lng: 0,
   });
 
-  const { data: shopInfo } = useGetShopsInRad(location.lat, location.lng, brd);
+  const { data: shopInfo } = useGetShopsInRad(
+    curPos.lat,
+    curPos.lng,
+    location.lat,
+    location.lng,
+    brd,
+  );
 
   useEffect(() => {
     if (getToken().accessToken) {
@@ -39,7 +45,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setShopsInfo(shopInfo);
+    setShopsInfo(shopInfo?.shops);
   }, [shopInfo]);
 
   const handleTracker = () => {
@@ -56,7 +62,7 @@ const Home = () => {
     const { Ma, La } = kakaoMap.getCenter();
     setLocation({ lat: Ma, lng: La });
   };
-
+  console.log(location);
   return (
     <PageLayout>
       {isModal && (
