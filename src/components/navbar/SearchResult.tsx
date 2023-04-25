@@ -13,7 +13,7 @@ const SearchResult = ({
   id,
   place_name,
   distance,
-  road_address_name,
+  place_address,
 }: SearchProps) => {
   const router = useRouter();
   const parts = place_name.split(value);
@@ -61,7 +61,7 @@ const SearchResult = ({
               )}
             </div>
             <span className="text-caption1 text-text-alternative">
-              {road_address_name}
+              {place_address}
             </span>
           </div>
         </div>
