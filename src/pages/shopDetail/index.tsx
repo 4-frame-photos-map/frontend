@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { QueryClient, dehydrate } from 'react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -14,20 +14,58 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
+import { CONFIG } from '@config';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
 
   const { data: shopInfo } = useGetShopDetail(shopId, distance);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
+  const handleShareButton = (
+    place_name: string,
+    favorite_cnt: number,
+    review_cnt: number,
+    shopId: number,
+    distance: string,
+  ) => {
+    const { Kakao } = window;
+    if (isLoaded && Kakao) {
+      Kakao.Share.sendDefault({
+        objectType: 'location',
+        address: place_name,
+        addressTitle: place_name,
+        content: {
+          title: place_name,
+          imageUrl: '',
+          link: {
+            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&distance=${distance}`,
+            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&distance=${distance}`,
+          },
+        },
+        social: {
+          likeCount: favorite_cnt,
+          commentCount: review_cnt,
+        },
+        buttonTitle: '네컷지도에서 보기',
+      });
+    }
+  };
+
   console.log(shopInfo);
   return (
     <ShopLayout className="bg-white pt-[62px]">
-      {shopInfo && <Scripts shopInfo={shopInfo} mapContainer={mapContainer} />}
+      {shopInfo && (
+        <Scripts
+          shopInfo={shopInfo}
+          mapContainer={mapContainer}
+          setIsLoaded={setIsLoaded}
+        />
+      )}
       <Map ref={mapContainer}></Map>
       <NavBar
         isLeft={true}
@@ -66,7 +104,19 @@ const ShopDetail = ({ shopId, distance }) => {
             <Image src={'/svg/map.svg'} width={18} height={18} alt="지도" />
             <div className="pl-[2px]">카카오맵 보러가기</div>
           </ShopEvent>
-          <ShopEvent>
+          <ShopEvent
+            onClick={() => {
+              if (shopInfo) {
+                handleShareButton(
+                  shopInfo?.place_name,
+                  shopInfo?.favorite_cnt,
+                  shopInfo?.review_cnt,
+                  shopId,
+                  distance,
+                );
+              }
+            }}
+          >
             <Image src={'/svg/share.svg'} width={18} height={18} alt="공유" />
             <div className="pl-[2px]">공유하기</div>
           </ShopEvent>
