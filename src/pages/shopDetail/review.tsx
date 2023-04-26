@@ -4,52 +4,43 @@ import ShopLayout from '@components/layout/ShopLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@components/common/Button';
 import usePostReview from '@hooks/mutations/usePostReview';
 
 type ReviewForm = {
+  star_rating?: number;
   content?: string;
   purity?: string;
   retouch?: string;
   item?: string;
 };
+
 const STAR = [0, 1, 2, 3, 4];
 
 const Review = () => {
   const router = useRouter();
   const shopId = Number(router.query.shopId);
   const { mutate } = usePostReview();
-  const [rate, setRate] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
 
   const { register, handleSubmit, watch, setValue } = useForm<ReviewForm>();
 
+  const watchStar = watch('star_rating');
   const watchContent = watch('content');
   const watchItem = watch('item');
   const watchPurity = watch('purity');
   const watchRetouch = watch('retouch');
 
   const handleStarClick = (index: number) => {
-    const clickStates = [...rate];
-    for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setRate(clickStates);
+    setValue('star_rating', index + 1);
   };
 
   const onSubmit = (form) => {
-    const { content, item, purity, retouch } = form;
+    const { content, item, purity, retouch, star_rating } = form;
     const reviewInfo = [
       shopId,
       {
-        star_rating: rate.filter(Boolean).length,
+        star_rating,
         content,
         item,
         purity,
@@ -57,7 +48,6 @@ const Review = () => {
       },
     ];
     mutate(reviewInfo);
-    console.log(form);
   };
 
   return (
@@ -75,7 +65,9 @@ const Review = () => {
             <div key={ele} onClick={() => handleStarClick(ele)}>
               <Image
                 src={
-                  rate[ele] ? '/svg/checked_star.svg' : '/svg/blank_star.svg'
+                  (watch('star_rating') as number) > ele
+                    ? '/svg/checked_star.svg'
+                    : '/svg/blank_star.svg'
                 }
                 width={40}
                 height={40}
@@ -129,7 +121,7 @@ const Review = () => {
           router.back();
         }}
         handleRightButton={handleSubmit(onSubmit)}
-        disabled={!rate.filter(Boolean).length || !watchContent}
+        disabled={!watchStar || !watchContent}
       />
     </ShopLayout>
   );

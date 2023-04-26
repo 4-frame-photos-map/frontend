@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type ReviewForm = {
+  star_rating?: number;
   content?: string;
   purity?: string;
   retouch?: string;
@@ -23,25 +24,18 @@ const Edit = () => {
   const reviewId = Number(router.query.reviewId);
   const { data: review } = useGetUserReview(reviewId);
   const { mutate: patchReview } = usePatchReview();
-  const [rate, setRate] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
   const [isEditStar, setIsEditStar] = useState<boolean>(false);
   const [isItemSet, setIsItemSet] = useState<boolean>(true);
   const [isPuritySet, setIsPuritySet] = useState<boolean>(true);
   const [isRetouchSet, setIsRetouchSet] = useState<boolean>(true);
-  const { register, handleSubmit, watch, setValue } = useForm<ReviewForm>();
+  const { register, handleSubmit, watch, setValue, reset } =
+    useForm<ReviewForm>();
 
   useEffect(() => {
-    setValue('content', review?.content);
-    setValue('item', review?.item);
-    setValue('purity', review?.purity);
-    setValue('retouch', review?.retouch);
-  }, [review]);
+    if (review) {
+      reset(review.review_info);
+    }
+  }, [review, reset, setValue]);
 
   const watchContent = watch('content');
   const watchItem = watch('item');
@@ -52,19 +46,15 @@ const Edit = () => {
     if (!isEditStar) {
       setIsEditStar(true);
     }
-    const clickStates = [...rate];
-    for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setRate(clickStates);
+    setValue('star_rating', index + 1);
   };
 
   const onSubmit = (form) => {
-    const { content, item, purity, retouch } = form;
+    const { content, item, purity, retouch, star_rating } = form;
     const reviewInfo = [
       reviewId,
       {
-        star_rating: rate.filter(Boolean).length,
+        star_rating,
         content,
         item,
         purity,
@@ -90,7 +80,7 @@ const Edit = () => {
                 <div key={ele} onClick={() => handleStarClick(ele)}>
                   <Image
                     src={
-                      rate[ele]
+                      (watch('star_rating') as number) > ele
                         ? '/svg/checked_star.svg'
                         : '/svg/blank_star.svg'
                     }
@@ -101,11 +91,11 @@ const Edit = () => {
                 </div>
               ))
             : review &&
-              rate.fill(true, 0, review?.star_rating).map((_, idx) => (
+              Array.from({ length: 5 }, (_, index) => index).map((_, idx) => (
                 <div key={idx} onClick={() => handleStarClick(idx)}>
                   <Image
                     src={
-                      rate[idx]
+                      (watch('star_rating') as number) > idx
                         ? '/svg/default_star.svg'
                         : '/svg/blank_star.svg'
                     }
@@ -156,7 +146,7 @@ const Edit = () => {
           placeholder="리뷰를 남겨주세요! (100자 이내)"
           register={register('content')}
           className={
-            watchContent && watchContent !== review?.content
+            watchContent && watchContent !== review?.review_info.content
               ? 'border-primary-pressed'
               : 'border-text-assitive text-text-assitive'
           }
@@ -169,7 +159,6 @@ const Edit = () => {
           router.push('/my/reviews');
         }}
         handleRightButton={handleSubmit(onSubmit)}
-        disabled={!rate.filter(Boolean).length || !watchContent}
       />
     </ShopLayout>
   );
