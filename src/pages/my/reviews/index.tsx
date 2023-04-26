@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
+import BrandTag from '@components/common/BrandTag';
 
 const Reviews = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const Reviews = () => {
     <PageLayout>
       <NavBar centerTitle="내 후기" isLeft={true} />
       <div className="my-[52px]">
-        {reviews?.map((review, idx) => (
+        {reviews?.map(({ review_info, shop_info }, idx) => (
           <div key={idx}>
             <Modal
               isModal={isModal}
@@ -35,22 +36,25 @@ const Reviews = () => {
             />
             <ContentBox>
               <div>
-                <span className="text-caption1">인생네컷</span>
-                <div className="mb-4 font-semibold text-title1">브랜드</div>
+                <span className="text-caption1">
+                  <BrandTag name={shop_info?.brand} />
+                </span>
+                <div className="mb-4 text-title1 font-semibold">
+                  {shop_info.place_name}
+                </div>
               </div>
               <ReviewItem
-                create_date={review.create_date}
-                star_rating={review.star_rating}
-                content={review.content}
-                purity={review.purity}
-                retouch={review.retouch}
-                item={review.item}
-                member_info={review.member_info}
+                create_date={review_info.create_date}
+                star_rating={review_info.star_rating}
+                content={review_info.content}
+                purity={review_info.purity}
+                retouch={review_info.retouch}
+                item={review_info.item}
               />
               <BtnContainer>
                 <BtnBox
                   onClick={() =>
-                    router.push(`/my/reviews/edit?reviewId=${review.id}`)
+                    router.push(`/my/reviews/edit?reviewId=${review_info.id}`)
                   }
                 >
                   <Image src={'/svg/pen.svg'} width={18} height={18} alt="펜" />
@@ -58,7 +62,7 @@ const Reviews = () => {
                 </BtnBox>
                 <BtnBox
                   onClick={() => {
-                    setReviewId(review.id);
+                    setReviewId(review_info.id);
                     setIsModal(true);
                   }}
                 >
