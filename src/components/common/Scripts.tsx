@@ -1,7 +1,6 @@
 import Script from 'next/script';
 import { CONFIG } from '@config';
 import { Dispatch, RefObject, SetStateAction } from 'react';
-import { getSelectedImg } from '@utils/getImgSrc';
 
 type ScriptsProps = {
   shopInfo: ShopDetail;
@@ -25,7 +24,7 @@ const Scripts = ({ shopInfo, mapContainer, setIsLoaded }: ScriptsProps) => {
               level: 2,
             };
             const map = new kakao.maps.Map(mapContainer.current, options);
-            const imageSrc = getSelectedImg(shopInfo?.place_name);
+            const imageSrc = '/svg/marker_select.svg';
             const imageSize = new kakao.maps.Size(32, 32);
             const imageOption = { offset: new kakao.maps.Point(20, 20) };
             const markerImage = new kakao.maps.MarkerImage(
@@ -47,7 +46,7 @@ const Scripts = ({ shopInfo, mapContainer, setIsLoaded }: ScriptsProps) => {
       />
       <Script
         src={`https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js`}
-        onLoad={() => {
+        onReady={() => {
           setIsLoaded(true);
           if (!window.Kakao.isInitialized()) {
             window.Kakao.init(CONFIG.API_KEYS.MAP);
