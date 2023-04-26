@@ -11,6 +11,7 @@ import Modal from '@components/common/Modal';
 declare global {
   interface Window {
     kakao: any;
+    Kakao: any;
   }
 }
 
