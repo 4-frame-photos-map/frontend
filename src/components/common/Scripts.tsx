@@ -1,14 +1,15 @@
 import Script from 'next/script';
 import { CONFIG } from '@config';
-import { RefObject } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { getSelectedImg } from '@utils/getImgSrc';
 
 type ScriptsProps = {
   shopInfo: ShopDetail;
   mapContainer: RefObject<HTMLDivElement>;
+  setIsLoaded: Dispatch<SetStateAction<boolean>>;
 };
 
-const Scripts = ({ shopInfo, mapContainer }: ScriptsProps) => {
+const Scripts = ({ shopInfo, mapContainer, setIsLoaded }: ScriptsProps) => {
   return (
     <>
       <Script
@@ -42,6 +43,15 @@ const Scripts = ({ shopInfo, mapContainer }: ScriptsProps) => {
             });
             marker.setMap(map);
           });
+        }}
+      />
+      <Script
+        src={`https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js`}
+        onLoad={() => {
+          setIsLoaded(true);
+          if (!window.Kakao.isInitialized()) {
+            window.Kakao.init(CONFIG.API_KEYS.MAP);
+          }
         }}
       />
     </>
