@@ -8,7 +8,7 @@ type ShopInRad = ShopProps & {
 };
 
 type ShopDetail = ShopProps & {
-  recent_reviews: ShopReviewProps[];
+  recent_reviews: Review[];
 };
 
 type ShopProps = {
