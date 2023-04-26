@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
-import { getSelectedImg, getDefaultImg } from '@utils/getImgSrc';
 import { CONFIG } from '@config';
 
 type Position = {
@@ -96,8 +95,8 @@ const Map = ({
             Number(shop.latitude),
             Number(shop.longitude),
           );
-          const normalImageSrc = getDefaultImg(shop.place_name);
-          const clickImageSrc = getSelectedImg(shop.place_name);
+          const normalImageSrc = '/svg/marker.svg';
+          const clickImageSrc = '/svg/marker_select.svg';
           const normalImage = new kakao.maps.MarkerImage(
             normalImageSrc,
             imageSize,
@@ -119,11 +118,6 @@ const Map = ({
             kakaoMap.panTo(position);
             if (!!selectedMarker || selectedMarker !== marker) {
               if (selectedMarker) {
-                const normalImage = new kakao.maps.MarkerImage(
-                  selectedMarker.T.Yj.replace('_select', ''),
-                  imageSize,
-                  imageOption,
-                );
                 selectedMarker && selectedMarker.setImage(normalImage);
               }
               marker.setImage(clickImage);
