@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { QueryClient, dehydrate } from 'react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -14,7 +14,6 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
-import { CONFIG } from '@config';
 
 const ShopDetail = ({ shopId, distance }) => {
   const router = useRouter();
