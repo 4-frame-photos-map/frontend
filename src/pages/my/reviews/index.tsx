@@ -18,22 +18,26 @@ const Reviews = () => {
   const { mutate: deleteReview } = useDeleteReview();
   return (
     <PageLayout>
+      {isModal && (
+        <ModalLayout>
+          <Modal
+            isModal={isModal}
+            title="리뷰 삭제"
+            message="리뷰 작성 내역을 삭제하시나요?"
+            left="아니요"
+            right="네"
+            leftEvent={() => setIsModal(false)}
+            rightEvent={() => {
+              deleteReview(reviewId as number);
+              setIsModal(false);
+            }}
+          />
+        </ModalLayout>
+      )}
       <NavBar centerTitle="내 후기" isLeft={true} />
       <div className="my-[52px]">
         {reviews?.map(({ review_info, shop_info }, idx) => (
           <div key={idx}>
-            <Modal
-              isModal={isModal}
-              title="리뷰 삭제"
-              message="리뷰 작성 내역을 삭제하시나요?"
-              left="아니요"
-              right="네"
-              leftEvent={() => setIsModal(false)}
-              rightEvent={() => {
-                deleteReview(reviewId as number);
-                setIsModal(false);
-              }}
-            />
             <ContentBox>
               <div>
                 <span className="text-caption1">
@@ -91,6 +95,9 @@ flex gap-2 pb-4 text-primary-normal
 `;
 const BtnBox = tw.div`
 flex justify-center rounded-[100px] border border-primary-normal py-2 px-4 cursor-pointer
+`;
+const ModalLayout = tw.div`
+absolute top-0 left-0 w-full h-full
 `;
 
 export default Reviews;
