@@ -1,23 +1,33 @@
-type Review = ReviewInfo & {
-  id: number;
-  create_date: number[];
-  modify_date: number[];
-  member_info: {
+type Review = {
+  review_info: {
     id: number;
-    nickname: string;
+    create_date: number[];
+    modify_date: number[];
+    star_rating: number;
+    content: string;
+    purity?: string;
+    retouch?: string;
+    item?: string;
   };
-  shop_info: {
-    id: number;
-    brand: string;
-    place_name: string;
-    road_address_name: string;
-  };
+  member_info: member_info;
+  shop_info: shop_info;
 };
 
-type ReviewInfo = {
+type ReviewInfoProps = {
   star_rating: number;
   content: string;
   purity?: string;
   retouch?: string;
   item?: string;
+};
+
+type member_info = {
+  id: number;
+  nickname: string;
+};
+
+type shop_info = {
+  id: number;
+  brand: string;
+  place_name: string;
 };

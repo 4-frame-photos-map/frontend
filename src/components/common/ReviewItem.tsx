@@ -10,7 +10,7 @@ type ReviewItemProps = {
   purity?: string;
   retouch?: string;
   item?: string;
-  member_info: {
+  member_info?: {
     id: number;
     nickname: string;
   };
@@ -31,7 +31,9 @@ const ReviewItem = ({
         <ReviewInfo>
           <div className="flex items-center">
             <StarRate rate={star_rating} />
-            <div className="pl-[6px]">{member_info.nickname}</div>
+            {member_info && (
+              <div className="pl-[6px]">{member_info.nickname}</div>
+            )}
           </div>
           <div>{dateFormat(create_date)}</div>
         </ReviewInfo>

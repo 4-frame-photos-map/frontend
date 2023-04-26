@@ -1,11 +1,10 @@
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { QueryClient, dehydrate } from 'react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
-import { CONFIG } from '@config';
 import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
@@ -25,6 +24,7 @@ const ShopDetail = ({ shopId, distance }) => {
   const { data: shopInfo } = useGetShopDetail(shopId, distance);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
+  console.log(shopInfo);
   return (
     <ShopLayout className="bg-white pt-[62px]">
       {shopInfo && <Scripts shopInfo={shopInfo} mapContainer={mapContainer} />}
@@ -78,28 +78,28 @@ const ShopDetail = ({ shopId, distance }) => {
           )}
         </ReviewInfoBox>
         {!reviewLoaded
-          ? shopInfo?.recent_reviews.map((review) => (
+          ? shopInfo?.recent_reviews.map(({ review_info, member_info }) => (
               <ReviewItem
-                key={review.id}
-                create_date={review.create_date}
-                star_rating={review.star_rating}
-                content={review.content}
-                purity={review.purity}
-                retouch={review.retouch}
-                item={review.item}
-                member_info={review.member_info}
+                key={review_info.id}
+                create_date={review_info.create_date}
+                star_rating={review_info.star_rating}
+                content={review_info.content}
+                purity={review_info.purity}
+                retouch={review_info.retouch}
+                item={review_info.item}
+                member_info={member_info as member_info}
               />
             ))
-          : additionalReview?.map((review) => (
+          : additionalReview?.map(({ review_info, member_info }) => (
               <ReviewItem
-                key={review.id}
-                create_date={review.create_date}
-                star_rating={review.star_rating}
-                content={review.content}
-                purity={review.purity}
-                retouch={review.retouch}
-                item={review.item}
-                member_info={review.member_info}
+                key={review_info.id}
+                create_date={review_info.create_date}
+                star_rating={review_info.star_rating}
+                content={review_info.content}
+                purity={review_info.purity}
+                retouch={review_info.retouch}
+                item={review_info.item}
+                member_info={member_info as member_info}
               />
             ))}
         {!reviewLoaded && (shopInfo?.review_cnt as number) > 3 && (

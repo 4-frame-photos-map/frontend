@@ -3,35 +3,32 @@ import instance from '@apis/instance';
 class ReviewApi {
   getReview = async (reviewId: number): Promise<Review> => {
     const { data } = await instance.get(`/reviews/${reviewId}`);
-    return data.result;
+    return data;
   };
 
   getAllShopReviews = async (shopId: number): Promise<Review[]> => {
     const { data } = await instance.get(`/reviews/shop/${shopId}`);
-    return data.result;
+    return data;
   };
 
   getAllUserReviews = async (): Promise<Review[]> => {
     const { data } = await instance.get(`/reviews/member`);
-    return data.result;
+    return data;
   };
 
-  postReview = async (shopId: number, info: ReviewInfo): Promise<TResponse> => {
-    const { data } = await instance.post(`/reviews/shop/${shopId}`, info);
-    return data;
+  postReview = async (shopId: number, info: ReviewInfoProps): Promise<void> => {
+    return await instance.post(`/reviews/shop/${shopId}`, info);
   };
 
   patchReview = async (
     reviewId: number,
-    info: ReviewInfo,
-  ): Promise<TResponse> => {
-    const { data } = await instance.patch(`/reviews/${reviewId}`, info);
-    return data;
+    info: ReviewInfoProps,
+  ): Promise<void> => {
+    return await instance.patch(`/reviews/${reviewId}`, info);
   };
 
-  deleteReview = async (reviewId: number): Promise<TResponse> => {
-    const { data } = await instance.delete(`/reviews/${reviewId}`);
-    return data;
+  deleteReview = async (reviewId: number): Promise<void> => {
+    return await instance.delete(`/reviews/${reviewId}`);
   };
 }
 
