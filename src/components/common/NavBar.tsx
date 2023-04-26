@@ -58,7 +58,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -78,7 +78,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -123,7 +123,10 @@ const NavBar = ({
             />
           </>
         )}
-        {leftTitle && !isInput ? (
+        {leftTitle &&
+        !isInput &&
+        location?.lat !== 33.450701 &&
+        location?.lng !== 126.570667 ? (
           <LeftTitle>{leftTitle}</LeftTitle>
         ) : (
           <div></div>
