@@ -102,7 +102,7 @@ const Search = ({
       {isTyping && !isMap && (
         <SearchContainer>
           <div
-            className="flex cursor-pointer items-center px-4 pt-5"
+            className="flex items-center px-4 pt-5 cursor-pointer"
             onClick={handleSearchClick}
           >
             <Image
@@ -111,7 +111,7 @@ const Search = ({
               height={28}
               alt="search"
             />
-            <span className="pl-3 text-body1 text-status-error">{value}</span>
+            <span className="pl-4 text-body1 text-status-error">{value}</span>
           </div>
           {shops?.map((search, idx) => (
             <SearchResult
