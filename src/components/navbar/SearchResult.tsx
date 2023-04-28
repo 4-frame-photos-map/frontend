@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
+import TextHighlighted from '@components/navbar/TextHighlighted';
 
 type SearchProps = Shop & {
   value: string;
@@ -16,9 +17,9 @@ const SearchResult = ({
   place_address,
 }: SearchProps) => {
   const router = useRouter();
-  const parts = place_name.split(value);
+  const [initial, ...rest] = place_name.split(value);
   return isTyping ? (
-    <li className="cursor-pointer bg-white px-3 first:pt-5">
+    <li className="px-3 bg-white cursor-pointer first:pt-5">
       <DivisionBar />
       {
         <div
@@ -36,29 +37,9 @@ const SearchResult = ({
             />
             <span className="text-caption2 text-line-disable">{distance}</span>
           </div>
-          <div className="ml-4 flex flex-col">
+          <div className="flex flex-col ml-4">
             <div className="flex">
-              {parts.length > 1 ? (
-                parts[0] !== parts[0]?.trim() ? (
-                  <>
-                    <span className="text-label1 text-black">{parts[0]}</span>
-                    <span className="text-label1 text-status-error">
-                      &nbsp;{value}
-                    </span>
-                    <span className="text-label1 text-black">{parts[1]}</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-label1 text-black">{parts[0]}</span>
-                    <span className="text-label1 text-status-error">
-                      {value}
-                    </span>
-                    <span className="text-label1 text-black">{parts[1]}</span>
-                  </>
-                )
-              ) : (
-                place_name
-              )}
+              <TextHighlighted value={value} initial={initial} rest={rest} />
             </div>
             <span className="text-caption1 text-text-alternative">
               {place_address}
