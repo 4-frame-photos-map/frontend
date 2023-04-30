@@ -23,7 +23,7 @@ export const useGetShopsInRad = (
   brd?: string,
 ) => {
   return useQuery<ShopInRad, Error>(
-    ['useGetShopsInRad', brd, mapLat, mapLng],
+    ['useGetShopsInRad', mapLat, mapLng],
     () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd),
     {
       refetchOnWindowFocus: false,
