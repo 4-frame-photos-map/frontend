@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import styles from '@styles/swiper.module.css';
 
 type CategoriesProps = {
   id: number;
@@ -12,6 +11,7 @@ type CategoriesProps = {
 
 type CategoryData = {
   setBrd: Dispatch<SetStateAction<string>>;
+  className?: React.ComponentProps<'div'>['className'];
 };
 
 const Categories: CategoriesProps[] = [
@@ -22,7 +22,7 @@ const Categories: CategoriesProps[] = [
   { id: 5, name: '포토그레이', state: '포토그레이' },
 ];
 
-const Category = ({ setBrd }: CategoryData) => {
+const Category = ({ setBrd, ...rest }: CategoryData) => {
   const [categoryId, setCategoryId] = useState<number>(1);
   const [swiper, setSwiper] = useState<any>(null);
 
@@ -38,12 +38,12 @@ const Category = ({ setBrd }: CategoryData) => {
   };
 
   return (
-    <CategoryBar>
+    <CategoryBar {...rest}>
       <ItemsWrapper>
         <Swiper
           scrollbar={{ draggable: true }}
           slidesPerView={4}
-          spaceBetween={16}
+          spaceBetween={12}
           onSwiper={handleSwiper}
         >
           {Categories.map(({ id, name, state }) => (
@@ -73,7 +73,7 @@ mt-[68px] overflow-x-hidden fixed max-w-[375px] relative
 `;
 
 const ItemsWrapper = tw.ul`
-flex items-center pl-[16px] my-[8px] 
+flex items-center pl-[16px] my-[8px]
 `;
 
 const Item = tw.li`
