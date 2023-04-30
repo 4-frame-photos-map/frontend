@@ -33,9 +33,11 @@ instance.interceptors.response.use(
     const { data } = response;
     const UnAuthorizeError = data.error_code === '100';
     const InvalidTokenError = data.error_code === '101';
-    const ExpiredTokenError = data.error_code === '102';
-    const RefreshTokenError = data.error_code === '103';
-    if (UnAuthorizeError) {
+    const ExpiredAccessTokenError = data.error_code === '102';
+    const ExpiredRefreshTokenError = data.error_code === '103';
+    const RefreshTokenError = data.error_code === '104';
+
+    if (ExpiredRefreshTokenError || RefreshTokenError) {
       alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
       if (CONFIG.ENV === 'development') {
         window.location.href = `${CONFIG.LOCAL}/auth/login`;
@@ -43,7 +45,7 @@ instance.interceptors.response.use(
         window.location.href = `${CONFIG.DOMAIN}/auth/login`;
       }
     }
-    if (InvalidTokenError || RefreshTokenError) {
+    if (UnAuthorizeError || InvalidTokenError) {
       alert('유효하지 않은 토큰입니다. 다시 로그인해 주시기 바랍니다.');
       if (CONFIG.ENV === 'development') {
         window.location.href = `${CONFIG.LOCAL}/auth/login`;
@@ -51,7 +53,7 @@ instance.interceptors.response.use(
         window.location.href = `${CONFIG.DOMAIN}/auth/login`;
       }
     }
-    if (ExpiredTokenError) {
+    if (ExpiredAccessTokenError) {
       const accessToken = await ReissueToken();
       setToken({
         accessToken,
