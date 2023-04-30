@@ -55,8 +55,6 @@ const Location = () => {
     }
   }, []);
 
-  console.log(shopsInfo);
-
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
