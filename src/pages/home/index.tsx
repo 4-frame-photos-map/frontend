@@ -45,8 +45,15 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setShopsInfo(shopInfo?.shops);
-  }, [shopInfo]);
+    if (brd) {
+      const brdShops = shopInfo?.shops.filter(
+        (shop) => shop.brand?.brand_name === brd,
+      );
+      setShopsInfo(brdShops);
+    } else {
+      setShopsInfo(shopInfo?.shops);
+    }
+  }, [shopInfo, brd]);
 
   const handleTracker = () => {
     const { kakao } = window;
