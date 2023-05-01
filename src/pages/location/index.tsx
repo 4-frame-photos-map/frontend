@@ -97,8 +97,9 @@ const Location = () => {
           <Bar />
           <Category setBrd={setBrd} className="mt-8" />
           {shopsInfo?.length === 0 && (
-            <div className="flex h-[250px] items-center justify-center px-4">
-              반경 5km 이내 포토부스가 존재하지 않습니다.
+            <div className="flex h-[250px] items-center justify-center px-4 text-center text-text-alternative">
+              반경 5km 이내 포토부스가 <br />
+              존재하지 않습니다.
             </div>
           )}
           <ResultItemBox>

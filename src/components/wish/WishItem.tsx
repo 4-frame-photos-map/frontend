@@ -48,7 +48,6 @@ const WishItem = ({ shop }: Favorite) => {
               className="z-[900] cursor-pointer"
               onClick={() => {
                 setIsModal(true);
-                setToast(true);
               }}
             />
           ) : (
@@ -90,6 +89,7 @@ const WishItem = ({ shop }: Favorite) => {
             rightEvent={() => {
               handleDeleteFavorite(shop.id);
               setIsModal(false);
+              setToast(true);
             }}
           />
         </ModalLayout>
