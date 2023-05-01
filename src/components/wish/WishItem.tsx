@@ -26,7 +26,7 @@ const WishItem = ({ shop }: Favorite) => {
 
   return (
     <>
-      <li className="w-full bg-white px-6 py-5">
+      <li className="w-full px-6 py-5 bg-white">
         <BrandTag name={shop.place_name} />
         <div className="flex justify-between pt-1 pb-2">
           <span
@@ -48,7 +48,6 @@ const WishItem = ({ shop }: Favorite) => {
               className="z-[900] cursor-pointer"
               onClick={() => {
                 setIsModal(true);
-                setToast(true);
               }}
             />
           ) : (
@@ -68,7 +67,7 @@ const WishItem = ({ shop }: Favorite) => {
             <span className="text-caption1">
               {shop.star_rating_avg.toFixed(1)} ({shop.review_cnt}) | 찜{' '}
             </span>
-            <span className="text-caption1 font-semibold">
+            <span className="font-semibold text-caption1">
               {shop.favorite_cnt}
             </span>
           </div>
@@ -90,6 +89,7 @@ const WishItem = ({ shop }: Favorite) => {
             rightEvent={() => {
               handleDeleteFavorite(shop.id);
               setIsModal(false);
+              setToast(true);
             }}
           />
         </ModalLayout>
