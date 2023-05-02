@@ -11,7 +11,6 @@ import tw from 'tailwind-styled-components';
 const WishItem = ({ shop }: Favorite) => {
   const router = useRouter();
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
   const { mutate: del, isSuccess, isError } = useDeleteFavorite('/wish');
   const { mutate: add } = usePostFavorite();
@@ -26,7 +25,7 @@ const WishItem = ({ shop }: Favorite) => {
 
   return (
     <>
-      <li className="w-full bg-white px-6 py-5">
+      <li className="w-full px-6 py-5 bg-white">
         <BrandTag name={shop.place_name} />
         <div className="flex justify-between pt-1 pb-2">
           <span
@@ -67,7 +66,7 @@ const WishItem = ({ shop }: Favorite) => {
             <span className="text-caption1">
               {shop.star_rating_avg.toFixed(1)} ({shop.review_cnt}) | 찜{' '}
             </span>
-            <span className="text-caption1 font-semibold">
+            <span className="font-semibold text-caption1">
               {shop.favorite_cnt}
             </span>
           </div>
@@ -94,18 +93,7 @@ const WishItem = ({ shop }: Favorite) => {
           />
         </ModalLayout>
       )}
-      {isLogin && (
-        <ModalLayout>
-          <Modal
-            isModal={true}
-            isKakao={true}
-            title="로그인 상태가 아니에요!"
-            message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
-            left="아니요"
-            leftEvent={() => setIsLogin(false)}
-          />
-        </ModalLayout>
-      )}
+
       {toast && isSuccess && (
         <div className="fixed bottom-0 z-[900] min-w-[375px] pb-[71px]">
           <ToastMessage

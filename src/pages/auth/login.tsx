@@ -1,4 +1,5 @@
 import Modal from '@components/common/Modal';
+import SplashLogin from '@components/common/SplashLogin';
 import AuthLayout from '@components/layout/AuthLayout';
 import { CONFIG } from '@config';
 import { deleteToken } from '@utils/token';
@@ -10,6 +11,7 @@ import { useEffect, useState } from 'react';
 const Login = () => {
   const router = useRouter();
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const leftEvent = () => {
     router.push(
@@ -24,10 +26,20 @@ const Login = () => {
   useEffect(() => {
     deleteToken();
   }, []);
-  return (
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return loading ? (
+    <AuthLayout>
+      <SplashLogin />
+    </AuthLayout>
+  ) : (
     <AuthLayout>
       <Image
-        src="/svg/login-logo.svg"
+        src="/svg/login/login-logo.svg"
         alt="logo"
         width={183}
         height={48}
@@ -57,7 +69,7 @@ const Login = () => {
         </p>
       </div>
       {isModal && (
-        <div className="absolute top-0 left-0 h-full w-full">
+        <div className="absolute top-0 left-0 w-full h-full">
           <Modal
             isModal={isModal}
             isKakao={false}
