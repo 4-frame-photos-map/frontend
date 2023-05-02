@@ -1,8 +1,10 @@
 import authApi from '@apis/auth/authApi';
-import PageLayout from '@components/layout/PageLayout';
+import AuthLayout from '@components/layout/AuthLayout';
 import { setToken } from '@utils/token';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import tw from 'tailwind-styled-components';
 
 const Kakao = () => {
   const router = useRouter();
@@ -31,7 +33,33 @@ const Kakao = () => {
       login();
     }
   }, [isLogin]);
-  return <PageLayout>Kakao</PageLayout>;
+  return (
+    <AuthLayout>
+      <SuccessContainer>
+        <Image
+          src={'/svg/login/pin-badge-orange.svg'}
+          width={66}
+          height={66}
+          alt="pin-badge"
+        />
+        <SuccessText>로그인 성공!</SuccessText>
+        <Image
+          src="/svg/login/success-image.svg"
+          width={375}
+          height={390}
+          alt="success-image"
+        />
+      </SuccessContainer>
+    </AuthLayout>
+  );
 };
+
+const SuccessContainer = tw.div`
+flex flex-col items-center pt-12
+`;
+
+const SuccessText = tw.p`
+font-semibold text-title1 mt-3
+`;
 
 export default Kakao;
