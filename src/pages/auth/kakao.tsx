@@ -47,6 +47,7 @@ const Kakao = () => {
           src="/svg/login/success-image.svg"
           width={375}
           height={390}
+          priority={true}
           alt="success-image"
         />
       </SuccessContainer>
