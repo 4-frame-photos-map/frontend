@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import LocationMap from '@components/common/LocationMap';
 import TrackerButton from '@components/home/TrackerButton';
-import Image from 'next/image';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
 import { getToken } from '@utils/token';
@@ -25,17 +24,14 @@ const Location = () => {
     lat: 0,
     lng: 0,
   });
-  const [mapPos, setMapPos] = useState<Position>({
-    lat: 0,
-    lng: 0,
-  });
 
   const { data: shopInfo } = useGetShopsInRad(
     curPos.lat,
     curPos.lng,
-    mapPos.lat,
-    mapPos.lng,
+    curPos.lat,
+    curPos.lng,
     brd,
+    5000,
   );
 
   useEffect(() => {
@@ -60,7 +56,6 @@ const Location = () => {
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
     kakaoMap.setLevel(3);
     kakaoMap.panTo(moveLatLng);
-    setMapPos({ lat: location.lat, lng: location.lng });
   };
   console.log(shopsInfo);
   return (
@@ -86,7 +81,6 @@ const Location = () => {
         kakaoMap={kakaoMap}
         setLocation={setLocation}
         setKakaoMap={setKakaoMap}
-        setMapPos={setMapPos}
         setCurPos={setCurPos}
       />
       <div className="absolute top-[430px] w-full max-w-[375px] pb-[71px]">
@@ -109,7 +103,7 @@ const Location = () => {
                   key={shop.id}
                   brand_name={shop.brand?.brand_name as string}
                   file_path={shop.brand?.file_path as string}
-                  distance={shop.distance}
+                  position={location}
                   id={shop.id}
                   place_name={shop.place_name}
                   star_rating={shop.star_rating_avg}

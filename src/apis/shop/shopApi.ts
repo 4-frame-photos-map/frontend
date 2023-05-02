@@ -18,19 +18,21 @@ class ShopApi {
     mapLat: number,
     mapLng: number,
     brd?: string,
+    radius?: number,
   ): Promise<ShopInRad> => {
     const { data } = await instance.get(
-      `/shops/brand?userLat=${lat}&userLng=${lng}&mapLat=${mapLat}&mapLng=${mapLng}&brand=${brd}`,
+      `/shops/brand?userLat=${lat}&userLng=${lng}&mapLat=${mapLat}&mapLng=${mapLng}&brand=${brd}&radius=${radius}`,
     );
     return data;
   };
 
   getShopDetail = async (
     shopId: number,
-    distance: string,
+    lat: number,
+    lng: number,
   ): Promise<ShopDetail> => {
     const { data } = await instance.get(
-      `/shops/${shopId}?distance=${distance}`,
+      `/shops/${shopId}?userLat=${lat}&userLng=${lng}`,
     );
     return data;
   };

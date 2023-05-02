@@ -10,7 +10,7 @@ import { Dispatch, SetStateAction } from 'react';
 type ShopModalProps = {
   id: number;
   place_name: string;
-  distance: string;
+  position: Position;
   star_rating_avg: number;
   review_cnt: number;
   isLogin: boolean;
@@ -20,7 +20,7 @@ type ShopModalProps = {
 const ShopModal = ({
   id,
   place_name,
-  distance,
+  position,
   star_rating_avg,
   review_cnt,
   isLogin,
@@ -28,7 +28,7 @@ const ShopModal = ({
 }: ShopModalProps) => {
   const router = useRouter();
 
-  const { data: shopInfo } = useGetShopDetail(id, distance);
+  const { data: shopInfo } = useGetShopDetail(id, position.lat, position.lng);
   const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite('/home');
 
@@ -52,7 +52,9 @@ const ShopModal = ({
           <span
             className="text-label1"
             onClick={() =>
-              router.push(`/shopDetail?shopId=${id}&distance=${distance}`)
+              router.push(
+                `/shopDetail?shopId=${id}&userLat=${position.lat}&userLng=${position.lng}`,
+              )
             }
           >
             {place_name}
@@ -89,7 +91,7 @@ const ShopModal = ({
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>
           </div>
-          <span>{distance}</span>
+          <span>{shopInfo?.distance}</span>
         </div>
       </div>
     </div>
