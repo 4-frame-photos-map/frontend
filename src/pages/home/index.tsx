@@ -9,6 +9,8 @@ import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
 import Map from '@components/common/Map';
 import Modal from '@components/common/Modal';
+import { useRecoilState } from 'recoil';
+import { curPosState } from '@recoil/position';
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -17,10 +19,7 @@ const Home = () => {
   const [modalProps, setModalProps] = useState<ShopProps>();
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
-  const [curPos, setCurPos] = useState<Position>({
-    lat: 0,
-    lng: 0,
-  });
+  const [curPos, setCurPos] = useRecoilState<Position>(curPosState);
   const [location, setLocation] = useState<Position>({
     lat: 0,
     lng: 0,
@@ -63,12 +62,12 @@ const Home = () => {
     kakaoMap.panTo(moveLatLng);
     setModalProps(undefined);
     setMapPos({ lat: location.lat, lng: location.lng });
-    setLocation({ lat: curPos.lat, lng: curPos.lng });
+    setLocation({ ...location, lat: curPos.lat, lng: curPos.lng });
   };
 
   const handleResearch = () => {
     const { Ma, La } = kakaoMap.getCenter();
-    setLocation({ lat: Ma, lng: La });
+    setLocation({ ...location, lat: Ma, lng: La });
   };
 
   return (

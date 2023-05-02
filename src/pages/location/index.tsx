@@ -9,6 +9,8 @@ import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
 import { getToken } from '@utils/token';
 import Modal from '@components/common/Modal';
+import { useRecoilState } from 'recoil';
+import { curPosState } from '@recoil/position';
 
 const Location = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -16,10 +18,7 @@ const Location = () => {
   const [brd, setBrd] = useState<string>('');
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
-  const [curPos, setCurPos] = useState<Position>({
-    lat: 0,
-    lng: 0,
-  });
+  const [curPos, setCurPos] = useRecoilState<Position>(curPosState);
   const [location, setLocation] = useState<Position>({
     lat: 0,
     lng: 0,
@@ -57,7 +56,6 @@ const Location = () => {
     kakaoMap.setLevel(3);
     kakaoMap.panTo(moveLatLng);
   };
-  console.log(shopsInfo);
   return (
     <PageLayout className="bg-white">
       {isModal && (
