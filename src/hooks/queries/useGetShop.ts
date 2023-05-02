@@ -1,16 +1,14 @@
 import shopApi from '@apis/shop/shopApi';
-import { queryClient } from 'pages/_app';
-import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-export const useGetShopDetail = (shopId: number, distance: string) => {
+export const useGetShopDetail = (shopId: number, lat: number, lng: number) => {
   return useQuery<ShopDetail, Error>(
     ['useGetShopDetail', shopId],
-    () => shopApi.getShopDetail(shopId, distance),
+    () => shopApi.getShopDetail(shopId, lat, lng),
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!distance,
+      enabled: !!lat,
     },
   );
 };
@@ -21,10 +19,11 @@ export const useGetShopsInRad = (
   mapLat: number,
   mapLng: number,
   brd?: string,
+  radius?: number,
 ) => {
   return useQuery<ShopInRad, Error>(
     ['useGetShopsInRad', mapLat, mapLng],
-    () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd),
+    () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd, radius),
     {
       refetchOnWindowFocus: false,
       enabled: !!lat,
@@ -37,16 +36,6 @@ export const useGetShopsByKeyword = (
   lng: number,
   lat: number,
 ) => {
-  useEffect(() => {
-    if (keyword) {
-      shopApi.getShopsByKeyword(keyword, lat, lng).then(() => {
-        queryClient.invalidateQueries({
-          queryKey: ['useGetShopsByKeyword'],
-        });
-      });
-    }
-  }, [keyword]);
-
   return useQuery<Shop[], Error>(
     ['useGetShopsByKeyword', keyword],
     () => shopApi.getShopsByKeyword(keyword, lat, lng),

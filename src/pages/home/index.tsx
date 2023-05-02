@@ -36,6 +36,7 @@ const Home = () => {
     location.lat,
     location.lng,
     brd,
+    2000,
   );
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const Home = () => {
     const { Ma, La } = kakaoMap.getCenter();
     setLocation({ lat: Ma, lng: La });
   };
-  console.log(location);
+
   return (
     <PageLayout>
       {isModal && (
@@ -109,7 +110,7 @@ const Home = () => {
           <ShopModal
             id={modalProps.id}
             place_name={modalProps.place_name}
-            distance={modalProps.distance}
+            position={location}
             star_rating_avg={modalProps.star_rating_avg}
             review_cnt={modalProps.review_cnt}
             isLogin={isLogin}
