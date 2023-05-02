@@ -7,6 +7,7 @@ import { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import Layout from '@components/layout/Layout';
 import Modal from '@components/common/Modal';
+import { RecoilRoot } from 'recoil';
 
 declare global {
   interface Window {
@@ -49,11 +50,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   return getLayout(
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
-      </Hydrate>
-    </QueryClientProvider>,
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
+      </QueryClientProvider>
+    </RecoilRoot>,
   );
 }
 
