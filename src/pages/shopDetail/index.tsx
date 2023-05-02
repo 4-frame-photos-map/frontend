@@ -15,14 +15,14 @@ import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
 
-const ShopDetail = ({ shopId, distance }) => {
+const ShopDetail = ({ shopId, userLat, userLng }) => {
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
 
-  const { data: shopInfo } = useGetShopDetail(shopId, distance);
+  const { data: shopInfo } = useGetShopDetail(shopId, userLat, userLng);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   const handleShareButton = (
@@ -30,7 +30,8 @@ const ShopDetail = ({ shopId, distance }) => {
     favorite_cnt: number,
     review_cnt: number,
     shopId: number,
-    distance: string,
+    lat: number,
+    lng: number,
   ) => {
     const { Kakao } = window;
     if (isLoaded && Kakao) {
@@ -42,8 +43,8 @@ const ShopDetail = ({ shopId, distance }) => {
           title: place_name,
           imageUrl: '',
           link: {
-            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&distance=${distance}`,
-            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&distance=${distance}`,
+            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${lat}&userLng=${lng}`,
+            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${lat}&userLng=${lng}`,
           },
         },
         social: {
@@ -111,7 +112,8 @@ const ShopDetail = ({ shopId, distance }) => {
                   shopInfo?.favorite_cnt,
                   shopInfo?.review_cnt,
                   shopId,
-                  distance,
+                  userLat,
+                  userLng,
                 );
               }
             }}
@@ -200,16 +202,17 @@ flex w-full items-center justify-center gap-1 rounded-[100px] border border-prim
 `;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { shopId, distance } = query;
+  const { shopId, userLat, userLng } = query;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['useGetShopDetail'], () =>
-    shopApi.getShopDetail(Number(shopId), String(distance)),
+    shopApi.getShopDetail(Number(shopId), Number(userLat), Number(userLng)),
   );
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       shopId: Number(shopId),
-      distance: String(distance),
+      userLat: Number(userLat),
+      userLng: Number(userLng),
     },
   };
 };

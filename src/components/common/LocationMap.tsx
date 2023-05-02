@@ -11,7 +11,6 @@ type MapProps = {
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
   setLocation: Dispatch<SetStateAction<Position>>;
-  setMapPos: Dispatch<SetStateAction<Position>>;
   setCurPos: Dispatch<SetStateAction<Position>>;
 };
 
@@ -20,7 +19,6 @@ const LocationMap = ({
   kakaoMap,
   setKakaoMap,
   setLocation,
-  setMapPos,
   setCurPos,
 }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -43,14 +41,12 @@ const LocationMap = ({
         };
         const map = new kakao.maps.Map(mapContainer.current, mapOption);
         setLocation({ lat: 33.450701, lng: 126.570667 });
-        setMapPos({ lat: 33.450701, lng: 126.570667 });
         setCurPos({ lat: 33.450701, lng: 126.570667 });
         setKakaoMap(map);
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(({ coords }) => {
             const { latitude, longitude } = coords;
             setLocation({ lat: latitude, lng: longitude });
-            setMapPos({ lat: latitude, lng: longitude });
             setCurPos({ lat: latitude, lng: longitude });
             const locPosition = new kakao.maps.LatLng(latitude, longitude);
             const imageSrc = '/svg/home/tracking.svg';
@@ -77,10 +73,6 @@ const LocationMap = ({
   useEffect(() => {
     if (shopInfo && kakaoMap) {
       const { kakao } = window;
-      kakao.maps.event.addListener(kakaoMap, 'dragend', () => {
-        const { Ma, La } = kakaoMap.getCenter();
-        setMapPos({ lat: Ma, lng: La });
-      });
       if (markers.length) {
         markers.forEach((marker) => marker.setMap(null));
       }
