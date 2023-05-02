@@ -18,7 +18,7 @@ const Location = () => {
   const [brd, setBrd] = useState<string>('');
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
-  const [curPos, setCurPos] = useRecoilState<Position>(curPosState);
+  const [curPos, setCurPos] = useRecoilState(curPosState);
   const [location, setLocation] = useState<Position>({
     lat: 0,
     lng: 0,

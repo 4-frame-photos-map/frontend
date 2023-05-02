@@ -19,7 +19,7 @@ const Home = () => {
   const [modalProps, setModalProps] = useState<ShopProps>();
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
-  const [curPos, setCurPos] = useRecoilState<Position>(curPosState);
+  const [curPos, setCurPos] = useRecoilState(curPosState);
   const [location, setLocation] = useState<Position>({
     lat: 0,
     lng: 0,
