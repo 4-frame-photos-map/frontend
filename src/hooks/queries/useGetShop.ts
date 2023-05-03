@@ -26,7 +26,7 @@ export const useGetShopsInRad = (
     () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd, radius),
     {
       refetchOnWindowFocus: false,
-      enabled: !!lat,
+      enabled: !!lat && !!mapLat,
     },
   );
 };
