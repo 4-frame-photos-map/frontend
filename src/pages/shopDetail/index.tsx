@@ -14,6 +14,8 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
+import { useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/position';
 
 const ShopDetail = ({ shopId, userLat, userLng }) => {
   const router = useRouter();
@@ -21,8 +23,9 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
+  const curPos = useRecoilValue(curPosState);
 
-  const { data: shopInfo } = useGetShopDetail(shopId, userLat, userLng);
+  const { data: shopInfo } = useGetShopDetail(shopId, curPos.lat, curPos.lng);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   const handleShareButton = (
@@ -84,7 +87,7 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="border-l border-text-alternative px-2">
+            <div className="px-2 border-l border-text-alternative">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}

@@ -15,6 +15,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.4",
     "react-query": "^3.39.3",
+    "recoil": "^0.7.7",
     "swiper": "^9.2.0",
     "swiper-react": "^1.0.0"
   },

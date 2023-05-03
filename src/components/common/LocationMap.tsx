@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
 import { CONFIG } from '@config';
+import { SetterOrUpdater } from 'recoil';
 
 type Position = {
   lat: number;
@@ -11,7 +12,7 @@ type MapProps = {
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
   setLocation: Dispatch<SetStateAction<Position>>;
-  setCurPos: Dispatch<SetStateAction<Position>>;
+  setCurPos: SetterOrUpdater<Position>;
 };
 
 const LocationMap = ({
@@ -41,13 +42,17 @@ const LocationMap = ({
         };
         const map = new kakao.maps.Map(mapContainer.current, mapOption);
         setLocation({ lat: 33.450701, lng: 126.570667 });
-        setCurPos({ lat: 33.450701, lng: 126.570667 });
+        setCurPos((location) => {
+          return { ...location, lat: 33.450701, lng: 126.570667 };
+        });
         setKakaoMap(map);
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(({ coords }) => {
             const { latitude, longitude } = coords;
             setLocation({ lat: latitude, lng: longitude });
-            setCurPos({ lat: latitude, lng: longitude });
+            setCurPos((location) => {
+              return { ...location, lat: latitude, lng: longitude };
+            });
             const locPosition = new kakao.maps.LatLng(latitude, longitude);
             const imageSrc = '/svg/home/tracking.svg';
             const imageSize = new kakao.maps.Size(32, 32);

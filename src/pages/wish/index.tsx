@@ -2,18 +2,13 @@ import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
 import { useGetFavorite } from '@hooks/queries/useGetFavorite';
-import { useEffect, useState } from 'react';
+import { curPosState } from '@recoil/position';
+import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 const Wish = () => {
-  const [location, setLocation] = useState<Position>({ lat: 0, lng: 0 });
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords;
-      setLocation({ lat: latitude, lng: longitude });
-    });
-  }, []);
-  const { data: favorites } = useGetFavorite(location.lat, location.lng);
+  const curPos = useRecoilValue(curPosState);
+  const { data: favorites } = useGetFavorite(curPos.lat, curPos.lng);
   return (
     <PageLayout>
       <NavBar leftTitle={'찜 목록'} />
