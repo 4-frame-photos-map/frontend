@@ -1,5 +1,7 @@
+import { curPosState } from '@recoil/position';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 type SearchListProps = Shop & {
@@ -17,13 +19,16 @@ const SearchList = ({
   id,
 }: SearchListProps) => {
   const router = useRouter();
+  const curPos = useRecoilValue(curPosState);
   return isList ? (
     <>
       <DivisionBar />
       <li
         className="cursor-pointer bg-white px-3 py-2"
         onClick={() =>
-          router.push(`/shopDetail/?shopId=${id}&distance=${distance}`)
+          router.push(
+            `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+          )
         }
       >
         <span className="text-label1">{place_name}</span>

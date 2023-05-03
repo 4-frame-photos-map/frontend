@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
 import TextHighlighted from '@components/navbar/TextHighlighted';
+import { useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/position';
 
 type SearchProps = Shop & {
   value: string;
@@ -18,14 +20,17 @@ const SearchResult = ({
 }: SearchProps) => {
   const router = useRouter();
   const [initial, ...rest] = place_name.split(value);
+  const curPos = useRecoilValue(curPosState);
   return isTyping ? (
-    <li className="px-3 bg-white cursor-pointer first:pt-5">
+    <li className="cursor-pointer bg-white px-3 first:pt-5">
       <DivisionBar />
       {
         <div
           className="flex items-center"
           onClick={() =>
-            router.push(`/shopDetail/?shopId=${id}&distance=${distance}`)
+            router.push(
+              `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+            )
           }
         >
           <div className="flex flex-col items-center">
@@ -37,7 +42,7 @@ const SearchResult = ({
             />
             <span className="text-caption2 text-line-disable">{distance}</span>
           </div>
-          <div className="flex flex-col ml-4">
+          <div className="ml-4 flex flex-col">
             <div className="flex">
               <TextHighlighted value={value} initial={initial} rest={rest} />
             </div>
