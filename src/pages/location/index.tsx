@@ -81,7 +81,7 @@ const Location = () => {
         setKakaoMap={setKakaoMap}
         setCurPos={setCurPos}
       />
-      <div className="absolute top-[430px] w-full max-w-[375px] pb-[71px]">
+      <div className="fixed top-[430px] w-full max-w-[375px] pb-[71px]">
         <TrackerButton onClick={handleTracker} />
       </div>
       <ResultContainer>
@@ -118,10 +118,10 @@ const Location = () => {
 };
 
 const ResultContainer = tw.div`
-mt-[500px] mb-[60px] h-full
+mt-[500px] mb-10 h-full w-full bg-white relative
 `;
 const ResultBox = tw.div`
-h-full rounded-t-[15px] py-2 pb-5
+h-full rounded-t-[15px] pt-2 pb-10
 `;
 const Bar = tw.div`
 m-auto flex h-1 w-[60px] justify-center rounded-sm bg-line-normal
