@@ -112,7 +112,7 @@ const LocationMap = ({
   return (
     <>
       <div
-        className="absolute top-0 z-0 h-[500px] w-full max-w-[375px]"
+        className="fixed top-0 z-0 h-full w-full max-w-[375px]"
         ref={mapContainer}
       ></div>
     </>
