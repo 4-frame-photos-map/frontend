@@ -44,7 +44,7 @@ const Map = ({
       window.kakao.maps.load(() => {
         const mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3,
+          level: 5,
         };
         const map = new kakao.maps.Map(mapContainer.current, mapOption);
         setLocation({ lat: 33.450701, lng: 126.570667 });
@@ -61,7 +61,7 @@ const Map = ({
             });
             const locPosition = new kakao.maps.LatLng(latitude, longitude);
             const imageSrc = '/svg/home/tracking.svg';
-            const imageSize = new kakao.maps.Size(32, 32);
+            const imageSize = new kakao.maps.Size(25, 25);
             const imageOption = { offset: new kakao.maps.Point(20, 20) };
             const markerPosition = new kakao.maps.LatLng(latitude, longitude);
             const markerImage = new kakao.maps.MarkerImage(

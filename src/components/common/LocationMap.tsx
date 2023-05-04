@@ -53,7 +53,7 @@ const LocationMap = ({
             });
             const locPosition = new kakao.maps.LatLng(latitude, longitude);
             const imageSrc = '/svg/home/tracking.svg';
-            const imageSize = new kakao.maps.Size(32, 32);
+            const imageSize = new kakao.maps.Size(25, 25);
             const imageOption = { offset: new kakao.maps.Point(20, 20) };
             const markerPosition = new kakao.maps.LatLng(latitude, longitude);
             const markerImage = new kakao.maps.MarkerImage(
