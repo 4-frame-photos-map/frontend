@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import { getToken } from '@utils/token';
 import { useRecoilState, RecoilEnv } from 'recoil';
-import { curPosState } from '@recoil/position';
-import { boundState } from '@recoil/boundState';
+import { curPosState } from '@recoil/positionAtom';
+import { boundState } from '@recoil/boundAtom';
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -61,7 +61,7 @@ const Home = () => {
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
-    kakaoMap.setLevel(3);
+    kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
     setModalProps(undefined);
     setMapPos({ lat: location.lat, lng: location.lng });

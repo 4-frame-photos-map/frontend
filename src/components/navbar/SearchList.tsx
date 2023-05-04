@@ -1,8 +1,8 @@
-import { curPosState } from '@recoil/position';
 import Image from 'next/image';
+import tw from 'tailwind-styled-components';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import tw from 'tailwind-styled-components';
+import { curPosState } from '@recoil/positionAtom';
 
 type SearchListProps = Shop & {
   isList: boolean;

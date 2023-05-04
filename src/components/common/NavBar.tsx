@@ -5,7 +5,7 @@ import Search from '@components/navbar/Search';
 import { useRouter } from 'next/router';
 import { useState, SetStateAction, Dispatch, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { boundState } from '@recoil/boundState';
+import { boundState } from '@recoil/boundAtom';
 
 type NavBarProps = {
   leftTitle?: string;

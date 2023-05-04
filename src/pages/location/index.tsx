@@ -10,8 +10,8 @@ import { getToken } from '@utils/token';
 import { useState, useEffect } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import { useRecoilState } from 'recoil';
-import { curPosState } from '@recoil/position';
-import { boundState } from '@recoil/boundState';
+import { curPosState } from '@recoil/positionAtom';
+import { boundState } from '@recoil/boundAtom';
 
 const Location = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
