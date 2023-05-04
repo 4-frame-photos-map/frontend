@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
 import TextHighlighted from '@components/navbar/TextHighlighted';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import { curPosState } from '@recoil/position';
+import { curPosState } from '@recoil/positionAtom';
 
 type SearchProps = Shop & {
   value: string;

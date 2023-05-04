@@ -3,7 +3,7 @@ import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import { curPosState } from '@recoil/position';
+import { curPosState } from '@recoil/positionAtom';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
