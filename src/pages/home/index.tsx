@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import { useGetShopsInRad } from '@hooks/queries/useGetShop';
-import { getToken } from '@utils/token';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import Category from '@components/home/Category';
@@ -9,8 +6,14 @@ import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
 import Map from '@components/common/Map';
 import Modal from '@components/common/Modal';
-import { useRecoilState } from 'recoil';
-import { curPosState } from '@recoil/position';
+import { useEffect, useState } from 'react';
+import { useGetShopsInRad } from '@hooks/queries/useGetShop';
+import { getToken } from '@utils/token';
+import { useRecoilState, RecoilEnv } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
+import { boundState } from '@recoil/boundAtom';
+
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -20,6 +23,7 @@ const Home = () => {
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
   const [curPos, setCurPos] = useRecoilState(curPosState);
+  const [bounds, setBounds] = useRecoilState<Bound>(boundState);
   const [location, setLocation] = useState<Position>({
     lat: 0,
     lng: 0,
@@ -37,7 +41,6 @@ const Home = () => {
     brd,
     2000,
   );
-
   useEffect(() => {
     if (getToken().accessToken) {
       setIsLogin(true);
@@ -58,7 +61,7 @@ const Home = () => {
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
-    kakaoMap.setLevel(3);
+    kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
     setModalProps(undefined);
     setMapPos({ lat: location.lat, lng: location.lng });
@@ -87,6 +90,7 @@ const Home = () => {
         isRight={true}
         location={curPos}
         setShopsInfo={setShopsInfo}
+        kakaoMap={kakaoMap}
       />
       <div className="fixed z-10">
         <Category setBrd={setBrd} />
@@ -102,6 +106,7 @@ const Home = () => {
         setModalProps={setModalProps}
         setMapPos={setMapPos}
         setCurPos={setCurPos}
+        setBounds={setBounds}
       />
       <div className="fixed bottom-0 w-full max-w-[375px] pb-[71px]">
         <TrackerButton onClick={handleTracker} />

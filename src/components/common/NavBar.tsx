@@ -1,9 +1,11 @@
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useState, SetStateAction, Dispatch } from 'react';
 import tw from 'tailwind-styled-components';
+import Image from 'next/image';
 import FavoriteButton from '@components/wish/FavoriteButton';
 import Search from '@components/navbar/Search';
+import { useRouter } from 'next/router';
+import { useState, SetStateAction, Dispatch, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { boundState } from '@recoil/boundAtom';
 
 type NavBarProps = {
   leftTitle?: string;
@@ -14,6 +16,7 @@ type NavBarProps = {
   shopId?: number;
   isFavorite?: boolean;
   location?: Position;
+  kakaoMap?: any;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
 };
 
@@ -26,6 +29,7 @@ const NavBar = ({
   shopId,
   isFavorite,
   location,
+  kakaoMap,
   setShopsInfo,
 }: NavBarProps) => {
   const router = useRouter();
@@ -33,12 +37,21 @@ const NavBar = ({
   const [isList, setIsList] = useState<boolean>(false);
   const [isMap, setIsMap] = useState<boolean>(false);
   const [shopInfo, setShopInfo] = useState<Shop[]>();
+  const [isBound, setIsBound] = useState<boolean>(false);
+  const bounds = useRecoilValue(boundState);
   const handleCloseInput = () => {
     setIsInput(false);
   };
   const handleOpenInput = () => {
     setIsInput(true);
   };
+
+  useEffect(() => {
+    if (kakaoMap && isBound) {
+      kakaoMap.setBounds(bounds);
+      setIsBound(() => false);
+    }
+  }, [bounds]);
 
   return (
     <NavContainer>
@@ -83,6 +96,7 @@ const NavBar = ({
                     setIsList(false);
                     setIsMap(true);
                     setShopsInfo(shopInfo);
+                    setIsBound(true);
                   }}
                 >
                   <Image
