@@ -15,6 +15,7 @@ type MapProps = {
   setLocation: Dispatch<SetStateAction<Position>>;
   setMapPos: Dispatch<SetStateAction<Position>>;
   setCurPos: SetterOrUpdater<Position>;
+  setBounds: SetterOrUpdater<any>;
 };
 
 const Map = ({
@@ -25,6 +26,7 @@ const Map = ({
   setLocation,
   setMapPos,
   setCurPos,
+  setBounds,
 }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [markers, setMarkers] = useState<any[]>([]);
@@ -93,6 +95,7 @@ const Map = ({
       const imageOption = {
         offset: new kakao.maps.Point(20, 30),
       };
+      const bounds = new kakao.maps.LatLngBounds();
       let selectedMarker = null as any;
       setMarkers(() => {
         return shopInfo.map((shop) => {
@@ -118,6 +121,7 @@ const Map = ({
             image: normalImage,
             clickable: true,
           });
+          bounds.extend(position);
           new kakao.maps.event.addListener(marker, 'click', () => {
             setModalProps(shop);
             kakaoMap.panTo(position);
@@ -131,6 +135,9 @@ const Map = ({
           });
           return marker;
         });
+      });
+      setBounds(() => {
+        return bounds;
       });
     }
   }, [shopInfo, kakaoMap]);

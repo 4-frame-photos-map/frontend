@@ -11,16 +11,16 @@ type MapProps = {
   shopInfo: ShopProps[] | undefined;
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
-  setLocation: Dispatch<SetStateAction<Position>>;
   setCurPos: SetterOrUpdater<Position>;
+  setBounds: SetterOrUpdater<Bound>;
 };
 
 const LocationMap = ({
   shopInfo,
   kakaoMap,
   setKakaoMap,
-  setLocation,
   setCurPos,
+  setBounds,
 }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [markers, setMarkers] = useState<any[]>([]);
@@ -38,10 +38,9 @@ const LocationMap = ({
       window.kakao.maps.load(() => {
         const mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3,
+          level: 5,
         };
         const map = new kakao.maps.Map(mapContainer.current, mapOption);
-        setLocation({ lat: 33.450701, lng: 126.570667 });
         setCurPos((location) => {
           return { ...location, lat: 33.450701, lng: 126.570667 };
         });
@@ -49,7 +48,6 @@ const LocationMap = ({
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(({ coords }) => {
             const { latitude, longitude } = coords;
-            setLocation({ lat: latitude, lng: longitude });
             setCurPos((location) => {
               return { ...location, lat: latitude, lng: longitude };
             });
@@ -85,6 +83,7 @@ const LocationMap = ({
       const imageOption = {
         offset: new kakao.maps.Point(20, 30),
       };
+      const bounds = new kakao.maps.LatLngBounds();
       setMarkers(() => {
         return shopInfo.map((shop) => {
           const position = new kakao.maps.LatLng(
@@ -103,8 +102,12 @@ const LocationMap = ({
             image: normalImage,
             clickable: true,
           });
+          bounds.extend(position);
           return marker;
         });
+      });
+      setBounds(() => {
+        return bounds;
       });
     }
   }, [shopInfo, kakaoMap]);
@@ -112,7 +115,7 @@ const LocationMap = ({
   return (
     <>
       <div
-        className="fixed top-0 z-0 h-full w-full max-w-[375px]"
+        className="fixed top-0 z-0 h-[500px] w-full max-w-[375px]"
         ref={mapContainer}
       ></div>
     </>
