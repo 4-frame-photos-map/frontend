@@ -1,11 +1,10 @@
-import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { Dispatch, SetStateAction } from 'react';
+import { SetterOrUpdater } from 'recoil';
 
 type ShopModalProps = {
   id: number;
@@ -14,7 +13,7 @@ type ShopModalProps = {
   star_rating_avg: number;
   review_cnt: number;
   isLogin: boolean;
-  setIsModal: Dispatch<SetStateAction<boolean>>;
+  setIsModal: SetterOrUpdater<boolean>;
 };
 
 const ShopModal = ({
@@ -97,9 +96,5 @@ const ShopModal = ({
     </div>
   );
 };
-
-const ModalLayout = tw.div`
-absolute top-0 left-0 w-full h-full z-[999]
-`;
 
 export default ShopModal;
