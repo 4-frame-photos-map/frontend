@@ -1,10 +1,4 @@
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { QueryClient, dehydrate } from 'react-query';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
@@ -14,14 +8,24 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
+import { useRef, useState } from 'react';
+import { QueryClient, dehydrate } from 'react-query';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
+import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 const ShopDetail = ({ shopId, userLat, userLng }) => {
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
 
+  const isLogin = useRecoilValue(userState);
+  const setIsModal = useSetRecoilState(modalState);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
-
   const { data: shopInfo } = useGetShopDetail(shopId, userLat, userLng);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
@@ -56,7 +60,6 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
     }
   };
 
-  console.log(shopInfo);
   return (
     <ShopLayout className="bg-white pt-[62px]">
       {shopInfo && (
@@ -165,9 +168,10 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
         )}
       </ShopInfoBox>
       <Button
-        handleButton={() =>
-          router.push(`/shopDetail/review?shopId=${shopInfo?.id}`)
-        }
+        handleButton={() => {
+          if (!isLogin) setIsModal(() => true);
+          else router.push(`/shopDetail/review?shopId=${shopInfo?.id}`);
+        }}
       />
     </ShopLayout>
   );
