@@ -1,12 +1,13 @@
 import '@styles/globals.css';
+import tw from 'tailwind-styled-components';
+import Layout from '@components/layout/Layout';
+import Modal from '@components/common/Modal';
 import type { AppProps } from 'next/app';
 import { getLocalStorage } from '@utils/localStorage';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import Layout from '@components/layout/Layout';
-import Modal from '@components/common/Modal';
 import { RecoilRoot } from 'recoil';
 
 declare global {
@@ -35,7 +36,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       !getLocalStorage('@token')
     ) {
       return (
-        <Layout>
+        <LayoutBox>
           <Modal
             isModal={true}
             isKakao={true}
@@ -44,20 +45,25 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             left="아니요"
             leftEvent={() => router.back()}
           />
-        </Layout>
+        </LayoutBox>
       );
     }
   }
-  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
-  return getLayout(
+  return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </Hydrate>
       </QueryClientProvider>
-    </RecoilRoot>,
+    </RecoilRoot>
   );
 }
+
+const LayoutBox = tw.div`
+flex h-full w-screen justify-center overflow-hidden font-Pretendard
+`;
 
 export { queryClient };

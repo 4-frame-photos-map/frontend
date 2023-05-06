@@ -1,11 +1,13 @@
+import tw from 'tailwind-styled-components';
 import Image from 'next/image';
-import { useState } from 'react';
-import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
-import tw from 'tailwind-styled-components';
-import { getToken } from '@utils/token';
+import { useState } from 'react';
+import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 type FavortieButtonProps = {
   shopId: number;
@@ -16,8 +18,9 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
   const { mutate: del, isSuccess, isError } = useDeleteFavorite('/shopDetail');
   const { mutate: add } = usePostFavorite();
 
+  const setIsLoginModal = useSetRecoilState(modalState);
+  const isLogin = useRecoilValue(userState);
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
 
   const handleAddFavorite = (shopId: number) => {
@@ -47,15 +50,6 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
             handleToast();
           }}
         />
-      ) : !getToken().accessToken ? (
-        <Image
-          src="/svg/wish/lined-bookmark.svg"
-          width={24}
-          height={24}
-          alt="bookmark"
-          className="z-[900] cursor-pointer"
-          onClick={() => setIsLogin(true)}
-        />
       ) : (
         <Image
           src="/svg/wish/lined-bookmark.svg"
@@ -63,7 +57,10 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
           height={24}
           alt="bookmark"
           className="z-[900] cursor-pointer"
-          onClick={() => handleAddFavorite(shopId)}
+          onClick={() => {
+            if (!isLogin) setIsLoginModal(true);
+            else handleAddFavorite(shopId);
+          }}
         />
       )}
 
@@ -83,18 +80,6 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
               handleDeleteFavorite(shopId);
               setIsModal(false);
             }}
-          />
-        </ModalLayout>
-      )}
-      {isLogin && (
-        <ModalLayout>
-          <Modal
-            isModal={true}
-            isKakao={true}
-            title="로그인 상태가 아니에요!"
-            message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
-            left="아니요"
-            leftEvent={() => setIsLogin(false)}
           />
         </ModalLayout>
       )}
