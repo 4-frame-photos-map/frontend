@@ -8,7 +8,7 @@ export const useGetShopDetail = (shopId: number, lat: number, lng: number) => {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!lat,
+      enabled: !!lat && !!shopId,
     },
   );
 };
