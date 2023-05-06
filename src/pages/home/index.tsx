@@ -109,7 +109,6 @@ const Home = () => {
           <ShopModal
             id={modalProps.id}
             place_name={modalProps.place_name}
-            position={location}
             star_rating_avg={modalProps.star_rating_avg}
             review_cnt={modalProps.review_cnt}
             isLogin={isLogin}
