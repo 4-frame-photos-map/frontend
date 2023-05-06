@@ -7,13 +7,12 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
-import { useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
 
