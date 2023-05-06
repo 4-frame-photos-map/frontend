@@ -36,6 +36,7 @@ const WishItem = ({ shop }: Favorite) => {
             onClick={() =>
               router.push(
                 `/shopDetail/?shopId=${shop.id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+                `/shopDetail/?shopId=${shop.id}`,
               )
             }
           >
