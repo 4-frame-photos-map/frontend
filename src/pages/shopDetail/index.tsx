@@ -1,8 +1,4 @@
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
@@ -12,13 +8,22 @@ import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
 import { useRecoilValue } from 'recoil';
-import { curPosState } from '@recoil/position';
+import { curPosState } from '@recoil/positionAtom';
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useGetShopDetail } from '@hooks/queries/useGetShop';
+import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 const ShopDetail = () => {
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
 
   const curPos = useRecoilValue(curPosState);
+  const isLogin = useRecoilValue(userState);
+  const setIsModal = useSetRecoilState(modalState);
 
   const { shopId, userLat = curPos.lat, userLng = curPos.lng } = router.query;
 
@@ -30,7 +35,6 @@ const ShopDetail = () => {
     Number(userLat),
     Number(userLng),
   );
-
   const { data: additionalReview } = useGetAllShopReviews(Number(shopId));
 
   const handleShareButton = (
@@ -168,9 +172,10 @@ const ShopDetail = () => {
         )}
       </ShopInfoBox>
       <Button
-        handleButton={() =>
-          router.push(`/shopDetail/review?shopId=${shopInfo?.id}`)
-        }
+        handleButton={() => {
+          if (!isLogin) setIsModal(() => true);
+          else router.push(`/shopDetail/review?shopId=${shopInfo?.id}`);
+        }}
       />
     </ShopLayout>
   );

@@ -1,13 +1,11 @@
-import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { Dispatch, SetStateAction } from 'react';
-import { useRecoilValue } from 'recoil';
-import { curPosState } from '@recoil/position';
+import { SetterOrUpdater, useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
 
 type ShopModalProps = {
   id: number;
@@ -15,7 +13,7 @@ type ShopModalProps = {
   star_rating_avg: number;
   review_cnt: number;
   isLogin: boolean;
-  setIsModal: Dispatch<SetStateAction<boolean>>;
+  setIsModal: SetterOrUpdater<boolean>;
 };
 
 const ShopModal = ({
@@ -88,7 +86,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="pl-2 border-l">
+            <div className="border-l pl-2">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>

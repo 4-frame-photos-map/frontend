@@ -1,28 +1,27 @@
 import tw from 'tailwind-styled-components';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
-import { useState, useEffect } from 'react';
-import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import LocationMap from '@components/common/LocationMap';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
-import { getToken } from '@utils/token';
-import Modal from '@components/common/Modal';
-import { useRecoilState } from 'recoil';
-import { curPosState } from '@recoil/position';
+import { useState, useEffect } from 'react';
+import { useGetShopsInRad } from '@hooks/queries/useGetShop';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
+import { boundState } from '@recoil/boundAtom';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 const Location = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const isLogin = useRecoilValue<boolean>(userState);
+  const setIsModal = useSetRecoilState<boolean>(modalState);
+
   const [brd, setBrd] = useState<string>('');
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
   const [curPos, setCurPos] = useRecoilState(curPosState);
-  const [location, setLocation] = useState<Position>({
-    lat: 0,
-    lng: 0,
-  });
+  const [bounds, setBounds] = useRecoilState<Bound>(boundState);
 
   const { data: shopInfo } = useGetShopsInRad(
     curPos.lat,
@@ -44,12 +43,6 @@ const Location = () => {
     }
   }, [shopInfo, brd]);
 
-  useEffect(() => {
-    if (getToken().accessToken) {
-      setIsLogin(true);
-    }
-  }, []);
-
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
@@ -58,28 +51,19 @@ const Location = () => {
   };
   return (
     <PageLayout className="bg-white">
-      {isModal && (
-        <Modal
-          isModal={isModal}
-          isKakao={true}
-          title="로그인 상태가 아니에요!"
-          message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
-          left="아니요"
-          leftEvent={() => setIsModal(false)}
-        />
-      )}
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}
         location={curPos}
         setShopsInfo={setShopsInfo}
+        kakaoMap={kakaoMap}
       />
       <LocationMap
         shopInfo={shopsInfo}
         kakaoMap={kakaoMap}
-        setLocation={setLocation}
         setKakaoMap={setKakaoMap}
         setCurPos={setCurPos}
+        setBounds={setBounds}
       />
       <div className="fixed top-[430px] w-full max-w-[375px] pb-[71px]">
         <TrackerButton onClick={handleTracker} />
@@ -101,7 +85,7 @@ const Location = () => {
                   key={shop.id}
                   brand_name={shop.brand?.brand_name as string}
                   file_path={shop.brand?.file_path as string}
-                  position={location}
+                  position={curPos}
                   id={shop.id}
                   place_name={shop.place_name}
                   star_rating={shop.star_rating_avg}

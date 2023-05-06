@@ -25,4 +25,5 @@ export const setToken = (token: Token) => {
 
 export const deleteToken = () => {
   removeLocalStorage(TOKEN_KEY);
+  removeLocalStorage('isLogin');
 };

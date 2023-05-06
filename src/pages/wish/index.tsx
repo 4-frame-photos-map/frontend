@@ -2,7 +2,7 @@ import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
 import { useGetFavorite } from '@hooks/queries/useGetFavorite';
-import { curPosState } from '@recoil/position';
+import { curPosState } from '@recoil/positionAtom';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
