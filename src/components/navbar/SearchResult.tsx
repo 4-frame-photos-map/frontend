@@ -30,6 +30,7 @@ const SearchResult = ({
           onClick={() =>
             router.push(
               `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+              `/shopDetail/?shopId=${id}`,
             )
           }
         >

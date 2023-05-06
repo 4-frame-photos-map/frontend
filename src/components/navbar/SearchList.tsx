@@ -24,10 +24,11 @@ const SearchList = ({
     <>
       <DivisionBar />
       <li
-        className="cursor-pointer bg-white px-3 py-2"
+        className="px-3 py-2 bg-white cursor-pointer"
         onClick={() =>
           router.push(
             `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+            `/shopDetail/?shopId=${id}`,
           )
         }
       >
@@ -51,7 +52,7 @@ const SearchList = ({
             </span>
           </span>
         </div>
-        <div className="mt-2 flex items-center gap-x-1">
+        <div className="flex items-center mt-2 gap-x-1">
           <span className="text-caption2">{distance}</span>
           <span className="text-caption1 text-text-alternative">
             | {place_address}

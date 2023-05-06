@@ -6,11 +6,12 @@ import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { Dispatch, SetStateAction } from 'react';
+import { useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/position';
 
 type ShopModalProps = {
   id: number;
   place_name: string;
-  position: Position;
   star_rating_avg: number;
   review_cnt: number;
   isLogin: boolean;
@@ -20,15 +21,15 @@ type ShopModalProps = {
 const ShopModal = ({
   id,
   place_name,
-  position,
   star_rating_avg,
   review_cnt,
   isLogin,
   setIsModal,
 }: ShopModalProps) => {
   const router = useRouter();
+  const curPos = useRecoilValue(curPosState);
 
-  const { data: shopInfo } = useGetShopDetail(id, position.lat, position.lng);
+  const { data: shopInfo } = useGetShopDetail(id, curPos.lat, curPos.lng);
   const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite('/home');
 
@@ -53,7 +54,8 @@ const ShopModal = ({
             className="text-label1"
             onClick={() =>
               router.push(
-                `/shopDetail?shopId=${id}&userLat=${position.lat}&userLng=${position.lng}`,
+                `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
+                `/shopDetail/?shopId=${id}`,
               )
             }
           >
@@ -86,7 +88,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="border-l pl-2">
+            <div className="pl-2 border-l">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>
@@ -97,9 +99,5 @@ const ShopModal = ({
     </div>
   );
 };
-
-const ModalLayout = tw.div`
-absolute top-0 left-0 w-full h-full z-[999]
-`;
 
 export default ShopModal;
