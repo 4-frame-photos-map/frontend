@@ -5,17 +5,18 @@ import LocationMap from '@components/common/LocationMap';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
-import Modal from '@components/common/Modal';
-import { getToken } from '@utils/token';
 import { useState, useEffect } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 const Location = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const isLogin = useRecoilValue<boolean>(userState);
+  const setIsModal = useSetRecoilState<boolean>(modalState);
+
   const [brd, setBrd] = useState<string>('');
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
@@ -42,12 +43,6 @@ const Location = () => {
     }
   }, [shopInfo, brd]);
 
-  useEffect(() => {
-    if (getToken().accessToken) {
-      setIsLogin(true);
-    }
-  }, []);
-
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
@@ -56,16 +51,6 @@ const Location = () => {
   };
   return (
     <PageLayout className="bg-white">
-      {isModal && (
-        <Modal
-          isModal={isModal}
-          isKakao={true}
-          title="로그인 상태가 아니에요!"
-          message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
-          left="아니요"
-          leftEvent={() => setIsModal(false)}
-        />
-      )}
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}

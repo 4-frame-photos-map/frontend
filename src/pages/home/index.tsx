@@ -5,19 +5,20 @@ import ResearchButton from '@components/home/ResearchButton';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopModal from '@components/home/ShopModal';
 import Map from '@components/common/Map';
-import Modal from '@components/common/Modal';
 import { useEffect, useState } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import { getToken } from '@utils/token';
-import { useRecoilState, RecoilEnv } from 'recoil';
+import { useRecoilState, RecoilEnv, useSetRecoilState } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
+import { userState } from '@recoil/userAtom';
+import { modalState } from '@recoil/modalAtom';
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 const Home = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const setIsModal = useSetRecoilState<boolean>(modalState);
+  const [isLogin, setIsLogin] = useRecoilState<boolean>(userState);
   const [brd, setBrd] = useState<string>('');
   const [modalProps, setModalProps] = useState<ShopProps>();
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
@@ -41,10 +42,10 @@ const Home = () => {
     brd,
     2000,
   );
+
   useEffect(() => {
-    if (getToken().accessToken) {
-      setIsLogin(true);
-    }
+    if (getToken().accessToken) setIsLogin(true);
+    else setIsLogin(false);
   }, []);
 
   useEffect(() => {
@@ -75,16 +76,6 @@ const Home = () => {
 
   return (
     <PageLayout>
-      {isModal && (
-        <Modal
-          isModal={isModal}
-          isKakao={true}
-          title="로그인 상태가 아니에요!"
-          message="해당 기능은 카카오톡 로그인을 하셔야 이용가능한 기능이에요. 로그인 하시겠어요?"
-          left="아니요"
-          leftEvent={() => setIsModal(false)}
-        />
-      )}
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}

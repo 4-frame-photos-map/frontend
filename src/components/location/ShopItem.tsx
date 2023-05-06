@@ -5,7 +5,7 @@ import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { Dispatch, SetStateAction } from 'react';
+import { SetterOrUpdater } from 'recoil';
 
 type ShopItemProps = {
   brand_name: string;
@@ -16,7 +16,7 @@ type ShopItemProps = {
   star_rating: number;
   review_cnt: number;
   isLogin: boolean;
-  setIsModal: Dispatch<SetStateAction<boolean>>;
+  setIsModal: SetterOrUpdater<boolean>;
 };
 
 const ShopItem = ({
