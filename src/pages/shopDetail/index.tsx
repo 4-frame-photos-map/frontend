@@ -24,17 +24,13 @@ const ShopDetail = () => {
   const isLogin = useRecoilValue(userState);
   const setIsModal = useSetRecoilState(modalState);
 
-  const { shopId, userLat = curPos.lat, userLng = curPos.lng } = router.query;
+  const shopId = Number(router.query.shopId);
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
 
-  const { data: shopInfo } = useGetShopDetail(
-    Number(shopId),
-    Number(userLat),
-    Number(userLng),
-  );
-  const { data: additionalReview } = useGetAllShopReviews(Number(shopId));
+  const { data: shopInfo } = useGetShopDetail(shopId, curPos.lat, curPos.lng);
+  const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   const handleShareButton = (
     place_name: string,
@@ -119,7 +115,7 @@ const ShopDetail = () => {
                   shopInfo?.place_name,
                   shopInfo?.favorite_cnt,
                   shopInfo?.review_cnt,
-                  Number(shopId),
+                  shopId,
                 );
               }
             }}
