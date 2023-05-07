@@ -50,12 +50,7 @@ const ShopModal = ({
         <div className="flex justify-between pt-1 pb-2">
           <span
             className="text-label1"
-            onClick={() =>
-              router.push(
-                `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
-                `/shopDetail/?shopId=${id}`,
-              )
-            }
+            onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
           >
             {place_name}
           </span>
@@ -86,7 +81,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="border-l pl-2">
+            <div className="pl-2 border-l">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>

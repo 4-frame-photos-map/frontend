@@ -25,12 +25,7 @@ const SearchList = ({
       <DivisionBar />
       <li
         className="px-3 py-2 bg-white cursor-pointer"
-        onClick={() =>
-          router.push(
-            `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
-            `/shopDetail/?shopId=${id}`,
-          )
-        }
+        onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
       >
         <span className="text-label1">{place_name}</span>
         <div className="flex gap-x-1">

@@ -33,12 +33,7 @@ const WishItem = ({ shop }: Favorite) => {
         <div className="flex justify-between pt-1 pb-2">
           <span
             className="cursor-pointer text-body1"
-            onClick={() =>
-              router.push(
-                `/shopDetail/?shopId=${shop.id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
-                `/shopDetail/?shopId=${shop.id}`,
-              )
-            }
+            onClick={() => router.push(`/shopDetail/?shopId=${shop.id}`)}
           >
             {shop.place_name}
           </span>
