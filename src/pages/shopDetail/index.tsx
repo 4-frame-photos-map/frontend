@@ -48,8 +48,8 @@ const ShopDetail = () => {
           title: place_name,
           imageUrl: '',
           link: {
-            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${shopInfo?.latitude}&userLng=${shopInfo?.longitude}`,
-            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${shopInfo?.latitude}&userLng=${shopInfo?.longitude}`,
+            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
+            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
           },
         },
         social: {
