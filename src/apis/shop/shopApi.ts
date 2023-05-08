@@ -28,12 +28,14 @@ class ShopApi {
 
   getShopDetail = async (
     shopId: number,
-    lat: number,
-    lng: number,
+    lat?: number,
+    lng?: number,
   ): Promise<ShopDetail> => {
-    const { data } = await instance.get(
-      `/shops/${shopId}?userLat=${lat}&userLng=${lng}`,
-    );
+    let url = `/shops/${shopId}`;
+    if (lat !== undefined && lng !== undefined) {
+      url += `?userLat=${lat}&userLng=${lng}`;
+    }
+    const { data } = await instance.get(url);
     return data;
   };
 
