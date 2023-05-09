@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import shopApi from '@apis/shop/shopApi';
 import NavBar from '@components/common/NavBar';
 import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
@@ -8,9 +7,8 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
+import { curPosState } from '@recoil/positionAtom';
 import { useRef, useState } from 'react';
-import { QueryClient, dehydrate } from 'react-query';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
@@ -18,15 +16,20 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
 
-const ShopDetail = ({ shopId, userLat, userLng }) => {
+const ShopDetail = () => {
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
 
+  const curPos = useRecoilValue(curPosState);
   const isLogin = useRecoilValue(userState);
   const setIsModal = useSetRecoilState(modalState);
+
+  const shopId = Number(router.query.shopId);
+
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
-  const { data: shopInfo } = useGetShopDetail(shopId, userLat, userLng);
+
+  const { data: shopInfo } = useGetShopDetail(shopId, curPos.lat, curPos.lng);
   const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   const handleShareButton = (
@@ -34,8 +37,6 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
     favorite_cnt: number,
     review_cnt: number,
     shopId: number,
-    lat: number,
-    lng: number,
   ) => {
     const { Kakao } = window;
     if (isLoaded && Kakao) {
@@ -47,8 +48,8 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
           title: place_name,
           imageUrl: '',
           link: {
-            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${lat}&userLng=${lng}`,
-            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}&userLat=${lat}&userLng=${lng}`,
+            mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
+            webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
           },
         },
         social: {
@@ -115,8 +116,6 @@ const ShopDetail = ({ shopId, userLat, userLng }) => {
                   shopInfo?.favorite_cnt,
                   shopInfo?.review_cnt,
                   shopId,
-                  userLat,
-                  userLng,
                 );
               }
             }}
@@ -204,21 +203,5 @@ flex justify-between py-2 text-caption1
 const LoadReviewBtn = tw.button`
 flex w-full items-center justify-center gap-1 rounded-[100px] border border-primary-normal py-2 text-center text-label1
 `;
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { shopId, userLat, userLng } = query;
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['useGetShopDetail'], () =>
-    shopApi.getShopDetail(Number(shopId), Number(userLat), Number(userLng)),
-  );
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      shopId: Number(shopId),
-      userLat: Number(userLat),
-      userLng: Number(userLng),
-    },
-  };
-};
 
 export default ShopDetail;

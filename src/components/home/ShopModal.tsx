@@ -4,12 +4,12 @@ import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { SetterOrUpdater } from 'recoil';
+import { SetterOrUpdater, useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
 
 type ShopModalProps = {
   id: number;
   place_name: string;
-  position: Position;
   star_rating_avg: number;
   review_cnt: number;
   isLogin: boolean;
@@ -19,15 +19,15 @@ type ShopModalProps = {
 const ShopModal = ({
   id,
   place_name,
-  position,
   star_rating_avg,
   review_cnt,
   isLogin,
   setIsModal,
 }: ShopModalProps) => {
   const router = useRouter();
+  const curPos = useRecoilValue(curPosState);
 
-  const { data: shopInfo } = useGetShopDetail(id, position.lat, position.lng);
+  const { data: shopInfo } = useGetShopDetail(id, curPos.lat, curPos.lng);
   const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite('/home');
 
@@ -50,11 +50,7 @@ const ShopModal = ({
         <div className="flex justify-between pt-1 pb-2">
           <span
             className="text-label1"
-            onClick={() =>
-              router.push(
-                `/shopDetail?shopId=${id}&userLat=${position.lat}&userLng=${position.lng}`,
-              )
-            }
+            onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
           >
             {place_name}
           </span>
@@ -85,7 +81,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="border-l pl-2">
+            <div className="pl-2 border-l">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>

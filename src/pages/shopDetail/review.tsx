@@ -56,7 +56,7 @@ const Review = () => {
         <span className="pb-6 text-title2 font-semibold">이용 후기 작성</span>
         <div className="flex text-label2">
           <span className="text-status-error">*</span>
-          <span className="pl-2 pb-4 text-text-alternative">
+          <span className="pb-4 pl-2 text-text-alternative">
             해당 표시는 필수 사항이에요.
           </span>
         </div>
@@ -71,6 +71,7 @@ const Review = () => {
                 }
                 width={40}
                 height={40}
+                className="cursor-pointer"
                 alt="별"
               />
             </div>
