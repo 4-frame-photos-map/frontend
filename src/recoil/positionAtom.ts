@@ -20,8 +20,8 @@ const localStorageEffect =
 export const curPosState = atom<Position>({
   key: 'curPos',
   default: {
-    lat: undefined,
-    lng: undefined,
+    lat: 0,
+    lng: 0,
   },
   effects: [localStorageEffect('current_position')],
 });
