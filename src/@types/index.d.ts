@@ -4,8 +4,8 @@ type TResponse = {
 };
 
 type Position = {
-  lat: number | undefined;
-  lng: number | undefined;
+  lat: number;
+  lng: number;
 };
 
 type Bound = {
