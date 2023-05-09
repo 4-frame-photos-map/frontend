@@ -52,9 +52,7 @@ const ShopItem = ({
   return (
     <ItemContainer
       onClick={() => {
-        router.push(
-          `/shopDetail?shopId=${id}&userLat=${position.lat}&userLng=${position.lng}`,
-        );
+        router.push(`/shopDetail/?shopId=${id}`);
       }}
     >
       <ItemImgContainer>
@@ -93,7 +91,7 @@ const ShopItem = ({
           <Image src="/svg/star.svg" width={16} height={16} alt="star" />
           {star_rating} ({review_cnt})
         </span>
-        <div className="border-l pl-2">
+        <div className="pl-2 border-l">
           <span className="pr-1">찜</span>
           <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
         </div>

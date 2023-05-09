@@ -1,14 +1,18 @@
 import shopApi from '@apis/shop/shopApi';
 import { useQuery } from 'react-query';
 
-export const useGetShopDetail = (shopId: number, lat: number, lng: number) => {
+export const useGetShopDetail = (
+  shopId: number,
+  lat?: number,
+  lng?: number,
+) => {
   return useQuery<ShopDetail, Error>(
     ['useGetShopDetail', shopId],
     () => shopApi.getShopDetail(shopId, lat, lng),
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: !!lat,
+      enabled: !!shopId,
       staleTime: Infinity,
     },
   );

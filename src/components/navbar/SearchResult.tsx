@@ -22,16 +22,12 @@ const SearchResult = ({
   const [initial, ...rest] = place_name.split(value);
   const curPos = useRecoilValue(curPosState);
   return isTyping ? (
-    <li className="cursor-pointer bg-white px-3 first:pt-5">
+    <li className="px-3 bg-white cursor-pointer first:pt-5">
       <DivisionBar />
       {
         <div
           className="flex items-center"
-          onClick={() =>
-            router.push(
-              `/shopDetail/?shopId=${id}&userLat=${curPos.lat}&userLng=${curPos.lng}`,
-            )
-          }
+          onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
         >
           <div className="flex flex-col items-center">
             <Image
@@ -42,7 +38,7 @@ const SearchResult = ({
             />
             <span className="text-caption2 text-line-disable">{distance}</span>
           </div>
-          <div className="ml-4 flex flex-col">
+          <div className="flex flex-col ml-4">
             <div className="flex">
               <TextHighlighted value={value} initial={initial} rest={rest} />
             </div>
