@@ -12,8 +12,8 @@ const TextHighlighted = ({ value, initial, rest }: HighlightedProps) => {
         space[0] === '' ? (
           <>
             <span className="text-black text-label1">{initial}</span>
-            <span className="text-label1 text-status-error">{value}</span>
-            <span className="-ml-1 text-black text-label1 ">&nbsp;{rest}</span>
+            <span className="text-label1 text-status-error">&nbsp;{value}</span>
+            <span className="-ml-1 text-black text-label1">&nbsp;{rest}</span>
           </>
         ) : (
           <>
