@@ -11,6 +11,9 @@ export const useDeleteReview = () => {
         queryClient.invalidateQueries({
           queryKey: ['useGetAllUserReviews'],
         });
+        queryClient.invalidateQueries({
+          queryKey: ['useGetShopDetail'],
+        });
       },
     },
   );

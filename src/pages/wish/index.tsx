@@ -19,7 +19,7 @@ const Wish = () => {
           ))}
         </WishList>
       ) : (
-        <div className="flex h-[70vh] items-center justify-center">
+        <div className="flex h-[100vh] items-center justify-center">
           <span className="text-title2 text-text-alternative">
             저장한 포토부스가 없습니다.
           </span>
