@@ -76,6 +76,8 @@ const Search = ({
       setIsTyping(true);
     } else {
       setIsTyping(false);
+      setIsList(false);
+      setIsMap(false);
     }
   }, [value]);
 
@@ -123,7 +125,7 @@ const Search = ({
           ))}
         </SearchContainer>
       )}
-      {isList && !isMap && (
+      {isList && !isMap && value && (
         <SearchContainer>
           {shops &&
             shops.map((list, idx) => (
