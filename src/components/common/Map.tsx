@@ -128,8 +128,10 @@ const Map = ({
             if (!!selectedMarker || selectedMarker !== marker) {
               if (selectedMarker) {
                 selectedMarker && selectedMarker.setImage(normalImage);
+                selectedMarker.setZIndex(0);
               }
               marker.setImage(clickImage);
+              marker.setZIndex(1);
             }
             selectedMarker = marker;
           });
