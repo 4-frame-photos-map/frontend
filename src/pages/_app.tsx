@@ -4,9 +4,7 @@ import Layout from '@components/layout/Layout';
 import Modal from '@components/common/Modal';
 import type { AppProps } from 'next/app';
 import { getLocalStorage } from '@utils/localStorage';
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
@@ -17,17 +15,9 @@ declare global {
   }
 }
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-
 const queryClient = new QueryClient();
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const loginRequiredPages = ['/my', '/wish'];
   if (typeof window !== 'undefined') {
