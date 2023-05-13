@@ -69,7 +69,7 @@ const Login = () => {
         </p>
       </div>
       {isModal && (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 h-full w-full">
           <Modal
             isModal={isModal}
             isKakao={false}
