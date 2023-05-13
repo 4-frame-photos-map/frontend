@@ -41,20 +41,15 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }
   return (
-    <>
-      <Head>
-        <title>네컷 지도</title>
-      </Head>
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </Hydrate>
-        </QueryClientProvider>
-      </RecoilRoot>
-    </>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Hydrate>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 
