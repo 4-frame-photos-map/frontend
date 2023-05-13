@@ -8,7 +8,6 @@ import NavBar from '@components/common/NavBar';
 import Modal from '@components/common/Modal';
 import authApi from '@apis/auth/authApi';
 import memberApi from '@apis/member/memberApi';
-import MetaHead from '@components/common/MetaHead';
 
 const SettingLists: SettingListsProps[] = [
   { id: 1, text: '닉네임 변경', path: '/my/edit' },
@@ -31,10 +30,6 @@ const Setting = () => {
   };
   return (
     <PageLayout>
-      <MetaHead
-        title={'설정 | 네컷 지도'}
-        description={`네컷지도 설정 페이지입니다.`}
-      />
       <Modal
         isModal={isLogoutModal}
         title="로그아웃"

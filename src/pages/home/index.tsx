@@ -13,7 +13,6 @@ import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
-import MetaHead from '@components/common/MetaHead';
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -77,12 +76,6 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <MetaHead
-        title={'홈 | 네컷 지도'}
-        description={
-          '네컷 포토부스를 찾아보세요. 카테고리의 인생네컷, 하루필름, 포토이즘, 포토그레이를 선택하면 원하는 브랜드만 모아보실 수 있습니다.'
-        }
-      />
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}

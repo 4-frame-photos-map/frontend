@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Button from '@components/common/Button';
 import usePostReview from '@hooks/mutations/usePostReview';
-import MetaHead from '@components/common/MetaHead';
 
 type ReviewForm = {
   star_rating?: number;
@@ -53,10 +52,6 @@ const Review = () => {
 
   return (
     <ShopLayout className="bg-white">
-      <MetaHead
-        title={'리뷰 작성 | 네컷 지도'}
-        description={'네컷 포토부스의 리뷰 작성 페이지입니다.'}
-      />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 후기 작성</span>
         <div className="flex text-label2">

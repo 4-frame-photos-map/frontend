@@ -1,5 +1,4 @@
 import authApi from '@apis/auth/authApi';
-import MetaHead from '@components/common/MetaHead';
 import AuthLayout from '@components/layout/AuthLayout';
 import { setToken } from '@utils/token';
 import Image from 'next/image';
@@ -36,7 +35,6 @@ const Kakao = () => {
   }, [isLogin]);
   return (
     <AuthLayout>
-      <MetaHead title={'네컷 지도로 이동 중...'} description={''} />
       <SuccessContainer>
         <Image
           src={'/svg/login/pin-badge-orange.svg'}

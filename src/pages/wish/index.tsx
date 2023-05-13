@@ -1,4 +1,3 @@
-import MetaHead from '@components/common/MetaHead';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
@@ -12,12 +11,6 @@ const Wish = () => {
   const { data: favorites } = useGetFavorite(curPos.lat, curPos.lng);
   return (
     <PageLayout>
-      <MetaHead
-        title={'찜 목록 | 네컷 지도'}
-        description={
-          '네컷 지도의 찜한 포토 부스를 모아볼 수 있는 페이지입니다.'
-        }
-      />
       <NavBar leftTitle={'찜 목록'} />
       {favorites && favorites.length > 0 ? (
         <WishList>

@@ -12,7 +12,6 @@ import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
-import MetaHead from '@components/common/MetaHead';
 
 const Location = () => {
   const isLogin = useRecoilValue<boolean>(userState);
@@ -52,10 +51,6 @@ const Location = () => {
   };
   return (
     <PageLayout className="bg-white">
-      <MetaHead
-        title={'내 주변 | 네컷 지도'}
-        description={'내 반경 5km 이내의 네컷 포토부스를 찾아보세요!'}
-      />
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}

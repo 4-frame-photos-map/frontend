@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import MetaHead from '@components/common/MetaHead';
 
 type ReviewForm = {
   star_rating?: number;
@@ -67,10 +66,6 @@ const Edit = () => {
 
   return (
     <ShopLayout className="bg-white">
-      <MetaHead
-        title={'후기 수정 | 네컷 지도'}
-        description={'네컷 지도의 후기를 수정하는 페이지입니다.'}
-      />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 후기 작성</span>
         <div className="flex text-label2">

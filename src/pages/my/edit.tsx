@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
 import useDebounce from '@hooks/useDebounce';
 import { usePatchProfile } from '@hooks/mutations/usePatchProfile';
-import MetaHead from '@components/common/MetaHead';
 
 type FormValue = {
   nickname: string;
@@ -39,10 +38,6 @@ const Edit = () => {
   };
   return (
     <PageLayout className="bg-white">
-      <MetaHead
-        title={'닉네임 변경 | 네컷 지도'}
-        description={'네컷사진 닉네임 변경 페이지입니다.'}
-      />
       <NavBar centerTitle="닉네임 변경" isLeft={true} />
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>

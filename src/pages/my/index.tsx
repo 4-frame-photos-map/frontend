@@ -6,7 +6,6 @@ import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
 import { useGetProfile } from '@hooks/queries/useGetProfile';
 import { useRouter } from 'next/router';
-import MetaHead from '@components/common/MetaHead';
 
 export type SettingListsProps = {
   id: number;
@@ -34,10 +33,6 @@ const My = () => {
   const { data: user } = useGetProfile();
   return (
     <PageLayout className="bg-white">
-      <MetaHead
-        title={'마이페이지 | 네컷 지도'}
-        description={'네컷 지도의 마이페이지입니다.'}
-      />
       <NavBar centerTitle="마이페이지" isLeft={true} />
       <GreetingBox>
         <Greeting>
