@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import BrandTag from '@components/common/BrandTag';
+import MetaHead from '@components/common/MetaHead';
 
 const Reviews = () => {
   const router = useRouter();
@@ -18,6 +19,10 @@ const Reviews = () => {
   const { mutate: deleteReview } = useDeleteReview();
   return (
     <PageLayout className="bg-bg-primary">
+      <MetaHead
+        title={'내 후기 | 네컷 지도'}
+        description={'네컷 사진의 작성한 후기를 모아볼 수 있는 페이지 입니다.'}
+      />
       {isModal && (
         <ModalLayout>
           <Modal

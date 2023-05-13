@@ -15,6 +15,7 @@ import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
+import MetaHead from '@components/common/MetaHead';
 
 const ShopDetail = () => {
   const router = useRouter();
@@ -63,6 +64,10 @@ const ShopDetail = () => {
 
   return (
     <ShopLayout className="bg-white pt-[62px]">
+      <MetaHead
+        title={`${shopInfo?.place_name} | 네컷 지도`}
+        description={`네컷사진 ${shopInfo?.place_name}의 상세 페이지입니다.`}
+      />
       {shopInfo && (
         <Scripts
           shopInfo={shopInfo}

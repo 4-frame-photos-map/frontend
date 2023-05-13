@@ -1,3 +1,4 @@
+import MetaHead from '@components/common/MetaHead';
 import Modal from '@components/common/Modal';
 import SplashLogin from '@components/common/SplashLogin';
 import AuthLayout from '@components/layout/AuthLayout';
@@ -34,10 +35,18 @@ const Login = () => {
 
   return loading ? (
     <AuthLayout>
+      <MetaHead
+        title={'로그인 | 네컷 지도'}
+        description={'네컷 지도의 로그인 페이지입니다.'}
+      />
       <SplashLogin />
     </AuthLayout>
   ) : (
     <AuthLayout>
+      <MetaHead
+        title={'로그인 | 네컷 지도'}
+        description={'네컷 지도의 로그인 페이지입니다.'}
+      />
       <Image
         src="/svg/login/login-logo.svg"
         alt="logo"
@@ -69,7 +78,7 @@ const Login = () => {
         </p>
       </div>
       {isModal && (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 h-full w-full">
           <Modal
             isModal={isModal}
             isKakao={false}
