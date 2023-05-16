@@ -24,9 +24,9 @@ const Kakao = () => {
       };
       if (token) {
         setToken(token);
-        router.push('/home');
+        router.replace('/home');
       } else {
-        router.push('/auth/login');
+        router.replace('/auth/login');
       }
     }
     if (isLogin) {
