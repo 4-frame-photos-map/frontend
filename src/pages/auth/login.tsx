@@ -14,9 +14,14 @@ const Login = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const leftEvent = () => {
-    router.push(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`,
-    );
+    if (CONFIG.ENV === 'development') {
+      router.push(
+        `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`,
+      );
+    } else
+      router.push(
+        `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.DOMAIN}/auth/kakao&response_type=code`,
+      );
   };
 
   const rightEvent = () => {
