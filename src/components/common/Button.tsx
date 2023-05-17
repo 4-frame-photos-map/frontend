@@ -7,18 +7,20 @@ type ButtonProps = {
   disabled?: boolean;
   handleButton?: () => void;
   handleRightButton?: () => void;
+  className?: React.ComponentProps<'div'>['className'];
 };
 
 const Button = ({
-  text = '이용후기 작성하기',
+  text = '이용리뷰 작성하기',
   isRightButton,
   rightText = '작성 완료하기',
   disabled,
   handleButton,
   handleRightButton,
+  ...rest
 }: ButtonProps) => {
   return (
-    <ButtonLayout>
+    <ButtonLayout {...rest}>
       {isRightButton ? (
         <>
           <LeftButton className="bg-fill-strong" onClick={handleButton}>
