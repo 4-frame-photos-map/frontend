@@ -18,7 +18,7 @@ type SettingItemsProps = SettingListsProps & {
 };
 
 const SettingItems: SettingItemsProps[] = [
-  { id: 1, text: '내 후기', icon: '/svg/review.svg', path: '/my/reviews' },
+  { id: 1, text: '내 리뷰', icon: '/svg/review.svg', path: '/my/reviews' },
   { id: 2, text: '내 칭호', icon: '/svg/title.svg', path: '/my/titles' },
   { id: 3, text: '공지사항', icon: '/svg/notice.svg', path: '/notice' },
 ];
