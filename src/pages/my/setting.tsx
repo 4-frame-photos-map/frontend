@@ -43,7 +43,7 @@ const Setting = () => {
         isModal={isWithdrawModal}
         title="회원탈퇴"
         message={
-          '회원탈퇴 이후에 저장한 포토부스와 작성한 후기를\n더이상 볼 수 없어요.\n정말 탈퇴하시겠어요?'
+          '회원탈퇴 이후에 저장한 포토부스와 작성한 리뷰를\n더이상 볼 수 없어요.\n정말 탈퇴하시겠어요?'
         }
         left="취소"
         right="확인"

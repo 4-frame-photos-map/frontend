@@ -34,7 +34,7 @@ const Reviews = () => {
           />
         </ModalLayout>
       )}
-      <NavBar centerTitle="내 후기" isLeft={true} />
+      <NavBar centerTitle="내 리뷰" isLeft={true} />
       {reviews && reviews.length ? (
         <ul className="my-[52px]">
           {reviews?.map(({ review_info, shop_info }, idx) => (
