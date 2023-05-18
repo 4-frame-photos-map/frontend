@@ -107,7 +107,7 @@ const ShopDetail = () => {
             }}
           >
             <Image src={'/svg/map.svg'} width={18} height={18} alt="지도" />
-            <div className="pl-[2px]">카카오맵 보러가기</div>
+            <div className="pl-[2px]">카카오맵 보기</div>
           </ShopEvent>
           <ShopEvent
             onClick={() => {
