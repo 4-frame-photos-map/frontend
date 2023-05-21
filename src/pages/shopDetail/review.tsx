@@ -122,7 +122,7 @@ const Review = () => {
           router.back();
         }}
         handleRightButton={handleSubmit(onSubmit)}
-        disabled={!watchStar || !watchContent}
+        disabled={!watchStar || !watchContent || watchContent.trim() === ''}
       />
     </ShopLayout>
   );

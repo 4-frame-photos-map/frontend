@@ -155,7 +155,7 @@ const Edit = () => {
       <Button
         text="작성 취소하기"
         isRightButton={true}
-        disabled={!watchContent}
+        disabled={!watchContent || watchContent.trim() === ''}
         handleButton={() => {
           router.replace('/my/reviews');
         }}
