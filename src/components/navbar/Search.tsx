@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useGetShopsByKeyword } from '@hooks/queries/useGetShop';
 import SearchResult from '@components/navbar/SearchResult';
 import SearchList from '@components/navbar/SearchList';
+import { useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
 
 export interface FormValue {
   search: string;
@@ -32,12 +34,9 @@ const Search = ({
     mode: 'onChange',
   });
   const value = watch('search');
+  const curPos = useRecoilValue(curPosState);
 
-  const { data: shops } = useGetShopsByKeyword(
-    value,
-    location.lng,
-    location.lat,
-  );
+  const { data: shops } = useGetShopsByKeyword(value, curPos.lng, curPos.lat);
 
   useEffect(() => {
     setShopsInfo(shops);
@@ -115,18 +114,39 @@ const Search = ({
             />
             <span className="pl-4 text-body1 text-status-error">{value}</span>
           </div>
-          {shops?.map((search, idx) => (
-            <SearchResult
-              key={idx}
-              {...search}
-              value={value}
-              isTyping={isTyping}
-            />
-          ))}
+          {shops?.length === 0 ? (
+            <div className="flex h-[60vh] flex-col items-center justify-center">
+              <span className="mr-2 text-body1 text-status-error">
+                {"' " + value + " '"}
+              </span>
+              <span className="text-title2 text-text-alternative">
+                에 대한 검색 결과가 없습니다.
+              </span>
+            </div>
+          ) : (
+            shops?.map((search, idx) => (
+              <SearchResult
+                key={idx}
+                {...search}
+                value={value}
+                isTyping={isTyping}
+              />
+            ))
+          )}
         </SearchContainer>
       )}
       {isList && !isMap && value && (
         <SearchContainer>
+          {shops?.length === 0 && (
+            <div className="flex h-[60vh] flex-col items-center justify-center">
+              <span className="mr-2 text-body1 text-status-error">
+                {"' " + value + " '"}
+              </span>
+              <span className="text-title2 text-text-alternative">
+                에 대한 검색 결과가 없습니다.
+              </span>
+            </div>
+          )}
           {shops &&
             shops.map((list, idx) => (
               <SearchList key={idx} {...list} isList={isList} />
