@@ -100,7 +100,7 @@ const ShopItem = ({
           <div className="pl-2 border-l">
             <span className="pr-1">찜</span>
             <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
-            <span className="ml-8 text-caption1 text-text-alternative">
+            <span className="ml-11 text-caption1 text-text-alternative">
               {shopInfo?.distance}
             </span>
           </div>
