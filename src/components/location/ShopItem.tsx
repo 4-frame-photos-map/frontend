@@ -1,11 +1,11 @@
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
-import BrandTag from '@components/common/BrandTag';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater } from 'recoil';
+import ShopTitle from '@components/common/ShopTitle';
 
 type ShopItemProps = {
   brand_name: string;
@@ -17,6 +17,7 @@ type ShopItemProps = {
   review_cnt: number;
   isLogin: boolean;
   setIsModal: SetterOrUpdater<boolean>;
+  shop_titles?: string[];
 };
 
 const ShopItem = ({
@@ -50,68 +51,79 @@ const ShopItem = ({
     }
   };
   return (
-    <ItemContainer
-      onClick={() => {
-        router.push(`/shopDetail/?shopId=${id}`);
-      }}
-    >
-      <ItemImgContainer>
-        <Image
-          className="rounded-lg"
-          src={`${file_path}`}
-          alt={brand_name}
-          fill
-        />
-        <FavoriteBtn>
-          {shopInfo?.favorite ? (
-            <Image
-              src="/svg/wish/filled-bookmark.svg"
-              width={24}
-              height={24}
-              alt="wish"
-              onClick={(e) => {
-                handleFavorite(e, id);
-              }}
-            />
-          ) : (
-            <Image
-              src="/svg/wish/lined-bookmark.svg"
-              width={24}
-              height={24}
-              alt="wish"
-              className="cursor-pointer"
-              onClick={(e) => handleFavorite(e, id)}
-            />
-          )}
-        </FavoriteBtn>
-      </ItemImgContainer>
-      <span className="truncate text-label1">{place_name}</span>
-      <ItemDescBox>
-        <span className="flex pr-2">
-          <Image src="/svg/star.svg" width={16} height={16} alt="star" />
-          {star_rating} ({review_cnt})
-        </span>
-        <div className="pl-2 border-l">
-          <span className="pr-1">찜</span>
-          <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
+    <>
+      <ItemContainer
+        onClick={() => {
+          router.push(`/shopDetail/?shopId=${id}`);
+        }}
+      >
+        <ItemImgContainer>
+          <Image
+            className="rounded-lg"
+            src={`${file_path}`}
+            alt={brand_name}
+            fill
+          />
+          <FavoriteBtn>
+            {shopInfo?.favorite ? (
+              <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
+                <Image
+                  src="/svg/wish/filled-bookmark.svg"
+                  width={24}
+                  height={24}
+                  alt="wish"
+                  onClick={(e) => {
+                    handleFavorite(e, id);
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
+                <Image
+                  src="/svg/wish/lined-bookmark.svg"
+                  width={24}
+                  height={24}
+                  alt="wish"
+                  className="cursor-pointer"
+                  onClick={(e) => handleFavorite(e, id)}
+                />
+              </div>
+            )}
+          </FavoriteBtn>
+        </ItemImgContainer>
+        <span className="truncate text-label1">{place_name}</span>
+        <ItemDescBox>
+          <span className="flex pr-2">
+            <Image src="/svg/star.svg" width={16} height={16} alt="star" />
+            {star_rating} ({review_cnt})
+          </span>
+          <div className="pl-2 border-l">
+            <span className="pr-1">찜</span>
+            <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
+            <span className="ml-8 text-caption1 text-text-alternative">
+              {shopInfo?.distance}
+            </span>
+          </div>
+        </ItemDescBox>
+        <div className="relative flex pt-2">
+          {shopInfo?.shop_titles &&
+            shopInfo?.shop_titles?.map((title, idx) => (
+              <ShopTitle key={idx} title={title} />
+            ))}
         </div>
-      </ItemDescBox>
-      <span className="mb-2 text-caption1 text-text-alternative">
-        {shopInfo?.distance}
-      </span>
-      <BrandTag name={brand_name} />
-    </ItemContainer>
+      </ItemContainer>
+    </>
   );
 };
 
 const ItemContainer = tw.div`
-flex flex-col cursor-pointer relative
+flex flex-col cursor-pointer relative pb-3 self-start
 `;
 const FavoriteBtn = tw.div`
-absolute top-2 right-2
+absolute top-1 right-1 mt-1 mr-0.5
 `;
 const ItemImgContainer = tw.div`
-mb-3 h-[160px] w-full rounded-lg relative
+mb-3 min-h-[160px] w-full rounded-lg relative
 `;
 const ItemDescBox = tw.div`
 mt-2 flex text-caption1
