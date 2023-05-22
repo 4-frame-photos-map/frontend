@@ -53,7 +53,7 @@ const Review = () => {
   return (
     <ShopLayout className="bg-white">
       <RatingContainer>
-        <span className="pb-6 text-title2 font-semibold">이용 후기 작성</span>
+        <span className="pb-6 text-title2 font-semibold">이용 리뷰 작성</span>
         <div className="flex text-label2">
           <span className="text-status-error">*</span>
           <span className="pb-4 pl-2 text-text-alternative">
@@ -107,7 +107,7 @@ const Review = () => {
           />
         </OptionBox>
         <Textarea
-          label="이용후기"
+          label="이용리뷰"
           placeholder="리뷰를 남겨주세요! (100자 이내)"
           register={register('content')}
           className={
@@ -122,7 +122,7 @@ const Review = () => {
           router.back();
         }}
         handleRightButton={handleSubmit(onSubmit)}
-        disabled={!watchStar || !watchContent}
+        disabled={!watchStar || !watchContent || watchContent.trim() === ''}
       />
     </ShopLayout>
   );

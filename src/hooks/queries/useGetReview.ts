@@ -23,15 +23,3 @@ export const useGetUserReview = (reviewId: number) => {
     },
   );
 };
-
-export const useGetAllShopReviews = (shopId: number) => {
-  return useQuery<Review[], Error>(
-    ['useGetAllShopReviews'],
-    () => reviewApi.getAllShopReviews(shopId),
-    {
-      retry: false,
-      refetchOnWindowFocus: false,
-      enabled: !!shopId,
-    },
-  );
-};

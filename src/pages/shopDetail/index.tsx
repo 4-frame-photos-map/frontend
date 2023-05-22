@@ -7,11 +7,12 @@ import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
+import Menu from '@components/common/Menu';
+import reviewApi from '@apis/review/reviewApi';
 import { curPosState } from '@recoil/positionAtom';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
-import { useGetAllShopReviews } from '@hooks/queries/useGetReview';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
@@ -29,9 +30,9 @@ const ShopDetail = () => {
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [reviewLoaded, setReviewLoaded] = useState<boolean>(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   const { data: shopInfo } = useGetShopDetail(shopId, curPos.lat, curPos.lng);
-  const { data: additionalReview } = useGetAllShopReviews(shopId);
 
   const handleShareButton = (
     place_name: string,
@@ -91,7 +92,7 @@ const ShopDetail = () => {
         <ShopName>{shopInfo?.place_name}</ShopName>
         <ShopRate>
           <div className="flex items-center">
-            {shopInfo && <StarRate rate={shopInfo?.star_rating_avg} />}
+            {shopInfo && <StarRate rate={shopInfo.star_rating_avg} />}
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
@@ -113,7 +114,7 @@ const ShopDetail = () => {
             }}
           >
             <Image src={'/svg/map.svg'} width={18} height={18} alt="지도" />
-            <div className="pl-[2px]">카카오맵 보러가기</div>
+            <div className="pl-[2px]">카카오맵 보기</div>
           </ShopEvent>
           <ShopEvent
             onClick={() => {
@@ -137,34 +138,40 @@ const ShopDetail = () => {
             <StarRate color={true} rate={shopInfo.star_rating_avg} />
           )}
         </ReviewInfoBox>
-        {!reviewLoaded
-          ? shopInfo?.recent_reviews.map(({ review_info, member_info }) => (
-              <ReviewItem
-                key={review_info.id}
-                create_date={review_info.create_date}
-                star_rating={review_info.star_rating}
-                content={review_info.content}
-                purity={review_info.purity}
-                retouch={review_info.retouch}
-                item={review_info.item}
-                member_info={member_info as member_info}
-              />
-            ))
-          : additionalReview?.map(({ review_info, member_info }) => (
-              <ReviewItem
-                key={review_info.id}
-                create_date={review_info.create_date}
-                star_rating={review_info.star_rating}
-                content={review_info.content}
-                purity={review_info.purity}
-                retouch={review_info.retouch}
-                item={review_info.item}
-                member_info={member_info as member_info}
-              />
-            ))}
+        {shopInfo?.recent_reviews.length === 0 ? (
+          <span>작성된 리뷰가 없습니다.</span>
+        ) : reviewLoaded && reviews ? (
+          reviews.map(({ review_info, member_info }) => (
+            <ReviewItem
+              key={review_info.id}
+              create_date={review_info.create_date}
+              star_rating={review_info.star_rating}
+              content={review_info.content}
+              purity={review_info.purity}
+              retouch={review_info.retouch}
+              item={review_info.item}
+              member_info={member_info as member_info}
+            />
+          ))
+        ) : (
+          shopInfo?.recent_reviews.map(({ review_info, member_info }) => (
+            <ReviewItem
+              key={review_info.id}
+              create_date={review_info.create_date}
+              star_rating={review_info.star_rating}
+              content={review_info.content}
+              purity={review_info.purity}
+              retouch={review_info.retouch}
+              item={review_info.item}
+              member_info={member_info as member_info}
+            />
+          ))
+        )}
         {!reviewLoaded && (shopInfo?.review_cnt as number) > 3 && (
           <LoadReviewBtn
-            onClick={() => {
+            onClick={async () => {
+              const res = await reviewApi.getAllShopReviews(shopId);
+              setReviews(res);
               setReviewLoaded(true);
             }}
           >
@@ -174,11 +181,13 @@ const ShopDetail = () => {
         )}
       </ShopInfoBox>
       <Button
+        className="bottom-[72px]"
         handleButton={() => {
           if (!isLogin) setIsModal(() => true);
           else router.push(`/shopDetail/review?shopId=${shopInfo?.id}`);
         }}
       />
+      <Menu />
     </ShopLayout>
   );
 };
@@ -187,7 +196,7 @@ const Map = tw.div`
 h-[270px] w-full pt-[62px]
 `;
 const ShopInfoBox = tw.div`
-flex flex-col px-4 pt-4 pb-2 mb-[52px]
+flex flex-col px-4 pt-4 pb-2 mb-[122px]
 `;
 const ShopTagBox = tw.div`
 mb-2 flex items-center

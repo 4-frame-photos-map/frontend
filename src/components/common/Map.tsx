@@ -47,35 +47,40 @@ const Map = ({
           level: 5,
         };
         const map = new kakao.maps.Map(mapContainer.current, mapOption);
-        setLocation({ lat: 33.450701, lng: 126.570667 });
-        setCurPos((location) => {
-          return { ...location, lat: 33.450701, lng: 126.570667 };
-        });
         setKakaoMap(map);
+        const imageSrc = '/svg/home/tracking.svg';
+        const imageSize = new kakao.maps.Size(25, 25);
+        const imageOption = { offset: new kakao.maps.Point(20, 20) };
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(({ coords }) => {
-            const { latitude, longitude } = coords;
-            setLocation({ lat: latitude, lng: longitude });
-            setCurPos((location) => {
-              return { ...location, lat: latitude, lng: longitude };
-            });
-            const locPosition = new kakao.maps.LatLng(latitude, longitude);
-            const imageSrc = '/svg/home/tracking.svg';
-            const imageSize = new kakao.maps.Size(25, 25);
-            const imageOption = { offset: new kakao.maps.Point(20, 20) };
-            const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-            const markerImage = new kakao.maps.MarkerImage(
-              imageSrc,
-              imageSize,
-              imageOption,
-            );
-            const marker = new kakao.maps.Marker({
-              position: markerPosition,
-              image: markerImage,
-            });
-            marker.setMap(map);
-            map.setCenter(locPosition);
-          });
+          navigator.geolocation.getCurrentPosition(
+            ({ coords }) => {
+              const { latitude, longitude } = coords;
+              setLocation({ lat: latitude, lng: longitude });
+              setCurPos((location) => {
+                return { ...location, lat: latitude, lng: longitude };
+              });
+              const locPosition = new kakao.maps.LatLng(latitude, longitude);
+              const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+              const markerImage = new kakao.maps.MarkerImage(
+                imageSrc,
+                imageSize,
+                imageOption,
+              );
+              const marker = new kakao.maps.Marker({
+                position: markerPosition,
+                image: markerImage,
+              });
+              marker.setMap(map);
+              map.setCenter(locPosition);
+            },
+            () => {
+              alert('위치 정보를 허용해주세요.');
+            },
+            {
+              timeout: 5000,
+              maximumAge: 30000,
+            },
+          );
         }
       });
     }
