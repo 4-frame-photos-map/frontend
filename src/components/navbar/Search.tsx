@@ -100,27 +100,32 @@ const Search = ({
           onClick={handleClearValue}
         />
       )}
-      {isTyping && !isMap && (
+      {isTyping && !isMap && shops && (
         <SearchContainer>
-          <div
-            className="flex items-center px-4 pt-5 cursor-pointer"
-            onClick={handleSearchClick}
-          >
-            <Image
-              src="/svg/navbar/search-icon.svg"
-              width={28}
-              height={28}
-              alt="search"
-            />
-            <span className="pl-4 text-body1 text-status-error">{value}</span>
-          </div>
+          {shops?.length > 0 && (
+            <div
+              className="flex cursor-pointer items-center px-4 pt-5"
+              onClick={handleSearchClick}
+            >
+              <Image
+                src="/svg/navbar/search-icon.svg"
+                width={28}
+                height={28}
+                alt="search"
+              />
+              <span className="pl-4 text-body1 text-status-error">{value}</span>
+            </div>
+          )}
           {shops?.length === 0 ? (
-            <div className="flex h-[60vh] flex-col items-center justify-center">
-              <span className="mr-2 text-body1 text-status-error">
-                {"' " + value + " '"}
-              </span>
-              <span className="text-title2 text-text-alternative">
-                에 대한 검색 결과가 없습니다.
+            <div className="flex flex-col items-center justify-center pt-12">
+              <Image
+                src={'/svg/navbar/danger.svg'}
+                width={40}
+                height={40}
+                alt="danger"
+              />
+              <span className="pt-2 text-[18px] text-text-alternative">
+                검색 결과가 없습니다.
               </span>
             </div>
           ) : (
@@ -137,16 +142,6 @@ const Search = ({
       )}
       {isList && !isMap && value && (
         <SearchContainer>
-          {shops?.length === 0 && (
-            <div className="flex h-[60vh] flex-col items-center justify-center">
-              <span className="mr-2 text-body1 text-status-error">
-                {"' " + value + " '"}
-              </span>
-              <span className="text-title2 text-text-alternative">
-                에 대한 검색 결과가 없습니다.
-              </span>
-            </div>
-          )}
           {shops &&
             shops.map((list, idx) => (
               <SearchList key={idx} {...list} isList={isList} />
