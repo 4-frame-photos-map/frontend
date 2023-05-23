@@ -193,7 +193,7 @@ absolute inset-x-0 mx-0 my-auto text-center text-title2 font-semibold
 `;
 
 const Border = tw.div`
-flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary
+flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary cursor-pointer
 `;
 
 export default NavBar;
