@@ -150,13 +150,13 @@ const NavBar = ({
         {centerTitle && <CenterTitle>{centerTitle}</CenterTitle>}
         {isRight && !isDetail ? (
           isInput ? null : (
-            <Border onClick={handleOpenInput}>
+            <Border className="cursor-pointer" onClick={handleOpenInput}>
               <Image
                 src={'/svg/navbar/search.svg'}
                 alt="검색"
                 width={16}
                 height={16}
-                className="right-0 z-[999] cursor-pointer"
+                className="right-0 z-[999]"
               />
               <span className="font-semibold text-caption1">검색</span>
             </Border>
@@ -193,7 +193,7 @@ absolute inset-x-0 mx-0 my-auto text-center text-title2 font-semibold
 `;
 
 const Border = tw.div`
-flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary cursor-pointer
+flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary
 `;
 
 export default NavBar;
