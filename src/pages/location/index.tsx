@@ -92,6 +92,7 @@ const Location = () => {
                   review_cnt={shop.review_cnt}
                   isLogin={isLogin}
                   setIsModal={setIsModal}
+                  shop_titles={shop.shop_titles}
                 />
               ))}
           </ResultItemBox>
@@ -102,7 +103,7 @@ const Location = () => {
 };
 
 const ResultContainer = tw.div`
-mt-[500px] mb-10 h-full w-full bg-white relative
+mt-[500px] mb-10 h-full w-full bg-white relative items-start
 `;
 const ResultBox = tw.div`
 h-full rounded-t-[15px] pt-2 pb-10

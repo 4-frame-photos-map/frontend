@@ -16,6 +16,7 @@ import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
+import ShopTitle from '@components/common/ShopTitle';
 
 const ShopDetail = () => {
   const router = useRouter();
@@ -81,6 +82,12 @@ const ShopDetail = () => {
       <ShopInfoBox>
         <ShopTagBox>
           <BrandTag name={shopInfo?.place_name as string} />
+          <div className="flex ml-2">
+            {shopInfo?.shop_titles &&
+              shopInfo?.shop_titles?.map((title, idx) => (
+                <ShopTitle key={idx} title={title} />
+              ))}
+          </div>
         </ShopTagBox>
         <ShopName>{shopInfo?.place_name}</ShopName>
         <ShopRate>
@@ -89,7 +96,7 @@ const ShopDetail = () => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="border-l border-text-alternative px-2">
+            <div className="px-2 border-l border-text-alternative">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}
@@ -192,7 +199,7 @@ const ShopInfoBox = tw.div`
 flex flex-col px-4 pt-4 pb-2 mb-[122px]
 `;
 const ShopTagBox = tw.div`
-mb-2 text-caption2
+mb-2 flex items-center
 `;
 const ShopName = tw.div`
 text-title1 font-semibold

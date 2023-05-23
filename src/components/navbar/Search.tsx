@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useGetShopsByKeyword } from '@hooks/queries/useGetShop';
 import SearchResult from '@components/navbar/SearchResult';
 import SearchList from '@components/navbar/SearchList';
+import { useRecoilValue } from 'recoil';
+import { curPosState } from '@recoil/positionAtom';
 
 export interface FormValue {
   search: string;
@@ -32,12 +34,9 @@ const Search = ({
     mode: 'onChange',
   });
   const value = watch('search');
+  const curPos = useRecoilValue(curPosState);
 
-  const { data: shops } = useGetShopsByKeyword(
-    value,
-    location.lng,
-    location.lat,
-  );
+  const { data: shops } = useGetShopsByKeyword(value, curPos.lng, curPos.lat);
 
   useEffect(() => {
     setShopsInfo(shops);
@@ -101,28 +100,44 @@ const Search = ({
           onClick={handleClearValue}
         />
       )}
-      {isTyping && !isMap && (
+      {isTyping && !isMap && shops && (
         <SearchContainer>
-          <div
-            className="flex items-center px-4 pt-5 cursor-pointer"
-            onClick={handleSearchClick}
-          >
-            <Image
-              src="/svg/navbar/search-icon.svg"
-              width={28}
-              height={28}
-              alt="search"
-            />
-            <span className="pl-4 text-body1 text-status-error">{value}</span>
-          </div>
-          {shops?.map((search, idx) => (
-            <SearchResult
-              key={idx}
-              {...search}
-              value={value}
-              isTyping={isTyping}
-            />
-          ))}
+          {shops?.length > 0 && (
+            <div
+              className="flex cursor-pointer items-center px-4 pt-5"
+              onClick={handleSearchClick}
+            >
+              <Image
+                src="/svg/navbar/search-icon.svg"
+                width={28}
+                height={28}
+                alt="search"
+              />
+              <span className="pl-4 text-body1 text-status-error">{value}</span>
+            </div>
+          )}
+          {shops?.length === 0 ? (
+            <div className="flex flex-col items-center justify-center pt-12">
+              <Image
+                src={'/svg/navbar/danger.svg'}
+                width={40}
+                height={40}
+                alt="danger"
+              />
+              <span className="pt-2 text-[18px] text-text-alternative">
+                검색 결과가 없습니다.
+              </span>
+            </div>
+          ) : (
+            shops?.map((search, idx) => (
+              <SearchResult
+                key={idx}
+                {...search}
+                value={value}
+                isTyping={isTyping}
+              />
+            ))
+          )}
         </SearchContainer>
       )}
       {isList && !isMap && value && (

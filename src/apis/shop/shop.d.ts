@@ -23,6 +23,7 @@ type ShopProps = {
   favorite_cnt: number;
   brand?: BrandProps;
   favorite: boolean;
+  shop_titles?: string[];
 };
 
 type ShopReviewProps = {
