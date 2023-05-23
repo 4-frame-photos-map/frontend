@@ -36,6 +36,7 @@ instance.interceptors.response.use(
     const ExpiredAccessTokenError = data.error_code === '102';
     const ExpiredRefreshTokenError = data.error_code === '103';
     const RefreshTokenError = data.error_code === '104';
+    const ClientError = '400' <= data.error_code && data.error_code < '500';
 
     if (ExpiredRefreshTokenError || RefreshTokenError) {
       alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
@@ -60,6 +61,9 @@ instance.interceptors.response.use(
         refreshToken: getToken().refreshToken,
       });
       return instance.request(originalRequest);
+    }
+    if (ClientError) {
+      alert(`${data.error_message}`);
     }
   },
 );

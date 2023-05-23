@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
+import ShopTitle from '@components/common/ShopTitle';
 
 type ShopModalProps = {
   id: number;
@@ -44,9 +45,17 @@ const ShopModal = ({
   };
 
   return (
-    <div className="mx-6 h-[98px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal">
+    <div className="mx-6 h-[110px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal">
       <div className="p-4">
-        <BrandTag name={place_name} />
+        <div className="flex items-center">
+          <BrandTag name={place_name} />
+          <div className="flex ml-2">
+            {shopInfo?.shop_titles &&
+              shopInfo?.shop_titles?.map((title, idx) => (
+                <ShopTitle key={idx} title={title} />
+              ))}
+          </div>
+        </div>
         <div className="flex justify-between pt-1 pb-2">
           <span
             className="text-label1"

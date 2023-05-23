@@ -3,11 +3,9 @@ import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import { curPosState } from '@recoil/positionAtom';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 const WishItem = ({ shop }: Favorite) => {
@@ -16,7 +14,6 @@ const WishItem = ({ shop }: Favorite) => {
   const [toast, setToast] = useState<boolean>(false);
   const { mutate: del, isSuccess, isError } = useDeleteFavorite('/wish');
   const { mutate: add } = usePostFavorite();
-  const curPos = useRecoilValue(curPosState);
 
   const handleAddFavorite = (shopId: number) => {
     add(shopId);
@@ -28,7 +25,7 @@ const WishItem = ({ shop }: Favorite) => {
 
   return (
     <>
-      <li className="w-full bg-white px-6 py-5">
+      <li className="w-full px-6 py-5 bg-white">
         <BrandTag name={shop.place_name} />
         <div className="flex justify-between pt-1 pb-2">
           <span
@@ -65,7 +62,7 @@ const WishItem = ({ shop }: Favorite) => {
             <span className="text-caption1">
               {shop.star_rating_avg.toFixed(1)} ({shop.review_cnt}) | 찜{' '}
             </span>
-            <span className="text-caption1 font-semibold">
+            <span className="font-semibold text-caption1">
               {shop.favorite_cnt}
             </span>
           </div>

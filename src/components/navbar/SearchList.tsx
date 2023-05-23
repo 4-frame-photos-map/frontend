@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
-import { curPosState } from '@recoil/positionAtom';
 
 type SearchListProps = Shop & {
   isList: boolean;
@@ -19,7 +17,6 @@ const SearchList = ({
   id,
 }: SearchListProps) => {
   const router = useRouter();
-  const curPos = useRecoilValue(curPosState);
   return isList ? (
     <>
       <DivisionBar />
