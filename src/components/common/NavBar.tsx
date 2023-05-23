@@ -18,6 +18,7 @@ type NavBarProps = {
   location?: Position;
   kakaoMap?: any;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
+  favoritesNum?: number;
 };
 
 const NavBar = ({
@@ -31,6 +32,7 @@ const NavBar = ({
   location,
   kakaoMap,
   setShopsInfo,
+  favoritesNum,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -71,7 +73,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -91,7 +93,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="ml-1 flex flex-col items-center"
+                  className="flex flex-col items-center ml-1"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -148,18 +150,27 @@ const NavBar = ({
         {centerTitle && <CenterTitle>{centerTitle}</CenterTitle>}
         {isRight && !isDetail ? (
           isInput ? null : (
-            <Image
-              src={'/svg/navbar/search.svg'}
-              alt="검색"
-              width={24}
-              height={24}
-              className="right-0 z-[999] cursor-pointer"
-              onClick={handleOpenInput}
-            />
+            <Border onClick={handleOpenInput}>
+              <Image
+                src={'/svg/navbar/search.svg'}
+                alt="검색"
+                width={16}
+                height={16}
+                className="right-0 z-[999] cursor-pointer"
+              />
+              <span className="font-semibold text-caption1">검색</span>
+            </Border>
           )
         ) : null}
         {isDetail && shopId && (
           <FavoriteButton shopId={shopId} isFavorite={isFavorite} />
+        )}
+        {favoritesNum && (
+          <Border>
+            <span className="font-semibold text-caption1">
+              총 {favoritesNum}개
+            </span>
+          </Border>
         )}
       </NavItems>
     </NavContainer>
@@ -179,6 +190,10 @@ text-title2 font-semibold
 
 const CenterTitle = tw.span`
 absolute inset-x-0 mx-0 my-auto text-center text-title2 font-semibold
+`;
+
+const Border = tw.div`
+flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary
 `;
 
 export default NavBar;
