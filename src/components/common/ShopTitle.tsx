@@ -8,7 +8,7 @@ type titleListType = {
   [key: string]: JSX.Element;
 };
 
-const titleList: titleListType = {
+const TITLE_LIST: titleListType = {
   핫플레이스: (
     <Image
       src={'/svg/shop-title-hot-place.svg'}
@@ -28,7 +28,7 @@ const titleList: titleListType = {
 };
 
 const ShopTitle = ({ title }: ShopTitleProps) => {
-  return <>{title && titleList[title]}</>;
+  return <>{title && TITLE_LIST[title]}</>;
 };
 
 export default ShopTitle;
