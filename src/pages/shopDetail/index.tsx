@@ -85,7 +85,7 @@ const ShopDetail = () => {
           <div className="flex ml-2">
             {shopInfo?.shop_titles &&
               shopInfo?.shop_titles?.map((title, idx) => (
-                <ShopTitle key={idx} title={title} />
+                <ShopTitle key={idx} title={title} width={70} height={20} />
               ))}
           </div>
         </ShopTagBox>

@@ -11,7 +11,7 @@ const Wish = () => {
   const { data: favorites } = useGetFavorite(curPos.lat, curPos.lng);
   return (
     <PageLayout>
-      <NavBar leftTitle={'찜 목록'} />
+      <NavBar leftTitle={'찜 목록'} favoritesNum={favorites?.length} />
       {favorites && favorites.length > 0 ? (
         <WishList>
           {favorites?.map((data, idx) => (
