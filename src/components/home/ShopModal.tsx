@@ -45,14 +45,14 @@ const ShopModal = ({
   };
 
   return (
-    <div className="mx-6 h-[110px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal">
+    <div className="mx-6 h-[98px] cursor-pointer rounded-[8px] bg-bg-secondary shadow-shopModal">
       <div className="p-4">
         <div className="flex items-center">
           <BrandTag name={place_name} />
           <div className="flex ml-2">
             {shopInfo?.shop_titles &&
               shopInfo?.shop_titles?.map((title, idx) => (
-                <ShopTitle key={idx} title={title} />
+                <ShopTitle key={idx} title={title} width={50} height={13} />
               ))}
           </div>
         </div>

@@ -100,7 +100,7 @@ const ShopItem = ({
           <div className="pl-2 border-l">
             <span className="pr-1">찜</span>
             <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
-            <span className="ml-11 text-caption1 text-text-alternative">
+            <span className="ml-9 text-caption1 text-text-alternative">
               {shopInfo?.distance}
             </span>
           </div>
@@ -108,7 +108,7 @@ const ShopItem = ({
         <div className="relative flex pt-2">
           {shopInfo?.shop_titles &&
             shopInfo?.shop_titles?.map((title, idx) => (
-              <ShopTitle key={idx} title={title} />
+              <ShopTitle key={idx} title={title} width={65} height={20} />
             ))}
         </div>
       </ItemContainer>
