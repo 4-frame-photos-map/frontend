@@ -25,7 +25,7 @@ const WishItem = ({ shop }: Favorite) => {
 
   return (
     <>
-      <li className="w-full px-6 py-5 bg-white">
+      <li className="w-full bg-white px-6 py-5">
         <BrandTag name={shop.place_name} />
         <div className="flex justify-between pt-1 pb-2">
           <span
@@ -40,7 +40,7 @@ const WishItem = ({ shop }: Favorite) => {
               width={24}
               height={24}
               alt="bookmark"
-              className="z-[900] cursor-pointer"
+              className="cursor-pointer"
               onClick={() => {
                 setIsModal(true);
               }}
@@ -51,7 +51,7 @@ const WishItem = ({ shop }: Favorite) => {
               width={24}
               height={24}
               alt="bookmark"
-              className="z-[900] cursor-pointer"
+              className="cursor-pointer"
               onClick={() => handleAddFavorite(shop.id)}
             />
           )}
@@ -62,7 +62,7 @@ const WishItem = ({ shop }: Favorite) => {
             <span className="text-caption1">
               {shop.star_rating_avg.toFixed(1)} ({shop.review_cnt}) | 찜{' '}
             </span>
-            <span className="font-semibold text-caption1">
+            <span className="text-caption1 font-semibold">
               {shop.favorite_cnt}
             </span>
           </div>
