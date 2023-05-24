@@ -59,7 +59,6 @@ const Home = () => {
       const brdShops = curShopsInfo?.filter(
         (shop) => shop.brand?.brand_name === brd,
       );
-      console.log(brdShops);
       setShopsInfo(brdShops);
     } else {
       setShopsInfo(curShopsInfo);
