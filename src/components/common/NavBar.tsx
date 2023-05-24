@@ -17,8 +17,10 @@ type NavBarProps = {
   isFavorite?: boolean;
   location?: Position;
   kakaoMap?: any;
-  setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   favoritesNum?: number;
+  setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
+  setCurShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
+  setModalProps?: Dispatch<SetStateAction<ShopProps | undefined>>;
 };
 
 const NavBar = ({
@@ -31,8 +33,10 @@ const NavBar = ({
   isFavorite,
   location,
   kakaoMap,
-  setShopsInfo,
   favoritesNum,
+  setShopsInfo,
+  setCurShopsInfo,
+  setModalProps,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -73,7 +77,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -93,11 +97,13 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
                     setShopsInfo(shopInfo);
+                    setCurShopsInfo?.(shopInfo);
+                    setModalProps?.(undefined);
                     setIsBound(true);
                   }}
                 >
@@ -139,10 +145,7 @@ const NavBar = ({
             />
           </>
         )}
-        {leftTitle &&
-        !isInput &&
-        location?.lat !== 33.450701 &&
-        location?.lng !== 126.570667 ? (
+        {leftTitle && !isInput ? (
           <LeftTitle>{leftTitle}</LeftTitle>
         ) : (
           <div></div>
@@ -158,7 +161,7 @@ const NavBar = ({
                 height={16}
                 className="right-0 z-[999]"
               />
-              <span className="font-semibold text-caption1">검색</span>
+              <span className="text-caption1 font-semibold">검색</span>
             </Border>
           )
         ) : null}
@@ -167,7 +170,7 @@ const NavBar = ({
         )}
         {favoritesNum && (
           <Border>
-            <span className="font-semibold text-caption1">
+            <span className="text-caption1 font-semibold">
               총 {favoritesNum}개
             </span>
           </Border>
