@@ -31,12 +31,21 @@ const SettingLists: SettingListsProps[] = [
 const My = () => {
   const router = useRouter();
   const { data: user } = useGetProfile();
+  console.log(user?.main_member_title);
   return (
     <PageLayout className="bg-white">
       <NavBar centerTitle="마이페이지" isLeft={true} />
+      <div className="mt-[77px] px-4">
+        <span className="ml-2 text-label1 text-black">
+          {user?.main_member_title}
+        </span>
+      </div>
       <GreetingBox>
         <Greeting>
-          <span className="font-semibold">{user?.nickname}</span>님 안녕하세요!
+          <div className="flex items-center">
+            <span className="font-semibold">{user?.nickname}</span>님
+            안녕하세요!
+          </div>
         </Greeting>
         <div className="flex items-center">
           <SettingBox onClick={() => router.push('/my/setting')}>
@@ -67,11 +76,11 @@ const My = () => {
 };
 
 const GreetingBox = tw.div`
-flex h-[60px] justify-between px-[16px] mt-[62px]
+flex h-[60px] justify-between px-[16px]
 `;
 
 const Greeting = tw.div`
-flex items-center text-title1 font-normal
+flex text-title1 font-normal
 `;
 
 const SettingBox = tw.div`
