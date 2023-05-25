@@ -20,8 +20,9 @@ const Home = () => {
   const setIsModal = useSetRecoilState<boolean>(modalState);
   const [isLogin, setIsLogin] = useRecoilState<boolean>(userState);
   const [brd, setBrd] = useState<string>('');
-  const [modalProps, setModalProps] = useState<ShopProps>();
+  const [modalProps, setModalProps] = useState<ShopProps | null>(null);
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
+  const [curShopsInfo, setCurShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
   const [curPos, setCurPos] = useRecoilState(curPosState);
   const [bounds, setBounds] = useRecoilState<Bound>(boundState);
@@ -49,29 +50,37 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    setShopsInfo(shopInfo?.shops);
+    setCurShopsInfo(shopInfo?.shops);
+  }, [shopInfo]);
+
+  useEffect(() => {
     if (brd) {
-      const brdShops = shopInfo?.shops.filter(
+      const brdShops = curShopsInfo?.filter(
         (shop) => shop.brand?.brand_name === brd,
       );
       setShopsInfo(brdShops);
     } else {
-      setShopsInfo(shopInfo?.shops);
+      setShopsInfo(curShopsInfo);
     }
-  }, [shopInfo, brd]);
+  }, [curShopsInfo, brd]);
 
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
     kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
-    setModalProps(undefined);
+    setModalProps(null);
     setMapPos({ lat: location.lat, lng: location.lng });
     setLocation({ ...location, lat: curPos.lat, lng: curPos.lng });
+    setShopsInfo(shopInfo?.shops);
+    setCurShopsInfo(shopInfo?.shops);
   };
 
   const handleResearch = () => {
     const { Ma, La } = kakaoMap.getCenter();
     setLocation({ ...location, lat: Ma, lng: La });
+    setModalProps(null);
   };
 
   return (
@@ -81,6 +90,8 @@ const Home = () => {
         isRight={true}
         location={curPos}
         setShopsInfo={setShopsInfo}
+        setModalProps={setModalProps}
+        setCurShopsInfo={setCurShopsInfo}
         kakaoMap={kakaoMap}
       />
       <div className="fixed z-10">

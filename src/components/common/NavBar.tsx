@@ -17,9 +17,11 @@ type NavBarProps = {
   isFavorite?: boolean;
   location?: Position;
   kakaoMap?: any;
-  setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   favoritesNum?: number;
   setIsInfo?: Dispatch<SetStateAction<boolean>>;
+  setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
+  setCurShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
+  setModalProps?: Dispatch<SetStateAction<ShopProps | null>>;
 };
 
 const NavBar = ({
@@ -32,9 +34,11 @@ const NavBar = ({
   isFavorite,
   location,
   kakaoMap,
-  setShopsInfo,
   favoritesNum,
   setIsInfo,
+  setShopsInfo,
+  setCurShopsInfo,
+  setModalProps,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -107,6 +111,10 @@ const NavBar = ({
                     setIsMap(true);
                     setShopsInfo(shopInfo);
                     setIsBound(true);
+                    setCurShopsInfo?.(shopInfo);
+                    if (setModalProps) {
+                      setModalProps(null);
+                    }
                   }}
                 >
                   <Image
@@ -147,10 +155,7 @@ const NavBar = ({
             />
           </>
         )}
-        {leftTitle &&
-        !isInput &&
-        location?.lat !== 33.450701 &&
-        location?.lng !== 126.570667 ? (
+        {leftTitle && !isInput ? (
           <LeftTitle>{leftTitle}</LeftTitle>
         ) : (
           <div></div>

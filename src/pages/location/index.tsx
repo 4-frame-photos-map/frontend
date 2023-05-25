@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
-import LocationMap from '@components/common/LocationMap';
+import Map from '@components/common/Map';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
@@ -18,6 +18,7 @@ const Location = () => {
   const setIsModal = useSetRecoilState<boolean>(modalState);
 
   const [brd, setBrd] = useState<string>('');
+  const [curShopsInfo, setCurShopsInfo] = useState<ShopProps[]>();
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
   const [curPos, setCurPos] = useRecoilState(curPosState);
@@ -31,23 +32,28 @@ const Location = () => {
     brd,
     5000,
   );
+  useEffect(() => {
+    setShopsInfo(shopInfo?.shops);
+    setCurShopsInfo(shopInfo?.shops);
+  }, [shopInfo]);
 
   useEffect(() => {
     if (brd) {
-      const brdShops = shopInfo?.shops.filter(
+      const brdShops = curShopsInfo?.filter(
         (shop) => shop.brand?.brand_name === brd,
       );
       setShopsInfo(brdShops);
     } else {
-      setShopsInfo(shopInfo?.shops);
+      setShopsInfo(curShopsInfo);
     }
-  }, [shopInfo, brd]);
+  }, [curShopsInfo, brd]);
 
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
-    kakaoMap.setLevel(3);
+    kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
+    setCurShopsInfo(shopInfo?.shops);
   };
   return (
     <PageLayout className="bg-white">
@@ -56,9 +62,11 @@ const Location = () => {
         isRight={true}
         location={curPos}
         setShopsInfo={setShopsInfo}
+        setCurShopsInfo={setCurShopsInfo}
         kakaoMap={kakaoMap}
       />
-      <LocationMap
+      <Map
+        isHome={false}
         shopInfo={shopsInfo}
         kakaoMap={kakaoMap}
         setKakaoMap={setKakaoMap}
