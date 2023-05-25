@@ -6,7 +6,7 @@ class TitleApi {
     return data;
   };
 
-  getAllTitles = async (): Promise<MemberTitle[]> => {
+  getAllTitles = async (): Promise<MemberTitle> => {
     const { data } = await instance.get(`/member-titles`);
     return data;
   };
