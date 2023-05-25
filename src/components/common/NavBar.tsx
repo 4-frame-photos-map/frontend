@@ -18,6 +18,7 @@ type NavBarProps = {
   location?: Position;
   kakaoMap?: any;
   favoritesNum?: number;
+  setIsInfo?: Dispatch<SetStateAction<boolean>>;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   setCurShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   setModalProps?: Dispatch<SetStateAction<ShopProps | null>>;
@@ -34,6 +35,7 @@ const NavBar = ({
   location,
   kakaoMap,
   favoritesNum,
+  setIsInfo,
   setShopsInfo,
   setCurShopsInfo,
   setModalProps,
@@ -50,6 +52,12 @@ const NavBar = ({
   };
   const handleOpenInput = () => {
     setIsInput(true);
+  };
+
+  const handleTitleInfo = () => {
+    if (setIsInfo) {
+      return setIsInfo((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -176,6 +184,16 @@ const NavBar = ({
               총 {favoritesNum}개
             </span>
           </Border>
+        )}
+        {centerTitle === '내 칭호' && (
+          <div className="z-[999] cursor-pointer" onClick={handleTitleInfo}>
+            <Image
+              src="/svg/navbar/info.svg"
+              width={24}
+              height={24}
+              alt="칭호 정보"
+            />
+          </div>
         )}
       </NavItems>
     </NavContainer>
