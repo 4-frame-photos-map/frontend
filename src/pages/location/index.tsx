@@ -32,7 +32,6 @@ const Location = () => {
     brd,
     5000,
   );
-  console.log(brd);
   useEffect(() => {
     setShopsInfo(shopInfo?.shops);
     setCurShopsInfo(shopInfo?.shops);
