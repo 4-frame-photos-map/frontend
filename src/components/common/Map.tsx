@@ -2,31 +2,28 @@ import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
 import { CONFIG } from '@config';
 import { SetterOrUpdater } from 'recoil';
 
-type Position = {
-  lat: number;
-  lng: number;
-};
-
 type MapProps = {
+  isHome?: boolean;
   shopInfo: ShopProps[] | undefined;
   kakaoMap: any;
   setKakaoMap: Dispatch<SetStateAction<any>>;
-  setModalProps: Dispatch<SetStateAction<ShopProps | undefined>>;
-  setLocation: Dispatch<SetStateAction<Position>>;
-  setMapPos: Dispatch<SetStateAction<Position>>;
   setCurPos: SetterOrUpdater<Position>;
   setBounds: SetterOrUpdater<any>;
+  setModalProps?: Dispatch<SetStateAction<ShopProps | null>>;
+  setLocation?: Dispatch<SetStateAction<Position>>;
+  setMapPos?: Dispatch<SetStateAction<Position>>;
 };
 
 const Map = ({
+  isHome = true,
   shopInfo,
   kakaoMap,
   setKakaoMap,
+  setCurPos,
+  setBounds,
   setModalProps,
   setLocation,
   setMapPos,
-  setCurPos,
-  setBounds,
 }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [markers, setMarkers] = useState<any[]>([]);
@@ -55,7 +52,9 @@ const Map = ({
           navigator.geolocation.getCurrentPosition(
             ({ coords }) => {
               const { latitude, longitude } = coords;
-              setLocation({ lat: latitude, lng: longitude });
+              if (setLocation) {
+                setLocation({ lat: latitude, lng: longitude });
+              }
               setCurPos((location) => {
                 return { ...location, lat: latitude, lng: longitude };
               });
@@ -73,12 +72,13 @@ const Map = ({
               marker.setMap(map);
               map.setCenter(locPosition);
             },
-            () => {
-              alert('위치 정보를 허용해주세요.');
+            (err) => {
+              if (err.code === 1) alert('위치 정보를 허용해주세요.');
+              if (err.code === 3)
+                alert('위치 정보를 가져오는데 시간이 초과되었습니다.');
             },
             {
               timeout: 5000,
-              maximumAge: 30000,
             },
           );
         }
@@ -89,10 +89,12 @@ const Map = ({
   useEffect(() => {
     if (shopInfo && kakaoMap) {
       const { kakao } = window;
-      kakao.maps.event.addListener(kakaoMap, 'dragend', () => {
-        const { Ma, La } = kakaoMap.getCenter();
-        setMapPos({ lat: Ma, lng: La });
-      });
+      if (setMapPos) {
+        kakao.maps.event.addListener(kakaoMap, 'dragend', () => {
+          const { Ma, La } = kakaoMap.getCenter();
+          setMapPos({ lat: Ma, lng: La });
+        });
+      }
       if (markers.length) {
         markers.forEach((marker) => marker.setMap(null));
       }
@@ -127,19 +129,21 @@ const Map = ({
             clickable: true,
           });
           bounds.extend(position);
-          new kakao.maps.event.addListener(marker, 'click', () => {
-            setModalProps(shop);
-            kakaoMap.panTo(position);
-            if (!!selectedMarker || selectedMarker !== marker) {
-              if (selectedMarker) {
-                selectedMarker && selectedMarker.setImage(normalImage);
-                selectedMarker.setZIndex(0);
+          if (isHome && setModalProps) {
+            new kakao.maps.event.addListener(marker, 'click', () => {
+              setModalProps(shop);
+              kakaoMap.panTo(position);
+              if (!!selectedMarker || selectedMarker !== marker) {
+                if (selectedMarker) {
+                  selectedMarker && selectedMarker.setImage(normalImage);
+                  selectedMarker.setZIndex(0);
+                }
+                marker.setImage(clickImage);
+                marker.setZIndex(1);
               }
-              marker.setImage(clickImage);
-              marker.setZIndex(1);
-            }
-            selectedMarker = marker;
-          });
+              selectedMarker = marker;
+            });
+          }
           return marker;
         });
       });
@@ -152,7 +156,9 @@ const Map = ({
   return (
     <>
       <div
-        className="absolute top-0 z-0 h-full w-full max-w-[375px]"
+        className={`${
+          isHome ? 'absolute h-full' : 'fixed h-[500px]'
+        } top-0 z-0 w-full max-w-[375px]`}
         ref={mapContainer}
       ></div>
     </>
