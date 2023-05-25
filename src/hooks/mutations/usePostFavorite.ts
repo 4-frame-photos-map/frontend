@@ -21,10 +21,10 @@ export const usePostFavorite = () => {
       onError: (context: any) => {
         queryClient.setQueryData('useGetShopDetail', context.previousValue);
       },
-      onSettled: () => {
-        queryClient.invalidateQueries({
-          queryKey: 'useGetShopDetail',
-        });
+      onSettled: (_, error, shopId) => {
+        if (!error) {
+          queryClient.invalidateQueries(['useGetShopDetail', shopId]);
+        }
       },
     },
   );

@@ -20,7 +20,7 @@ type NavBarProps = {
   favoritesNum?: number;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   setCurShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
-  setModalProps?: Dispatch<SetStateAction<ShopProps | undefined>>;
+  setModalProps?: Dispatch<SetStateAction<ShopProps | null>>;
 };
 
 const NavBar = ({
@@ -102,9 +102,11 @@ const NavBar = ({
                     setIsList(false);
                     setIsMap(true);
                     setShopsInfo(shopInfo);
-                    setCurShopsInfo?.(shopInfo);
-                    setModalProps?.(undefined);
                     setIsBound(true);
+                    setCurShopsInfo?.(shopInfo);
+                    if (setModalProps) {
+                      setModalProps(null);
+                    }
                   }}
                 >
                   <Image
