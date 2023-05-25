@@ -11,7 +11,7 @@ type TitleModalProps = {
 };
 
 const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
-  const { id, image_url, name, is_hoding } = title;
+  const { id, image_url, name, is_holding } = title;
   const { mutate } = usePatchTitle(
     id as number,
     image_url as string,
@@ -39,7 +39,7 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
         />
         <Image src={image_url as string} width={120} height={120} alt="칭호" />
         <span className="mt-4 text-label1 font-semibold">{name}</span>
-        {is_hoding ? (
+        {is_holding ? (
           <ActiveButton
             onClick={() => {
               handleButtonClick(id as number);

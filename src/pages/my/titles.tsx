@@ -11,7 +11,7 @@ export type ModalTitleType = {
   id: number | null;
   image_url: string | null;
   name: string | null;
-  is_hoding: boolean;
+  is_holding: boolean;
   is_main: boolean;
 };
 
@@ -22,7 +22,7 @@ const Titles = () => {
     id: null,
     image_url: null,
     name: null,
-    is_hoding: false,
+    is_holding: false,
     is_main: false,
   });
   const { data: titles } = useGetAllTitles();
@@ -31,16 +31,16 @@ const Titles = () => {
     id: number,
     image_url: string,
     name: string,
-    is_hodling: boolean,
+    is_holding: boolean,
     is_main: boolean,
   ) => {
     setIsModal(true);
     setModalTitle({
-      id: id,
-      image_url: image_url,
-      name: name,
-      is_hoding: is_hodling,
-      is_main: is_main,
+      id,
+      image_url,
+      name,
+      is_holding,
+      is_main,
     });
   };
 
