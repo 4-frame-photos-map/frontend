@@ -31,7 +31,6 @@ const SettingLists: SettingListsProps[] = [
 const My = () => {
   const router = useRouter();
   const { data: user } = useGetProfile();
-  console.log(user?.main_member_title);
   return (
     <PageLayout className="bg-white">
       <NavBar centerTitle="마이페이지" isLeft={true} />
