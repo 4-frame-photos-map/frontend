@@ -11,8 +11,12 @@ type TitleModalProps = {
 };
 
 const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
-  const { id, image_url, name, is_hoding, is_main } = title;
-  const { mutate } = usePatchTitle();
+  const { id, image_url, name, is_hoding } = title;
+  const { mutate } = usePatchTitle(
+    id as number,
+    image_url as string,
+    name as string,
+  );
 
   const handleOverlayClick = () => {
     setIsModal(false);

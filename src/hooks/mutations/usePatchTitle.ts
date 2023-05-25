@@ -2,7 +2,7 @@ import memberApi from '@apis/member/memberApi';
 import { queryClient } from 'pages/_app';
 import { useMutation } from 'react-query';
 
-export const usePatchTitle = () => {
+export const usePatchTitle = (id: number, image_url: string, name: string) => {
   return useMutation<void, void, number, unknown>(
     'usePatchTitle',
     (titleId: number) => memberApi.patchTitle(titleId),
@@ -10,12 +10,21 @@ export const usePatchTitle = () => {
       onMutate: async () => {
         await queryClient.cancelQueries({ queryKey: ['useGetAllTitles'] });
         const previousValue = queryClient.getQueryData(['useGetAllTitles']);
-        queryClient.setQueryData(['useGetAllTitles'], (old: any) => {
-          return {
-            ...old,
-            is_main: true,
-          };
-        });
+
+        queryClient.setQueryData<MemberTitle[]>(
+          ['useGetAllTitles'],
+          (old: any) => {
+            return {
+              ...old,
+              main_member_title: {
+                ...old.main_member_title,
+                id: id,
+                image_url: image_url,
+                name: name,
+              },
+            };
+          },
+        );
         return { previousValue };
       },
       onError: (context: any) => {
