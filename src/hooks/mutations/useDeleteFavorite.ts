@@ -46,10 +46,12 @@ export const useDeleteFavorite = (path: string) => {
           context.previousValue,
         );
       },
-      onSettled: () => {
-        queryClient.invalidateQueries({
-          queryKey: [Querykey[path].queryKey],
-        });
+      onSettled: (_, error, shopId) => {
+        if (!error) {
+          queryClient.invalidateQueries({
+            queryKey: [Querykey[path].queryKey, shopId],
+          });
+        }
       },
     },
   );

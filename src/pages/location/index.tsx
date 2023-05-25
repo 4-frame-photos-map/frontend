@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
-import LocationMap from '@components/common/LocationMap';
+import Map from '@components/common/Map';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
@@ -32,7 +32,6 @@ const Location = () => {
     brd,
     5000,
   );
-
   useEffect(() => {
     setShopsInfo(shopInfo?.shops);
     setCurShopsInfo(shopInfo?.shops);
@@ -47,14 +46,13 @@ const Location = () => {
     } else {
       setShopsInfo(curShopsInfo);
     }
-  }, [brd]);
+  }, [curShopsInfo, brd]);
 
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
-    kakaoMap.setLevel(3);
+    kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
-    setShopsInfo(shopInfo?.shops);
     setCurShopsInfo(shopInfo?.shops);
   };
   return (
@@ -67,7 +65,8 @@ const Location = () => {
         setCurShopsInfo={setCurShopsInfo}
         kakaoMap={kakaoMap}
       />
-      <LocationMap
+      <Map
+        isHome={false}
         shopInfo={shopsInfo}
         kakaoMap={kakaoMap}
         setKakaoMap={setKakaoMap}

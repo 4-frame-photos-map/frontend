@@ -20,7 +20,7 @@ const Home = () => {
   const setIsModal = useSetRecoilState<boolean>(modalState);
   const [isLogin, setIsLogin] = useRecoilState<boolean>(userState);
   const [brd, setBrd] = useState<string>('');
-  const [modalProps, setModalProps] = useState<ShopProps>();
+  const [modalProps, setModalProps] = useState<ShopProps | null>(null);
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
   const [curShopsInfo, setCurShopsInfo] = useState<ShopProps[]>();
   const [kakaoMap, setKakaoMap] = useState<any>(null);
@@ -63,14 +63,14 @@ const Home = () => {
     } else {
       setShopsInfo(curShopsInfo);
     }
-  }, [brd]);
+  }, [curShopsInfo, brd]);
 
   const handleTracker = () => {
     const { kakao } = window;
     const moveLatLng = new kakao.maps.LatLng(curPos.lat, curPos.lng);
     kakaoMap.setLevel(5);
     kakaoMap.panTo(moveLatLng);
-    setModalProps(undefined);
+    setModalProps(null);
     setMapPos({ lat: location.lat, lng: location.lng });
     setLocation({ ...location, lat: curPos.lat, lng: curPos.lng });
     setShopsInfo(shopInfo?.shops);
@@ -80,6 +80,7 @@ const Home = () => {
   const handleResearch = () => {
     const { Ma, La } = kakaoMap.getCenter();
     setLocation({ ...location, lat: Ma, lng: La });
+    setModalProps(null);
   };
 
   return (
