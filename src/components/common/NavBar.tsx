@@ -19,6 +19,7 @@ type NavBarProps = {
   kakaoMap?: any;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
   favoritesNum?: number;
+  setIsInfo?: Dispatch<SetStateAction<boolean>>;
 };
 
 const NavBar = ({
@@ -33,6 +34,7 @@ const NavBar = ({
   kakaoMap,
   setShopsInfo,
   favoritesNum,
+  setIsInfo,
 }: NavBarProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
@@ -46,6 +48,12 @@ const NavBar = ({
   };
   const handleOpenInput = () => {
     setIsInput(true);
+  };
+
+  const handleTitleInfo = () => {
+    if (setIsInfo) {
+      return setIsInfo((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -73,7 +81,7 @@ const NavBar = ({
             {isMap && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsMap(false);
                     setIsList(true);
@@ -93,7 +101,7 @@ const NavBar = ({
             {isList && setShopsInfo && (
               <>
                 <div
-                  className="flex flex-col items-center ml-1"
+                  className="ml-1 flex flex-col items-center"
                   onClick={() => {
                     setIsList(false);
                     setIsMap(true);
@@ -158,7 +166,7 @@ const NavBar = ({
                 height={16}
                 className="right-0 z-[999]"
               />
-              <span className="font-semibold text-caption1">검색</span>
+              <span className="text-caption1 font-semibold">검색</span>
             </Border>
           )
         ) : null}
@@ -167,10 +175,20 @@ const NavBar = ({
         )}
         {favoritesNum && (
           <Border>
-            <span className="font-semibold text-caption1">
+            <span className="text-caption1 font-semibold">
               총 {favoritesNum}개
             </span>
           </Border>
+        )}
+        {centerTitle === '내 칭호' && (
+          <div className="z-[999] cursor-pointer" onClick={handleTitleInfo}>
+            <Image
+              src="/svg/navbar/info.svg"
+              width={24}
+              height={24}
+              alt="칭호 정보"
+            />
+          </div>
         )}
       </NavItems>
     </NavContainer>
