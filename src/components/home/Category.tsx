@@ -42,24 +42,24 @@ const Category = ({ setBrd, ...rest }: CategoryData) => {
       <ItemsWrapper>
         <Swiper
           scrollbar={{ draggable: true }}
-          slidesPerView={4}
-          spaceBetween={12}
+          slidesPerView="auto"
+          spaceBetween={4}
           onSwiper={handleSwiper}
         >
           {Categories.map(({ id, name, state }) => (
             <SwiperSlide key={id}>
-              <Item key={id}>
+              <li key={id}>
                 <Button
                   className={`${
                     id === categoryId
                       ? 'bg-black text-white shadow-category'
-                      : 'border border-solid border-black bg-white text-black'
+                      : 'bg-white text-black'
                   }`}
                   onClick={() => handleCatBtn(id, state)}
                 >
                   {name}
                 </Button>
-              </Item>
+              </li>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -69,19 +69,13 @@ const Category = ({ setBrd, ...rest }: CategoryData) => {
 };
 
 const CategoryBar = tw.div`
-mt-[68px] overflow-x-hidden fixed max-w-[375px] relative
+mt-[68px] overflow-x-hidden max-w-[375px] relative
 `;
-
 const ItemsWrapper = tw.ul`
 flex items-center pl-[16px] my-[8px]
 `;
-
-const Item = tw.li`
-flex 
-`;
-
 const Button = tw.button`
-rounded-[99px] px-[16px] py-[6px] text-label1 whitespace-nowrap
+rounded-[99px] px-[16px] py-[6px] text-label1 whitespace-nowrap border border-solid border-black
 `;
 
 export default Category;
