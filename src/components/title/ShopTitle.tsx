@@ -6,12 +6,12 @@ type ShopTitleProps = {
   height: number;
 };
 
-type titleListType = {
+export type titleListType = {
   [key: string]: JSX.Element;
 };
 
 const ShopTitle = ({ title, width, height }: ShopTitleProps) => {
-  const TITLE_LIST: titleListType = {
+  const shopTitleList: titleListType = {
     핫플레이스: (
       <Image
         src={'/svg/shop-title-hot-place.svg'}
@@ -29,7 +29,7 @@ const ShopTitle = ({ title, width, height }: ShopTitleProps) => {
       />
     ),
   };
-  return <>{TITLE_LIST[title]}</>;
+  return <>{shopTitleList[title]}</>;
 };
 
 export default ShopTitle;

@@ -24,6 +24,7 @@ type ReviewInfoProps = {
 type member_info = {
   id: number;
   nickname: string;
+  main_member_title: string;
 };
 
 type shop_info = {

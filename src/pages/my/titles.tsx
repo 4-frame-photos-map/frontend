@@ -13,6 +13,8 @@ export type ModalTitleType = {
   name: string | null;
   is_holding: boolean;
   is_main: boolean;
+  content: string | null;
+  standard: string | null;
 };
 
 const Titles = () => {
@@ -24,6 +26,8 @@ const Titles = () => {
     name: null,
     is_holding: false,
     is_main: false,
+    content: null,
+    standard: null,
   });
   const { data: titles } = useGetAllTitles();
 
@@ -33,6 +37,8 @@ const Titles = () => {
     name: string,
     is_holding: boolean,
     is_main: boolean,
+    content: string,
+    standard: string,
   ) => {
     setIsModal(true);
     setModalTitle({
@@ -41,6 +47,8 @@ const Titles = () => {
       name,
       is_holding,
       is_main,
+      content,
+      standard,
     });
   };
 
@@ -64,12 +72,28 @@ const Titles = () => {
         <span className="mx-4 mt-[28px] h-[1px] w-[327px] bg-bg-primary" />
         <AllTitles>
           {titles?.member_titles.map(
-            ({ id, image_url, name, is_holding, is_main }) => (
+            ({
+              id,
+              image_url,
+              name,
+              is_holding,
+              is_main,
+              content,
+              standard,
+            }) => (
               <div key={id} className="flex flex-col items-center">
                 {is_holding ? (
                   <TitleBox
                     onClick={() =>
-                      handleTitleClick(id, image_url, name, is_holding, is_main)
+                      handleTitleClick(
+                        id,
+                        image_url,
+                        name,
+                        is_holding,
+                        is_main,
+                        content,
+                        standard,
+                      )
                     }
                   >
                     <Image src={image_url} width={80} height={80} alt="칭호" />
@@ -78,7 +102,15 @@ const Titles = () => {
                   <TitleBox
                     className="border-line-disable"
                     onClick={() =>
-                      handleTitleClick(id, image_url, name, is_holding, is_main)
+                      handleTitleClick(
+                        id,
+                        image_url,
+                        name,
+                        is_holding,
+                        is_main,
+                        content,
+                        standard,
+                      )
                     }
                   >
                     <Image src={image_url} width={80} height={80} alt="칭호" />
