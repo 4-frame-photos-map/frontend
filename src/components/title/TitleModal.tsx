@@ -7,7 +7,6 @@ import tw from 'tailwind-styled-components';
 type TitleModalProps = {
   setIsModal: Dispatch<SetStateAction<boolean>>;
   title: ModalTitleType;
-  disable?: boolean;
 };
 
 const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
