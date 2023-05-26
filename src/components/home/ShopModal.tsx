@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
-import ShopTitle from '@components/common/ShopTitle';
+import ShopTitle from '@components/title/ShopTitle';
 
 type ShopModalProps = {
   id: number;
@@ -49,7 +49,7 @@ const ShopModal = ({
       <div className="p-4">
         <div className="flex items-center">
           <BrandTag name={place_name} />
-          <div className="flex ml-2">
+          <div className="ml-2 flex">
             {shopInfo?.shop_titles &&
               shopInfo?.shop_titles?.map((title, idx) => (
                 <ShopTitle key={idx} title={title} width={50} height={13} />
@@ -90,7 +90,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="pl-2 border-l">
+            <div className="border-l pl-2">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>

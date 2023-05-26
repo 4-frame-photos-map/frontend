@@ -5,7 +5,7 @@ import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater } from 'recoil';
-import ShopTitle from '@components/common/ShopTitle';
+import ShopTitle from '@components/title/ShopTitle';
 
 type ShopItemProps = {
   brand_name: string;
@@ -97,7 +97,7 @@ const ShopItem = ({
             <Image src="/svg/star.svg" width={16} height={16} alt="star" />
             {star_rating} ({review_cnt})
           </span>
-          <div className="pl-2 border-l">
+          <div className="border-l pl-2">
             <span className="pr-1">찜</span>
             <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             <span className="ml-9 text-caption1 text-text-alternative">

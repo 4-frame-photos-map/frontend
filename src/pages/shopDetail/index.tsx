@@ -16,7 +16,7 @@ import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
-import ShopTitle from '@components/common/ShopTitle';
+import ShopTitle from '@components/title/ShopTitle';
 
 const ShopDetail = () => {
   const router = useRouter();
