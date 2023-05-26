@@ -2,6 +2,7 @@ import Image from 'next/image';
 import tw from 'tailwind-styled-components';
 import StarRate from '@components/common/StarRate';
 import dateFormat from '@utils/dateFormat';
+import TitleBadge from '@components/title/TitleBadge';
 
 type ReviewItemProps = {
   create_date: number[];
@@ -10,10 +11,7 @@ type ReviewItemProps = {
   purity?: string;
   retouch?: string;
   item?: string;
-  member_info?: {
-    id: number;
-    nickname: string;
-  };
+  member_info?: member_info;
 };
 
 const ReviewItem = ({
@@ -34,6 +32,14 @@ const ReviewItem = ({
             {member_info && (
               <div className="pl-[6px]">{member_info.nickname}</div>
             )}
+            <div className="ml-2">
+              {member_info?.main_member_title && (
+                <TitleBadge
+                  className="h-[14px] w-fit px-2 text-[9px]"
+                  name={member_info.main_member_title as string}
+                />
+              )}
+            </div>
           </div>
           <div>{dateFormat(create_date)}</div>
         </ReviewInfo>

@@ -6,6 +6,7 @@ import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
 import { useGetProfile } from '@hooks/queries/useGetProfile';
 import { useRouter } from 'next/router';
+import TitleBadge from '@components/title/TitleBadge';
 
 export type SettingListsProps = {
   id: number;
@@ -34,10 +35,11 @@ const My = () => {
   return (
     <PageLayout className="bg-white">
       <NavBar centerTitle="마이페이지" isLeft={true} />
-      <div className="mt-[77px] px-4">
-        <span className="ml-2 text-label1 text-black">
-          {user?.main_member_title}
-        </span>
+      <div className="mt-[73px] px-4">
+        <TitleBadge
+          className="px-3 h-7 w-fit text-label2"
+          name={user?.main_member_title as string}
+        />
       </div>
       <GreetingBox>
         <Greeting>
@@ -75,7 +77,7 @@ const My = () => {
 };
 
 const GreetingBox = tw.div`
-flex h-[60px] justify-between px-[16px]
+flex h-[50px] justify-between px-[16px]
 `;
 
 const Greeting = tw.div`
