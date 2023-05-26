@@ -10,7 +10,7 @@ type TitleModalProps = {
 };
 
 const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
-  const { id, image_url, name, is_holding } = title;
+  const { id, image_url, name, is_holding, content, standard } = title;
   const { mutate } = usePatchTitle(
     id as number,
     image_url as string,
@@ -24,7 +24,6 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
   const handleButtonClick = (id: number) => {
     mutate(id);
   };
-
   return (
     <ModalBG>
       <ModalContainer>
@@ -33,11 +32,21 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
           width={24}
           height={24}
           alt="닫기"
-          className="absolute right-5 cursor-pointer"
+          className="absolute cursor-pointer right-5"
           onClick={handleOverlayClick}
         />
         <Image src={image_url as string} width={120} height={120} alt="칭호" />
-        <span className="mt-4 text-label1 font-semibold">{name}</span>
+        <span className="mt-4 font-semibold text-label1">{name}</span>
+        {is_holding ? (
+          <span className="mt-2 text-label2">{standard}</span>
+        ) : (
+          <span className="flex mt-2 text-center text-label2">
+            획득방법:
+            <br />
+            {content}
+          </span>
+        )}
+
         {is_holding ? (
           <ActiveButton
             onClick={() => {
@@ -84,11 +93,11 @@ flex flex-col items-center bg-white rounded-lg w-full h-[338px] bottom-0 absolut
 `;
 
 const ActiveButton = tw.button`
-mt-16 flex h-12 w-[255px] items-center justify-center whitespace-nowrap rounded-full border-[1px] border-primary-normal
+mt-8 flex h-12 w-[255px] items-center justify-center whitespace-nowrap rounded-full border-[1px] border-primary-normal
 `;
 
 const DisabledButton = tw.button`
-mt-16 flex h-12 w-[255px] items-center justify-center whitespace-nowrap rounded-full border-[1px] border-text-disable text-text-disable
+mt-8 flex h-12 w-[255px] items-center justify-center whitespace-nowrap rounded-full border-[1px] border-text-disable text-text-disable
 `;
 
 export default TitleModal;
