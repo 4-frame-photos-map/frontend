@@ -5,6 +5,8 @@ import Map from '@components/common/Map';
 import TrackerButton from '@components/home/TrackerButton';
 import ShopItem from '@components/location/ShopItem';
 import Category from '@components/home/Category';
+import RadiusModal from '@components/location/RadiusModal';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useGetShopsInRad } from '@hooks/queries/useGetShop';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -17,6 +19,8 @@ const Location = () => {
   const isLogin = useRecoilValue<boolean>(userState);
   const setIsModal = useSetRecoilState<boolean>(modalState);
 
+  const [isRadModal, setIsRadModal] = useState<boolean>(false);
+  const [radius, setRadius] = useState<number>(4000);
   const [brd, setBrd] = useState<string>('');
   const [curShopsInfo, setCurShopsInfo] = useState<ShopProps[]>();
   const [shopsInfo, setShopsInfo] = useState<ShopProps[]>();
@@ -30,7 +34,7 @@ const Location = () => {
     curPos.lat,
     curPos.lng,
     brd,
-    5000,
+    radius,
   );
   useEffect(() => {
     setShopsInfo(shopInfo?.shops);
@@ -57,6 +61,13 @@ const Location = () => {
   };
   return (
     <PageLayout className="bg-white">
+      {isRadModal && (
+        <RadiusModal
+          setIsModal={setIsRadModal}
+          setRadius={setRadius}
+          radius={radius}
+        />
+      )}
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}
@@ -79,12 +90,32 @@ const Location = () => {
       <ResultContainer>
         <ResultBox>
           <Bar />
-          <Category setBrd={setBrd} className="mt-8" />
+          <RadSelectBox>
+            <p>{`내 주변 ${
+              Number.isInteger(radius / 1000)
+                ? `${radius / 1000}km`
+                : `${radius}m`
+            }`}</p>
+            <Image
+              src={'/svg/dropup.svg'}
+              alt="열기"
+              width={20}
+              height={20}
+              onClick={() => {
+                setIsRadModal(true);
+              }}
+              className="cursor-pointer"
+            />
+          </RadSelectBox>
+          <div className="my-4 px-4">
+            <div className="h-[1px] w-full bg-line-normal"></div>
+          </div>
+          <Category setBrd={setBrd} className="mt-0" />
           {shopsInfo?.length === 0 && (
-            <div className="flex h-[250px] items-center justify-center px-4 text-center text-text-alternative">
+            <NoResultItemBox>
               반경 5km 이내 포토부스가 <br />
               존재하지 않습니다.
-            </div>
+            </NoResultItemBox>
           )}
           <ResultItemBox>
             {shopInfo &&
@@ -119,8 +150,14 @@ h-full rounded-t-[15px] pt-2 pb-10
 const Bar = tw.div`
 m-auto flex h-1 w-[60px] justify-center rounded-sm bg-line-normal
 `;
+const RadSelectBox = tw.div`
+mt-4 flex gap-2 px-4 text-body1 font-semibold
+`;
 const ResultItemBox = tw.div`
 grid w-full grid-cols-2 content-center items-center gap-2 pt-4 px-4
+`;
+const NoResultItemBox = tw.div`
+flex h-[250px] items-center justify-center px-4 text-center text-text-alternative
 `;
 
 export default Location;

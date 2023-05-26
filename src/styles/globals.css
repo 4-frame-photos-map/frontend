@@ -6,6 +6,6 @@
   display: none;
 }
 
-.swiper-slide:first-child {
-  max-width: 3.2rem;
+.swiper-slide {
+  max-width: fit-content;
 }
