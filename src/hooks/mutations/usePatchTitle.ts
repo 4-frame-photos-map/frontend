@@ -18,9 +18,9 @@ export const usePatchTitle = (id: number, image_url: string, name: string) => {
               ...old,
               main_member_title: {
                 ...old.main_member_title,
-                id: id,
-                image_url: image_url,
-                name: name,
+                id,
+                image_url,
+                name,
               },
             };
           },
@@ -33,6 +33,9 @@ export const usePatchTitle = (id: number, image_url: string, name: string) => {
       onSettled: () => {
         queryClient.invalidateQueries({
           queryKey: 'useGetAllTitles',
+        });
+        queryClient.invalidateQueries({
+          queryKey: 'useGetProfile',
         });
       },
     },
