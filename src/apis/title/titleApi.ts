@@ -1,7 +1,7 @@
 import instance from '@apis/instance';
 
 class TitleApi {
-  getTitle = async (id: number): Promise<MemberTitle> => {
+  getUserTitle = async (id: number): Promise<MemberTitle> => {
     const { data } = await instance.get(`/member-titles/${id}`);
     return data;
   };
