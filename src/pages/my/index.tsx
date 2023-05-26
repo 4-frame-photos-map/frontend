@@ -37,7 +37,7 @@ const My = () => {
       <NavBar centerTitle="마이페이지" isLeft={true} />
       <div className="mt-[73px] px-4">
         <TitleBadge
-          className="px-3 h-7 w-fit text-label2"
+          className="px-3 h-fit w-fit text-label2"
           name={user?.main_member_title as string}
         />
       </div>

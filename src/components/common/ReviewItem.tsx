@@ -35,7 +35,7 @@ const ReviewItem = ({
             <div className="ml-2">
               {member_info?.main_member_title && (
                 <TitleBadge
-                  className="h-[14px] w-fit px-2 text-[9px]"
+                  className="h-fit w-fit px-2 text-[9px]"
                   name={member_info.main_member_title as string}
                 />
               )}
