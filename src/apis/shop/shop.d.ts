@@ -38,6 +38,7 @@ type ShopReviewProps = {
   member_info: {
     id: number;
     nickname: string;
+    main_member_title: string;
   };
 };
 
