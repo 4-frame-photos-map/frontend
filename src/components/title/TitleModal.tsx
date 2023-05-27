@@ -32,18 +32,18 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
           width={24}
           height={24}
           alt="닫기"
-          className="absolute cursor-pointer right-5"
+          className="absolute right-5 cursor-pointer"
           onClick={handleOverlayClick}
         />
         <Image src={image_url as string} width={120} height={120} alt="칭호" />
-        <span className="mt-4 font-semibold text-label1">{name}</span>
+        <span className="mt-4 text-label1 font-semibold">{name}</span>
         {is_holding ? (
-          <span className="mt-2 text-label2">{standard}</span>
+          <span className="mt-2 text-label2">{content}</span>
         ) : (
-          <span className="flex mt-2 text-center text-label2">
+          <span className="mt-2 flex text-center text-label2">
             획득방법:
             <br />
-            {content}
+            {standard}
           </span>
         )}
 
@@ -89,7 +89,7 @@ fixed w-full max-w-[375px] mx-auto flex h-full justify-center bg-[rgba(51,51,53,
 `;
 
 const ModalContainer = tw.div`
-flex flex-col items-center bg-white rounded-lg w-full h-[338px] bottom-0 absolute rounded-t-[30px] pt-8 z-[999]
+flex flex-col items-center bg-white w-full h-[338px] bottom-0 absolute rounded-t-[30px] pt-8 z-[999]
 `;
 
 const ActiveButton = tw.button`
