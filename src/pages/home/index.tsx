@@ -40,7 +40,6 @@ const Home = () => {
     curPos.lng,
     location.lat,
     location.lng,
-    brd,
     2000,
   );
 
