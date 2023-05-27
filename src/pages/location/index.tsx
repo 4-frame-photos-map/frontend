@@ -159,7 +159,7 @@ const ResultItemBox = tw.div`
 grid w-full grid-cols-2 content-center items-center gap-2 pt-4 px-4
 `;
 const NoResultItemBox = tw.div`
-flex h-full justify-center px-4 text-center text-text-alternative mt-[52px] whitespace-pre-line
+flex h-full justify-center px-4 text-center text-text-alternative my-[52px] whitespace-pre-line
 `;
 
 export default Location;
