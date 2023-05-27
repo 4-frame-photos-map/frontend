@@ -33,7 +33,6 @@ const Location = () => {
     curPos.lng,
     curPos.lat,
     curPos.lng,
-    brd,
     radius,
   );
   useEffect(() => {
