@@ -17,7 +17,7 @@ type ShopProps = {
   longitude?: string;
   latitude?: string;
   distance: string;
-  place_url: string;
+  place_url?: string;
   star_rating_avg: number;
   review_cnt: number;
   favorite_cnt: number;
@@ -43,7 +43,6 @@ type ShopReviewProps = {
 };
 
 type BrandProps = {
-  id: number;
   brand_name: string;
   file_path: string;
 };

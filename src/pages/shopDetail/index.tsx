@@ -82,7 +82,7 @@ const ShopDetail = () => {
       <ShopInfoBox>
         <ShopTagBox>
           <BrandTag name={shopInfo?.place_name as string} />
-          <div className="flex ml-2">
+          <div className="ml-2 flex">
             {shopInfo?.shop_titles &&
               shopInfo?.shop_titles?.map((title, idx) => (
                 <ShopTitle key={idx} title={title} width={70} height={20} />
@@ -96,7 +96,7 @@ const ShopDetail = () => {
             <div className="pl-1 pr-2">
               {shopInfo?.star_rating_avg} ({shopInfo?.review_cnt})
             </div>
-            <div className="px-2 border-l border-text-alternative">
+            <div className="border-l border-text-alternative px-2">
               <span>찜</span>
               <span className="pl-1 font-semibold">
                 {shopInfo?.favorite_cnt}
@@ -108,7 +108,7 @@ const ShopDetail = () => {
         <ShopEventBox>
           <ShopEvent
             onClick={() => {
-              if (shopInfo) {
+              if (shopInfo && shopInfo.place_url) {
                 router.push(shopInfo.place_url);
               }
             }}
