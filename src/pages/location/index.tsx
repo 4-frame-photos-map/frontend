@@ -33,7 +33,6 @@ const Location = () => {
     curPos.lng,
     curPos.lat,
     curPos.lng,
-    brd,
     radius,
   );
   useEffect(() => {
@@ -111,15 +110,17 @@ const Location = () => {
             <div className="h-[1px] w-full bg-line-normal"></div>
           </div>
           <Category setBrd={setBrd} className="mt-0" />
-          {shopsInfo?.length === 0 && (
+          {shopsInfo?.length === 0 ? (
             <NoResultItemBox>
-              반경 5km 이내 포토부스가 <br />
-              존재하지 않습니다.
+              {`반경 ${
+                Number.isInteger(radius / 1000)
+                  ? `${radius / 1000}km`
+                  : `${radius}m`
+              } 이내 포토부스가\n존재하지 않습니다.`}
             </NoResultItemBox>
-          )}
-          <ResultItemBox>
-            {shopInfo &&
-              shopsInfo?.map((shop) => (
+          ) : (
+            <ResultItemBox>
+              {shopsInfo?.map((shop) => (
                 <ShopItem
                   key={shop.id}
                   brand_name={shop.brand?.brand_name as string}
@@ -134,7 +135,8 @@ const Location = () => {
                   shop_titles={shop.shop_titles}
                 />
               ))}
-          </ResultItemBox>
+            </ResultItemBox>
+          )}
         </ResultBox>
       </ResultContainer>
     </PageLayout>
@@ -157,7 +159,7 @@ const ResultItemBox = tw.div`
 grid w-full grid-cols-2 content-center items-center gap-2 pt-4 px-4
 `;
 const NoResultItemBox = tw.div`
-flex h-[250px] items-center justify-center px-4 text-center text-text-alternative
+flex h-full justify-center px-4 text-center text-text-alternative my-[52px] whitespace-pre-line
 `;
 
 export default Location;
