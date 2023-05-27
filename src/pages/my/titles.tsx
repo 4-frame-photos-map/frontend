@@ -129,7 +129,7 @@ const Titles = () => {
 export default Titles;
 
 const TitleContainer = tw.div`
-flex justify-center mt-[100px] flex-col
+flex justify-center mt-[100px] flex-col mb-12
 `;
 
 const MainTitle = tw.div`
