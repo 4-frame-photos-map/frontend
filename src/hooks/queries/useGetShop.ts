@@ -23,12 +23,11 @@ export const useGetShopsInRad = (
   lng: number,
   mapLat: number,
   mapLng: number,
-  brd?: string,
   radius?: number,
 ) => {
   return useQuery<ShopInRad, Error>(
     ['useGetShopsInRad', mapLat, mapLng, radius],
-    () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, brd, radius),
+    () => shopApi.getShopsInRad(lat, lng, mapLat, mapLng, radius),
     {
       refetchOnWindowFocus: false,
       enabled: !!lat && !!mapLat,
