@@ -25,7 +25,7 @@ const SettingItems: SettingItemsProps[] = [
 ];
 
 const SettingLists: SettingListsProps[] = [
-  { id: 1, text: '문의사항', path: '/inquiry' },
+  { id: 1, text: '문의사항', path: '/faq' },
   { id: 2, text: '약관 확인', path: '/notice' },
 ];
 
