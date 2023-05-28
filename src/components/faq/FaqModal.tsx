@@ -16,7 +16,6 @@ const FaqModal = ({ isModal, title, content, setIsModal }: ModalProps) => {
     if (emailMatch) {
       const emailIndex = content.indexOf(emailMatch[0]);
       const emailLength = emailMatch[0].length;
-      console.log(emailIndex, emailLength);
       return (
         <ModalMessage>
           {content.substring(0, emailIndex)}
