@@ -14,14 +14,26 @@ export const usePatchTitle = (id: number, image_url: string, name: string) => {
         queryClient.setQueryData<MemberTitle[]>(
           ['useGetAllTitles'],
           (old: any) => {
+            const newMainTitle = old.member_titles.map((title) => {
+              if (title.id === id) {
+                return {
+                  ...title,
+                  is_main: true,
+                };
+              }
+              return {
+                ...title,
+                is_main: false,
+              };
+            });
             return {
               ...old,
               main_member_title: {
                 ...old.main_member_title,
-                id,
                 image_url,
                 name,
               },
+              member_titles: newMainTitle,
             };
           },
         );

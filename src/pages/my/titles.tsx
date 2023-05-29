@@ -83,21 +83,50 @@ const Titles = () => {
             }) => (
               <div key={id} className="flex flex-col items-center">
                 {is_holding ? (
-                  <TitleBox
-                    onClick={() =>
-                      handleTitleClick(
-                        id,
-                        image_url,
-                        name,
-                        is_holding,
-                        is_main,
-                        content,
-                        standard,
-                      )
-                    }
-                  >
-                    <Image src={image_url} width={80} height={80} alt="칭호" />
-                  </TitleBox>
+                  is_main ? (
+                    <TitleBox
+                      className="border-[2px] border-[#FF5A5A]"
+                      onClick={() =>
+                        handleTitleClick(
+                          id,
+                          image_url,
+                          name,
+                          is_holding,
+                          is_main,
+                          content,
+                          standard,
+                        )
+                      }
+                    >
+                      <Image
+                        src={image_url}
+                        width={80}
+                        height={80}
+                        alt="칭호"
+                      />
+                    </TitleBox>
+                  ) : (
+                    <TitleBox
+                      onClick={() =>
+                        handleTitleClick(
+                          id,
+                          image_url,
+                          name,
+                          is_holding,
+                          is_main,
+                          content,
+                          standard,
+                        )
+                      }
+                    >
+                      <Image
+                        src={image_url}
+                        width={80}
+                        height={80}
+                        alt="칭호"
+                      />
+                    </TitleBox>
+                  )
                 ) : (
                   <TitleBox
                     className="border-line-disable"
