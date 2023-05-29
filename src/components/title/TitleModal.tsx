@@ -10,11 +10,12 @@ type TitleModalProps = {
 };
 
 const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
-  const { id, image_url, name, is_holding, content, standard } = title;
+  const { id, image_url, name, is_holding, is_main, content, standard } = title;
   const { mutate } = usePatchTitle(
     id as number,
     image_url as string,
     name as string,
+    is_main,
   );
 
   const handleOverlayClick = () => {
@@ -66,7 +67,7 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
             />
           </ActiveButton>
         ) : (
-          <DisabledButton onClick={() => handleButtonClick(id as number)}>
+          <DisabledButton>
             <span className="text-center text-[18px]">
               나의 대표 칭호로 사용하기
             </span>
