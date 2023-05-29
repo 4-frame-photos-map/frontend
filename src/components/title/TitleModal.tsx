@@ -66,7 +66,7 @@ const TitleModal = ({ setIsModal, title }: TitleModalProps) => {
             />
           </ActiveButton>
         ) : (
-          <DisabledButton onClick={() => handleButtonClick(id as number)}>
+          <DisabledButton>
             <span className="text-center text-[18px]">
               나의 대표 칭호로 사용하기
             </span>
