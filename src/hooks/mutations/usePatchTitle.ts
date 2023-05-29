@@ -35,10 +35,8 @@ export const usePatchTitle = (
               ...old,
               main_member_title: {
                 ...old.main_member_title,
-                id,
                 image_url,
                 name,
-                is_main,
               },
               member_titles: newMainTitle,
             };
