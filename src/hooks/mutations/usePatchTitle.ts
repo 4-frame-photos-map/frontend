@@ -2,7 +2,12 @@ import memberApi from '@apis/member/memberApi';
 import { queryClient } from 'pages/_app';
 import { useMutation } from 'react-query';
 
-export const usePatchTitle = (id: number, image_url: string, name: string) => {
+export const usePatchTitle = (
+  id: number,
+  image_url: string,
+  name: string,
+  is_main: boolean,
+) => {
   return useMutation<void, void, number, unknown>(
     'usePatchTitle',
     (titleId: number) => memberApi.patchTitle(titleId),
@@ -14,6 +19,18 @@ export const usePatchTitle = (id: number, image_url: string, name: string) => {
         queryClient.setQueryData<MemberTitle[]>(
           ['useGetAllTitles'],
           (old: any) => {
+            const newMainTitle = old.member_titles.map((title) => {
+              if (title.id === id) {
+                return {
+                  ...title,
+                  is_main: true,
+                };
+              }
+              return {
+                ...title,
+                is_main: false,
+              };
+            });
             return {
               ...old,
               main_member_title: {
@@ -21,7 +38,9 @@ export const usePatchTitle = (id: number, image_url: string, name: string) => {
                 id,
                 image_url,
                 name,
+                is_main,
               },
+              member_titles: newMainTitle,
             };
           },
         );
