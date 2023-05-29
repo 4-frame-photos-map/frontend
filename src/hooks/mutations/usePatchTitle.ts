@@ -2,12 +2,7 @@ import memberApi from '@apis/member/memberApi';
 import { queryClient } from 'pages/_app';
 import { useMutation } from 'react-query';
 
-export const usePatchTitle = (
-  id: number,
-  image_url: string,
-  name: string,
-  is_main: boolean,
-) => {
+export const usePatchTitle = (id: number, image_url: string, name: string) => {
   return useMutation<void, void, number, unknown>(
     'usePatchTitle',
     (titleId: number) => memberApi.patchTitle(titleId),
