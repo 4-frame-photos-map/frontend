@@ -11,8 +11,6 @@ import memberApi from '@apis/member/memberApi';
 
 const SettingLists: SettingListsProps[] = [
   { id: 1, text: '닉네임 변경', path: '/my/edit' },
-  { id: 2, text: '이용약관 확인', path: '/terms' },
-  { id: 3, text: '개인정보 처리방침 확인', path: '/' },
 ];
 
 const Setting = () => {
