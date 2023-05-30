@@ -98,7 +98,7 @@ const Faq = () => {
 };
 
 const CategoryBar = tw.div`
-fixed bg-white py-8
+fixed bg-white py-8 max-w-[375px]
 `;
 const ItemsWrapper = tw.ul`
 flex items-center px-6
