@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import BrandTag from '@components/common/BrandTag';
+import ShopTitle from '@components/title/ShopTitle';
+import Link from 'next/link';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
-import ShopTitle from '@components/title/ShopTitle';
 
 type ShopModalProps = {
   id: number;
@@ -57,12 +58,9 @@ const ShopModal = ({
           </div>
         </div>
         <div className="flex justify-between pt-1 pb-2">
-          <span
-            className="text-label1"
-            onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
-          >
-            {place_name}
-          </span>
+          <Link href={`/shopDetail/?shopId=${id}`} passHref>
+            <span className="text-label1">{place_name}</span>
+          </Link>
           {shopInfo?.favorite ? (
             <Image
               src="/svg/wish/filled-bookmark.svg"

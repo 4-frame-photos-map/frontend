@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
 
 interface SettingItemProps {
@@ -13,20 +13,17 @@ interface DefaultProps {
   className?: React.ComponentProps<'div'>['className'];
 }
 
-const SettingItemBox = tw.div<DefaultProps>`
-flex flex-col justify-center items-center cursor-pointer w-[74px]
-`;
-
-export default function Activity({ text, path, icon }: SettingItemProps) {
-  const router = useRouter();
+export default function SettingItem({ text, path, icon }: SettingItemProps) {
   return (
-    <SettingItemBox
-      onClick={() => {
-        router.push(`${path}`);
-      }}
-    >
-      <Image src={icon} alt={`${icon}`} width={32} height={20} />
-      <span className="mt-1 text-caption1 font-normal">{text}</span>
+    <SettingItemBox>
+      <Link href={path}>
+        <Image src={icon} alt={`${icon}`} width={32} height={20} />
+        <span className="mt-1 text-caption1 font-normal">{text}</span>
+      </Link>
     </SettingItemBox>
   );
 }
+
+const SettingItemBox = tw.li<DefaultProps>`
+flex flex-col justify-center items-center cursor-pointer w-[74px]
+`;

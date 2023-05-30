@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type SearchListProps = Shop & {
   isList: boolean;
@@ -16,47 +16,44 @@ const SearchList = ({
   isList,
   id,
 }: SearchListProps) => {
-  const router = useRouter();
   return isList ? (
     <>
-      <DivisionBar />
-      <li
-        className="px-3 py-2 bg-white cursor-pointer"
-        onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
-      >
-        <span className="text-label1">{place_name}</span>
-        <div className="flex gap-x-1">
-          <Image
-            src="/svg/navbar/gray-star.svg"
-            width={12}
-            height={12}
-            alt="star"
-          />
-          <span className="text-caption1 text-text-alternative">
-            {star_rating_avg.toFixed(1)}
+      <ResultItem>
+        <Link href={`/shopDetail/?shopId=${id}`}>
+          <span className="text-label1">{place_name}</span>
+          <div className="flex gap-x-1">
+            <Image
+              src="/svg/navbar/gray-star.svg"
+              width={12}
+              height={12}
+              alt="star"
+            />
             <span className="text-caption1 text-text-alternative">
-              {' '}
-              ({review_cnt})
-            </span>{' '}
-            | 찜{' '}
-            <span className="text-caption1 text-text-alternative">
-              {favorite_cnt}
+              {star_rating_avg.toFixed(1)}
+              <span className="text-caption1 text-text-alternative">
+                {' '}
+                ({review_cnt})
+              </span>{' '}
+              | 찜{' '}
+              <span className="text-caption1 text-text-alternative">
+                {favorite_cnt}
+              </span>
             </span>
-          </span>
-        </div>
-        <div className="flex items-center mt-2 gap-x-1">
-          <span className="text-caption2">{distance}</span>
-          <span className="text-caption1 text-text-alternative">
-            | {place_address}
-          </span>
-        </div>
-      </li>
+          </div>
+          <div className="mt-2 flex items-center gap-x-1">
+            <span className="text-caption2">{distance}</span>
+            <span className="text-caption1 text-text-alternative">
+              | {place_address}
+            </span>
+          </div>
+        </Link>
+      </ResultItem>
     </>
   ) : null;
 };
 
-const DivisionBar = tw.div`
-flex justify-center h-[1px] w-full bg-line-alternative mx-2 first:mt-5
+const ResultItem = tw.li`
+cursor-pointer border-t-[1px] border-line-alternative bg-white px-3 py-2 first:mt-5
 `;
 
 export default SearchList;
