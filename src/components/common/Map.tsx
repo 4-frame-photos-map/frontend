@@ -157,8 +157,8 @@ const Map = ({
     <>
       <div
         className={`${
-          isHome ? 'absolute h-full' : 'fixed h-[500px]'
-        } top-0 z-0 w-full max-w-[375px]`}
+          isHome ? 'absolute h-full' : 'fixed h-[375px]'
+        } top-0 z-0 mt-[68px] w-full max-w-[375px]`}
         ref={mapContainer}
       ></div>
     </>
