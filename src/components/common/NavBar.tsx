@@ -207,11 +207,11 @@ const NavItems = tw.div`
 mx-4 flex items-center justify-between h-full pt-1
 `;
 
-const LeftTitle = tw.span`
+const LeftTitle = tw.h1`
 text-title2 font-semibold
 `;
 
-const CenterTitle = tw.span`
+const CenterTitle = tw.h1`
 absolute inset-x-0 mx-0 my-auto text-center text-title2 font-semibold
 `;
 
