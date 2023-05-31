@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Seo from '@components/common/Seo';
 
 type ReviewForm = {
   star_rating?: number;
@@ -66,6 +67,7 @@ const Edit = () => {
 
   return (
     <ShopLayout className="bg-white">
+      <Seo title="리뷰 수정" url="my/reviews/edit" />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 리뷰 작성</span>
         <div className="flex text-label2">

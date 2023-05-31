@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Button from '@components/common/Button';
 import usePostReview from '@hooks/mutations/usePostReview';
+import Seo from '@components/common/Seo';
 
 type ReviewForm = {
   star_rating?: number;
@@ -52,6 +53,7 @@ const Review = () => {
 
   return (
     <ShopLayout className="bg-white">
+      <Seo title="리뷰 작성" url="shopDetail/review" />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 리뷰 작성</span>
         <div className="flex text-label2">
