@@ -16,7 +16,7 @@ interface DefaultProps {
 export default function SettingItem({ text, path, icon }: SettingItemProps) {
   return (
     <SettingItemBox>
-      <Link href={path}>
+      <Link href={path} className="flex flex-col items-center justify-center">
         <Image src={icon} alt={`${icon}`} width={32} height={20} />
         <span className="mt-1 text-caption1 font-normal">{text}</span>
       </Link>
