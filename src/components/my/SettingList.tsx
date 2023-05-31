@@ -8,7 +8,7 @@ interface SettingItemProps {
 
 export default function SettingList({ text, path }: SettingItemProps) {
   return (
-    <li>
+    <li className="list-none">
       <Link href={path} className="flex justify-between py-[8px]">
         {text}
         <Image src={'/svg/right.svg'} width={24} height={24} alt="arrow" />
