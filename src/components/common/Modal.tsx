@@ -2,7 +2,6 @@ import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONFIG } from '@config';
-import { ReactNode } from 'react';
 
 type ModalProps = {
   isModal?: boolean;

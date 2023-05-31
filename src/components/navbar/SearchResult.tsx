@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
 import TextHighlighted from '@components/navbar/TextHighlighted';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type SearchProps = Shop & {
   value: string;
@@ -16,34 +16,34 @@ const SearchResult = ({
   distance,
   place_address,
 }: SearchProps) => {
-  const router = useRouter();
   const [initial, ...rest] = place_name.split(value);
   return isTyping ? (
     <li className="cursor-pointer bg-white px-3 first:pt-5">
       <DivisionBar />
       {
-        <div
-          className="flex items-center"
-          onClick={() => router.push(`/shopDetail/?shopId=${id}`)}
-        >
-          <div className="flex flex-col items-center">
-            <Image
-              src="/svg/navbar/location.svg"
-              width={20}
-              height={20}
-              alt="distance"
-            />
-            <span className="text-caption2 text-line-disable">{distance}</span>
-          </div>
-          <div className="ml-4 flex flex-col">
-            <div className="flex">
-              <TextHighlighted value={value} initial={initial} rest={rest} />
+        <Link href={`/shopDetail/?shopId=${id}`}>
+          <div className="flex items-center">
+            <div className="flex flex-col items-center">
+              <Image
+                src="/svg/navbar/location.svg"
+                width={20}
+                height={20}
+                alt="distance"
+              />
+              <span className="text-caption2 text-line-disable">
+                {distance}
+              </span>
             </div>
-            <span className="text-caption1 text-text-alternative">
-              {place_address}
-            </span>
+            <div className="ml-4 flex flex-col">
+              <div className="flex">
+                <TextHighlighted value={value} initial={initial} rest={rest} />
+              </div>
+              <span className="text-caption1 text-text-alternative">
+                {place_address}
+              </span>
+            </div>
           </div>
-        </div>
+        </Link>
       }
     </li>
   ) : null;

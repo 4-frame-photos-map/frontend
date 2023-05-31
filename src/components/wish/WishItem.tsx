@@ -1,15 +1,14 @@
+import tw from 'tailwind-styled-components';
 import BrandTag from '@components/common/BrandTag';
 import Modal from '@components/common/Modal';
 import ToastMessage from '@components/common/ToastMessage';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import tw from 'tailwind-styled-components';
 
 const WishItem = ({ shop }: Favorite) => {
-  const router = useRouter();
   const [isModal, setIsModal] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
   const { mutate: del, isSuccess, isError } = useDeleteFavorite('/wish');
@@ -28,11 +27,10 @@ const WishItem = ({ shop }: Favorite) => {
       <li className="w-full bg-white px-6 py-5">
         <BrandTag name={shop.place_name} />
         <div className="flex justify-between pt-1 pb-2">
-          <span
-            className="cursor-pointer text-body1"
-            onClick={() => router.push(`/shopDetail/?shopId=${shop.id}`)}
-          >
-            {shop.place_name}
+          <span className="cursor-pointer text-body1">
+            <Link href={`/shopDetail/?shopId=${shop.id}`}>
+              {shop.place_name}
+            </Link>
           </span>
           {shop.id ? (
             <Image
