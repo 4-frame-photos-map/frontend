@@ -8,6 +8,7 @@ import NavBar from '@components/common/NavBar';
 import Modal from '@components/common/Modal';
 import authApi from '@apis/auth/authApi';
 import memberApi from '@apis/member/memberApi';
+import Seo from '@components/common/Seo';
 
 const SettingLists: SettingListsProps[] = [
   { id: 1, text: '닉네임 변경', path: '/my/edit' },
@@ -28,6 +29,7 @@ const Setting = () => {
   };
   return (
     <PageLayout>
+      <Seo title="설정" url="my/setting" />
       <Modal
         isModal={isLogoutModal}
         title="로그아웃"

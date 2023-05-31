@@ -1,4 +1,5 @@
 import NavBar from '@components/common/NavBar';
+import Seo from '@components/common/Seo';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
 import { useGetFavorite } from '@hooks/queries/useGetFavorite';
@@ -11,6 +12,7 @@ const Wish = () => {
   const { data: favorites } = useGetFavorite(curPos.lat, curPos.lng);
   return (
     <PageLayout>
+      <Seo title="찜" url="wish" />
       <NavBar leftTitle={'찜 목록'} favoritesNum={favorites?.length} />
       {favorites && favorites.length > 0 ? (
         <WishList>

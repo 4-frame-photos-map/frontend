@@ -1,10 +1,10 @@
 import Modal from '@components/common/Modal';
 import SplashLogin from '@components/common/SplashLogin';
 import AuthLayout from '@components/layout/AuthLayout';
+import Image from 'next/image';
+import Seo from '@components/common/Seo';
 import { CONFIG } from '@config';
 import { deleteToken } from '@utils/token';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -37,12 +37,10 @@ const Login = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  return loading ? (
+  return (
     <AuthLayout>
-      <SplashLogin />
-    </AuthLayout>
-  ) : (
-    <AuthLayout>
+      <SplashLogin loading={loading} />
+      <Seo title="로그인" url="auth/login" />
       <Image
         src="/svg/login/login-logo.svg"
         alt="logo"
@@ -50,7 +48,7 @@ const Login = () => {
         height={48}
         priority={true}
       />
-      <Link
+      <a
         href={
           CONFIG.ENV === 'development'
             ? `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`
@@ -62,7 +60,7 @@ const Login = () => {
         <p className="cursor-pointer whitespace-nowrap text-label2 leading-[17px] text-black">
           카카오 로그인
         </p>
-      </Link>
+      </a>
 
       <div
         onClick={() => {

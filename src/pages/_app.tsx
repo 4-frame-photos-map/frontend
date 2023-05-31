@@ -7,7 +7,6 @@ import { getLocalStorage } from '@utils/localStorage';
 import { useRouter } from 'next/router';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import Head from 'next/head';
 
 declare global {
   interface Window {
@@ -42,9 +41,6 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   return (
     <>
-      <Head>
-        <title>네컷 지도</title>
-      </Head>
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>

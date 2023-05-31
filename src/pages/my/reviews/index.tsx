@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import BrandTag from '@components/common/BrandTag';
+import Seo from '@components/common/Seo';
 
 const Reviews = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const Reviews = () => {
   const { mutate: deleteReview } = useDeleteReview();
   return (
     <PageLayout className="bg-bg-primary">
+      <Seo title="내 리뷰" url="my/reviews" />
       {isModal && (
         <ModalLayout>
           <Modal
