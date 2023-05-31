@@ -83,7 +83,7 @@ const Location = () => {
         setCurPos={setCurPos}
         setBounds={setBounds}
       />
-      <div className="fixed top-[430px] w-full max-w-[375px] pb-[71px]">
+      <div className="fixed top-[385px] w-full max-w-[375px]">
         <TrackerButton onClick={handleTracker} />
       </div>
       <ResultContainer>
@@ -144,7 +144,7 @@ const Location = () => {
 };
 
 const ResultContainer = tw.div`
-mt-[500px] mb-10 h-full w-full bg-white relative items-start
+mt-[440px] mb-10 h-full w-full bg-white relative items-start
 `;
 const ResultBox = tw.div`
 h-full rounded-t-[15px] pt-2 pb-10
@@ -155,7 +155,7 @@ m-auto flex h-1 w-[60px] justify-center rounded-sm bg-line-normal
 const RadSelectBox = tw.div`
 mt-4 flex gap-2 px-4 text-body1 font-semibold
 `;
-const ResultItemBox = tw.div`
+const ResultItemBox = tw.ul`
 grid w-full grid-cols-2 content-center items-center gap-2 pt-4 px-4
 `;
 const NoResultItemBox = tw.div`

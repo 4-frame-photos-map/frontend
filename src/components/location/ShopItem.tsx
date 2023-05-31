@@ -51,72 +51,70 @@ const ShopItem = ({
     }
   };
   return (
-    <>
-      <ItemContainer
-        onClick={() => {
-          router.push(`/shopDetail/?shopId=${id}`);
-        }}
-      >
-        <ItemImgContainer>
-          <Image
-            className="rounded-lg"
-            src={`${file_path}`}
-            alt={brand_name}
-            fill
-          />
-          <FavoriteBtn>
-            {shopInfo?.favorite ? (
-              <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
-                <Image
-                  src="/svg/wish/filled-bookmark.svg"
-                  width={24}
-                  height={24}
-                  alt="wish"
-                  onClick={(e) => {
-                    handleFavorite(e, id);
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
-                <Image
-                  src="/svg/wish/lined-bookmark.svg"
-                  width={24}
-                  height={24}
-                  alt="wish"
-                  className="cursor-pointer"
-                  onClick={(e) => handleFavorite(e, id)}
-                />
-              </div>
-            )}
-          </FavoriteBtn>
-        </ItemImgContainer>
-        <span className="truncate text-label1">{place_name}</span>
-        <ItemDescBox>
-          <span className="flex pr-2">
-            <Image src="/svg/star.svg" width={16} height={16} alt="star" />
-            {star_rating} ({review_cnt})
+    <ItemContainer
+      onClick={() => {
+        router.push(`/shopDetail/?shopId=${id}`);
+      }}
+    >
+      <ItemImgContainer>
+        <Image
+          className="rounded-lg"
+          src={`${file_path}`}
+          alt={brand_name}
+          fill
+        />
+        <FavoriteBtn>
+          {shopInfo?.favorite ? (
+            <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
+              <Image
+                src="/svg/wish/filled-bookmark.svg"
+                width={24}
+                height={24}
+                alt="wish"
+                onClick={(e) => {
+                  handleFavorite(e, id);
+                }}
+              />
+            </div>
+          ) : (
+            <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
+              <Image
+                src="/svg/wish/lined-bookmark.svg"
+                width={24}
+                height={24}
+                alt="wish"
+                className="cursor-pointer"
+                onClick={(e) => handleFavorite(e, id)}
+              />
+            </div>
+          )}
+        </FavoriteBtn>
+      </ItemImgContainer>
+      <span className="truncate text-label1">{place_name}</span>
+      <ItemDescBox>
+        <span className="flex pr-2">
+          <Image src="/svg/star.svg" width={16} height={16} alt="star" />
+          {star_rating} ({review_cnt})
+        </span>
+        <div className="border-l pl-2">
+          <span className="pr-1">찜</span>
+          <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
+          <span className="ml-9 text-caption1 text-text-alternative">
+            {shopInfo?.distance}
           </span>
-          <div className="border-l pl-2">
-            <span className="pr-1">찜</span>
-            <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
-            <span className="ml-9 text-caption1 text-text-alternative">
-              {shopInfo?.distance}
-            </span>
-          </div>
-        </ItemDescBox>
-        <div className="relative flex pt-2">
-          {shopInfo?.shop_titles &&
-            shopInfo?.shop_titles?.map((title, idx) => (
-              <ShopTitle key={idx} title={title} width={65} height={20} />
-            ))}
         </div>
-      </ItemContainer>
-    </>
+      </ItemDescBox>
+      <div className="relative flex pt-2">
+        {shopInfo?.shop_titles &&
+          shopInfo?.shop_titles?.map((title, idx) => (
+            <ShopTitle key={idx} title={title} width={65} height={20} />
+          ))}
+      </div>
+    </ItemContainer>
   );
 };
 
-const ItemContainer = tw.div`
+const ItemContainer = tw.li`
 flex flex-col cursor-pointer relative pb-3 self-start
 `;
 const FavoriteBtn = tw.div`

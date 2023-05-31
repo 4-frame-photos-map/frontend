@@ -4,9 +4,9 @@ import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
-import { useGetProfile } from '@hooks/queries/useGetProfile';
-import { useRouter } from 'next/router';
 import TitleBadge from '@components/title/TitleBadge';
+import Link from 'next/link';
+import { useGetProfile } from '@hooks/queries/useGetProfile';
 
 export type SettingListsProps = {
   id: number;
@@ -26,11 +26,9 @@ const SettingItems: SettingItemsProps[] = [
 
 const SettingLists: SettingListsProps[] = [
   { id: 1, text: '문의사항', path: '/faq' },
-  { id: 2, text: '약관 확인', path: '/notice' },
 ];
 
 const My = () => {
-  const router = useRouter();
   const { data: user } = useGetProfile();
   return (
     <PageLayout className="bg-white">
@@ -49,15 +47,17 @@ const My = () => {
           </div>
         </Greeting>
         <div className="flex items-center">
-          <SettingBox onClick={() => router.push('/my/setting')}>
-            <Image
-              src={'/svg/setting.svg'}
-              width={18}
-              height={18}
-              alt="setting"
-            />
-            <span className="flex items-center text-caption2">설정</span>
-          </SettingBox>
+          <Link href={'/my/setting'}>
+            <SettingBox>
+              <Image
+                src={'/svg/setting.svg'}
+                width={18}
+                height={18}
+                alt="setting"
+              />
+              <span className="flex items-center text-caption2">설정</span>
+            </SettingBox>
+          </Link>
         </div>
       </GreetingBox>
       <ItemsContainer>
@@ -88,11 +88,11 @@ const SettingBox = tw.div`
 flex cursor-pointer rounded-xl border bg-bg-tertiary p-1
 `;
 
-const ItemsContainer = tw.div`
+const ItemsContainer = tw.ul`
 flex w-full justify-between px-[16px] py-[24px]
 `;
 
-const ListsContainer = tw.div`
+const ListsContainer = tw.ul`
 flex cursor-pointer flex-col px-[16px] text-body2 font-normal
 `;
 
