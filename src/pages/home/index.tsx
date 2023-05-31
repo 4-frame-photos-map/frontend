@@ -13,6 +13,7 @@ import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
+import Seo from '@components/common/Seo';
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -84,6 +85,7 @@ const Home = () => {
 
   return (
     <PageLayout>
+      <Seo title="홈" url="home" />
       <NavBar
         leftTitle={shopInfo?.address}
         isRight={true}

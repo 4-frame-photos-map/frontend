@@ -14,6 +14,7 @@ import { curPosState } from '@recoil/positionAtom';
 import { boundState } from '@recoil/boundAtom';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
+import Seo from '@components/common/Seo';
 
 const Location = () => {
   const isLogin = useRecoilValue<boolean>(userState);
@@ -60,6 +61,7 @@ const Location = () => {
   };
   return (
     <PageLayout className="bg-white">
+      <Seo title="내 주변" url="location" />
       {isRadModal && (
         <RadiusModal
           setIsModal={setIsRadModal}

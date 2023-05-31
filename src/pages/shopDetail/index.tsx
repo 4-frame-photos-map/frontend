@@ -17,6 +17,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@recoil/userAtom';
 import { modalState } from '@recoil/modalAtom';
 import ShopTitle from '@components/title/ShopTitle';
+import Seo from '@components/common/Seo';
 
 const ShopDetail = () => {
   const router = useRouter();
@@ -65,6 +66,7 @@ const ShopDetail = () => {
 
   return (
     <ShopLayout className="bg-white pt-[62px]">
+      <Seo title="지점" url="shopDetail" />
       {shopInfo && (
         <Scripts
           shopInfo={shopInfo}

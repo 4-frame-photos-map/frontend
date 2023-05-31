@@ -7,6 +7,7 @@ import 'swiper/css';
 import { FAQ_LIST } from '@utils/faqLists';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Seo from '@components/common/Seo';
 
 type FaqCategoryProps = {
   id: number;
@@ -40,6 +41,7 @@ const Faq = () => {
 
   return (
     <PageLayout className="pt-[68px] pb-[58px]">
+      <Seo title="문의사항" url="faq" />
       {isModal && faqInfo && (
         <FaqModal
           title={faqInfo.title}

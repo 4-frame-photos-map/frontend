@@ -7,6 +7,7 @@ import SettingList from '@components/my/SettingList';
 import TitleBadge from '@components/title/TitleBadge';
 import Link from 'next/link';
 import { useGetProfile } from '@hooks/queries/useGetProfile';
+import Seo from '@components/common/Seo';
 
 export type SettingListsProps = {
   id: number;
@@ -32,6 +33,7 @@ const My = () => {
   const { data: user } = useGetProfile();
   return (
     <PageLayout className="bg-white">
+      <Seo title="마이페이지" url="my" />
       <NavBar centerTitle="마이페이지" isLeft={true} />
       <div className="mt-[73px] px-4">
         <TitleBadge
