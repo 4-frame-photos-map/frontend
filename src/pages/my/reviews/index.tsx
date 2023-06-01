@@ -10,6 +10,7 @@ import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import BrandTag from '@components/common/BrandTag';
 import Seo from '@components/common/Seo';
+import Link from 'next/link';
 
 const Reviews = () => {
   const router = useRouter();
@@ -46,8 +47,10 @@ const Reviews = () => {
                   <span className="text-caption1">
                     <BrandTag name={shop_info?.brand} />
                   </span>
-                  <div className="mb-4 text-title1 font-semibold">
-                    {shop_info.place_name}
+                  <div className="mb-4 cursor-pointer text-title1 font-semibold">
+                    <Link href={`/shopDetail?shopId=${shop_info.id}`}>
+                      {shop_info.place_name}
+                    </Link>
                   </div>
                 </div>
                 <BtnContainer>
