@@ -71,7 +71,7 @@ const Titles = () => {
           )}
           <TitleName>{titles?.main_member_title.name}</TitleName>
         </MainTitle>
-        <span className="mx-4 mt-[28px] h-[1px] w-[327px] bg-bg-primary" />
+        <span className="mx-4 my-10 h-[1px] w-[327px] bg-bg-primary" />
         <AllTitles>
           {titles?.member_titles.map(
             ({
@@ -160,11 +160,11 @@ const Titles = () => {
 export default Titles;
 
 const TitleContainer = tw.div`
-flex justify-center mt-[100px] flex-col mb-12
+flex justify-center mt-[68px] flex-col mb-[72px]
 `;
 
 const MainTitle = tw.div`
-flex flex-col items-center
+flex flex-col items-center pt-5
 `;
 
 const TitleName = tw.span`
@@ -172,7 +172,7 @@ mt-4 text-label1 font-semibold
 `;
 
 const AllTitles = tw.div`
-grid grid-cols-3 place-items-center mt-[49px] gap-y-10
+grid grid-cols-3 place-items-center gap-y-10
 `;
 
 const TitleBox = tw.div`
