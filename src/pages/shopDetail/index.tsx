@@ -49,7 +49,7 @@ const ShopDetail = () => {
         addressTitle: place_name,
         content: {
           title: place_name,
-          imageUrl: '',
+          imageUrl: 'https://d18tllc1sxg8cp.cloudfront.net/logo/main_logo.png',
           link: {
             mobileWebUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
             webUrl: `https://photosmap.vercel.app/shopDetail?shopId=${shopId}`,
@@ -108,15 +108,11 @@ const ShopDetail = () => {
           <div>{shopInfo?.distance.replaceAll('"', '')}</div>
         </ShopRate>
         <ShopEventBox>
-          <ShopEvent
-            onClick={() => {
-              if (shopInfo && shopInfo.place_url) {
-                router.push(shopInfo.place_url);
-              }
-            }}
-          >
-            <Image src={'/svg/map.svg'} width={18} height={18} alt="지도" />
-            <div className="pl-[2px]">카카오맵 보기</div>
+          <ShopEvent>
+            <a className="flex" href={shopInfo?.place_url} target="_blank">
+              <Image src={'/svg/map.svg'} width={18} height={18} alt="지도" />
+              <div className="pl-[2px]">카카오맵 보기</div>
+            </a>
           </ShopEvent>
           <ShopEvent
             onClick={() => {
