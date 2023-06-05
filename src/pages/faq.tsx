@@ -4,10 +4,10 @@ import PageLayout from '@components/layout/PageLayout';
 import Image from 'next/image';
 import FaqModal from '@components/faq/FaqModal';
 import 'swiper/css';
-import { FAQ_LIST } from '@utils/faqLists';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Seo from '@components/common/Seo';
+import { FAQ_LIST } from '@constants/faqLists';
 
 type FaqCategoryProps = {
   id: number;
