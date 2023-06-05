@@ -49,7 +49,9 @@ const NoticeItem = ({
           }}
         />
       </div>
-      {isView && <p className="py-5 text-body1">{content}</p>}
+      {isView && (
+        <p className="whitespace-pre-line py-5 text-label2">{content}</p>
+      )}
     </NoticeList>
   );
 };
