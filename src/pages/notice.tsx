@@ -10,7 +10,6 @@ import { NOTICE_LIST } from '@constants/noticeLists';
 const Notice = () => {
   const [isNoticeView, setIsNoticeView] = useRecoilState<{
     notice1: boolean;
-    notice2: boolean;
   }>(noticeState);
   return (
     <PageLayout>
