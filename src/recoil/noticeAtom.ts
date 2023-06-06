@@ -17,11 +17,10 @@ const localStorageEffect =
     });
   };
 
-export const noticeState = atom<{ notice1: boolean; notice2: boolean }>({
+export const noticeState = atom<{ notice1: boolean }>({
   key: 'noticeState',
   default: {
     notice1: false,
-    notice2: false,
   },
   effects: [localStorageEffect('isNoticeView')],
 });

@@ -14,6 +14,12 @@ type FaqCategoryProps = {
   value: string;
 };
 
+type FaqListProps = {
+  id: number;
+  title: string;
+  content: string;
+};
+
 const FAQ_CATEGORY: FaqCategoryProps[] = [
   { id: 1, value: '회원' },
   { id: 2, value: '지점' },
