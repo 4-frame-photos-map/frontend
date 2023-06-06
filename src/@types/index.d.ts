@@ -14,9 +14,3 @@ type Bound = {
   pa: number;
   qa: number;
 };
-
-type FaqListProps = {
-  id: number;
-  title: string;
-  content: string;
-};

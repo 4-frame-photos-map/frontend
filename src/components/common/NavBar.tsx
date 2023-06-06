@@ -17,6 +17,7 @@ type NavBarProps = {
   isFavorite?: boolean;
   location?: Position;
   kakaoMap?: any;
+  isWish?: boolean;
   favoritesNum?: number;
   setIsInfo?: Dispatch<SetStateAction<boolean>>;
   setShopsInfo?: Dispatch<SetStateAction<ShopProps[] | undefined>>;
@@ -34,6 +35,7 @@ const NavBar = ({
   isFavorite,
   location,
   kakaoMap,
+  isWish,
   favoritesNum,
   setIsInfo,
   setShopsInfo,
@@ -178,7 +180,7 @@ const NavBar = ({
         {isDetail && shopId && (
           <FavoriteButton shopId={shopId} isFavorite={isFavorite} />
         )}
-        {favoritesNum && (
+        {isWish && (
           <Border>
             <span className="text-caption1 font-semibold">
               총 {favoritesNum}개
