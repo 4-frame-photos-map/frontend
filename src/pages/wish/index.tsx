@@ -13,7 +13,11 @@ const Wish = () => {
   return (
     <PageLayout>
       <Seo title="찜" url="wish" />
-      <NavBar leftTitle={'찜 목록'} favoritesNum={favorites?.length} />
+      <NavBar
+        isWish={true}
+        leftTitle={'찜 목록'}
+        favoritesNum={favorites?.length}
+      />
       {favorites && favorites.length > 0 ? (
         <WishList>
           {favorites?.map((data, idx) => (

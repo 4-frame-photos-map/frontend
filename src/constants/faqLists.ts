@@ -1,4 +1,4 @@
-export const FAQ_LIST: FaqListProps[] = [
+export const FAQ_LIST = [
   {
     id: 1,
     title: '회원 탈퇴를 하고 싶어요.',
@@ -116,4 +116,4 @@ export const FAQ_LIST: FaqListProps[] = [
     content:
       '사용하는 브라우저에서 위치 권한을 허용하지 않는 경우 현재 위치를 불러오는 데에 실패할 수 있습니다.\n위치 정보를 허용하고 있는지 확인해주세요.',
   },
-];
+] as const;

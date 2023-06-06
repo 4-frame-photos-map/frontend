@@ -2,14 +2,10 @@ import tw from 'tailwind-styled-components';
 import NavBar from '@components/common/NavBar';
 import PageLayout from '@components/layout/PageLayout';
 import NoticeItem from '@components/notice/NoticeItem';
+import Seo from '@components/common/Seo';
 import { noticeState } from '@recoil/noticeAtom';
 import { useRecoilState } from 'recoil';
-import Seo from '@components/common/Seo';
-
-const NOTICE_LIST = [
-  { id: 1, title: '공지1', content: '공지1 관련 내용입니다.' },
-  { id: 2, title: '공지2', content: '공지2 관련 내용입니다.' },
-];
+import { NOTICE_LIST } from '@constants/noticeLists';
 
 const Notice = () => {
   const [isNoticeView, setIsNoticeView] = useRecoilState<{
