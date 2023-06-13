@@ -15,8 +15,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "src",
+    "typeRoots": ["node_modules/@types", "src/apis/*/*.d.ts", "src/@types/*"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@components/*": ["./components/*"],
+      "@apis/*": ["./apis/*"],
+      "@styles/*": ["./styles/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@utils/*": ["./utils/*"],
+      "@public/*": ["../public/*"],
+      "@config": ["../config.ts"],
+      "@recoil/*": ["./recoil/*"],
+      "@constants/*": ["./constants/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

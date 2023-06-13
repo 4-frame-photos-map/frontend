@@ -1776,6 +1776,9 @@ __metadata:
     react-dom: 18.2.0
     react-hook-form: ^7.43.4
     react-query: ^3.39.3
+    recoil: ^0.7.7
+    swiper: ^9.2.0
+    swiper-react: ^1.0.0
     tailwind-styled-components: ^2.2.0
     tailwindcss: ^3.2.7
     typescript: 4.9.5
@@ -2025,6 +2028,13 @@ __metadata:
   version: 1.0.4
   resolution: "grapheme-splitter@npm:1.0.4"
   checksum: 0c22ec54dee1b05cd480f78cf14f732cb5b108edc073572c4ec205df4cd63f30f8db8025afc5debc8835a8ddeacf648a1c7992fe3dcd6ad38f9a476d84906620
+  languageName: node
+  linkType: hard
+
+"hamt_plus@npm:1.0.2":
+  version: 1.0.2
+  resolution: "hamt_plus@npm:1.0.2"
+  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
   languageName: node
   linkType: hard
 
@@ -3510,6 +3520,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"recoil@npm:^0.7.7":
+  version: 0.7.7
+  resolution: "recoil@npm:0.7.7"
+  dependencies:
+    hamt_plus: 1.0.2
+  peerDependencies:
+    react: ">=16.13.1"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 65edecbcb8d2cde89bfd61ec679c200483472a6cd343c33e4e9142b6ce524fb17d1fecc2bfd8c392926aaa8178c81457f165b32abce2a9662f51f98822c0a9cc
+  languageName: node
+  linkType: hard
+
 "regenerator-runtime@npm:^0.13.11":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
@@ -3779,6 +3805,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: df182600927f4f3225224cf8c02338ea637c9750519505bbfb9a9236741a2a7ec088386fb948bca7b447b8303d9109e7dc7672e3de041c79ac2a0e03665af7d2
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -3907,6 +3940,22 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"swiper-react@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "swiper-react@npm:1.0.0"
+  checksum: 1397acf86d959065f1714d06886b2a25be45ca711b9af45ec5fa554eb0863823f3efae8b63494378f49a891c9ef83405fbcdec8da2e91cc4fe0129802c9a9d22
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^9.2.0":
+  version: 9.2.0
+  resolution: "swiper@npm:9.2.0"
+  dependencies:
+    ssr-window: ^4.0.2
+  checksum: c0152bd2d08e01934583d66730218b8e3eecb124119161454ffbf9ac42a132fb9d32331a700e0688854f77846fa289f54b98e247bda639f0622cc39bc9c499bc
   languageName: node
   linkType: hard
 
