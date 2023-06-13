@@ -12,7 +12,7 @@
 
 - 🔗 [네컷 지도 서비스 링크](https://photosmap.vercel.app)
 - 🔗 [네컷 지도 API 문서](https://organization-ggq.gitbook.io/undefined/)
-- 📄 [네컷 지도 프론트엔드 네이밍 컨벤션](https://www.notion.so/Convention-1d56977b60794e239bd760a87045386c?pvs=4)
+- 📄 [네컷 지도 프론트엔드 컨벤션](https://www.notion.so/Convention-1d56977b60794e239bd760a87045386c?pvs=4)
 
 <br>
 
