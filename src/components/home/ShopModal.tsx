@@ -4,10 +4,10 @@ import ShopTitle from '@components/title/ShopTitle';
 import Link from 'next/link';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
+import useToast from '@hooks/useToast';
 
 type ShopModalProps = {
   id: number;
@@ -27,6 +27,7 @@ const ShopModal = ({
   setIsModal,
 }: ShopModalProps) => {
   const curPos = useRecoilValue(curPosState);
+  const { showToast } = useToast();
 
   const { data: shopInfo } = useGetShopDetail(id, curPos.lat, curPos.lng);
   const { mutate: add } = usePostFavorite();
@@ -38,8 +39,16 @@ const ShopModal = ({
     } else {
       if (shopInfo?.favorite) {
         del(id);
+        showToast({
+          message: '찜을 삭제했어요.',
+          duration: 1000,
+        });
       } else {
         add(id);
+        showToast({
+          message: '찜을 추가했어요.',
+          duration: 1000,
+        });
       }
     }
   };
@@ -62,7 +71,7 @@ const ShopModal = ({
           </Link>
           {shopInfo?.favorite ? (
             <Image
-              src="/svg/wish/filled-wish.svg"
+              src="/svg/wish/filled-bookmark.svg"
               width={24}
               height={24}
               alt="wish"
@@ -72,7 +81,7 @@ const ShopModal = ({
             />
           ) : (
             <Image
-              src="/svg/wish/lined-wish.svg"
+              src="/svg/wish/lined-bookmark.svg"
               width={24}
               height={24}
               alt="wish"
