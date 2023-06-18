@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useDebounce = (callback: () => Promise<void>, delay: number) => {
+const useDebounceCallback = (callback: () => Promise<void>, delay: number) => {
   useEffect(() => {
     const timer = setTimeout(callback, delay);
     return () => {
@@ -9,4 +9,4 @@ const useDebounce = (callback: () => Promise<void>, delay: number) => {
   }, [callback, delay]);
 };
 
-export default useDebounce;
+export default useDebounceCallback;
