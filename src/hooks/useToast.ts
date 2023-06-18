@@ -1,4 +1,4 @@
-import { Toast, toastState } from '@recoil/toastAtom';
+import { toastState } from '@recoil/toastAtom';
 import { getRandomNum } from '@utils/getRandomNum';
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
