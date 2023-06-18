@@ -41,13 +41,13 @@ const ShopModal = ({
         del(id);
         showToast({
           message: '찜을 삭제했어요.',
-          duration: 1000,
+          duration: 500,
         });
       } else {
         add(id);
         showToast({
           message: '찜을 추가했어요.',
-          duration: 1000,
+          duration: 500,
         });
       }
     }

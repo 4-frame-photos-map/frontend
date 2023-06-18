@@ -49,13 +49,13 @@ const ShopItem = ({
         del(id);
         showToast({
           message: '찜을 삭제했어요.',
-          duration: 1000,
+          duration: 800,
         });
       } else {
         add(id);
         showToast({
           message: '찜을 추가했어요.',
-          duration: 1000,
+          duration: 800,
         });
       }
     }
