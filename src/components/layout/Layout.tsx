@@ -3,6 +3,7 @@ import tw from 'tailwind-styled-components';
 import Modal from '@components/common/Modal';
 import { useRecoilState } from 'recoil';
 import { modalState } from '@recoil/modalAtom';
+import ToastList from '@components/common/ToastList';
 
 type Props = {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ const Layout = ({ children }: Props) => {
         />
       )}
       {children}
+      <ToastList />
     </LayoutBox>
   );
 };
