@@ -67,7 +67,7 @@ const ShopItem = ({
           {shopInfo?.favorite ? (
             <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
               <Image
-                src="/svg/wish/filled-wish.svg"
+                src="/svg/wish/filled-bookmark.svg"
                 width={24}
                 height={24}
                 alt="wish"
@@ -79,7 +79,7 @@ const ShopItem = ({
           ) : (
             <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
               <Image
-                src="/svg/wish/lined-wish.svg"
+                src="/svg/wish/lined-bookmark.svg"
                 width={24}
                 height={24}
                 alt="wish"
