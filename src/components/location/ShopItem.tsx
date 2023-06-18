@@ -67,7 +67,7 @@ const ShopItem = ({
           {shopInfo?.favorite ? (
             <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
               <Image
-                src="/svg/wish/filled-bookmark.svg"
+                src="/svg/wish/filled-wish.svg"
                 width={24}
                 height={24}
                 alt="wish"
@@ -79,7 +79,7 @@ const ShopItem = ({
           ) : (
             <div className="flex h-[28px] w-[28px] items-center justify-center rounded bg-[rgba(79,79,79,0.1)]">
               <Image
-                src="/svg/wish/lined-bookmark.svg"
+                src="/svg/wish/lined-wish.svg"
                 width={24}
                 height={24}
                 alt="wish"
@@ -96,7 +96,7 @@ const ShopItem = ({
           <Image src="/svg/star.svg" width={16} height={16} alt="star" />
           {star_rating} ({review_cnt})
         </span>
-        <div className="border-l pl-2">
+        <div className="pl-2 border-l">
           <span className="pr-1">찜</span>
           <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
           <span className="ml-9 text-caption1 text-text-alternative">

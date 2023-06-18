@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { toastState } from '@recoil/toastAtom';
 import useToast from '@hooks/useToast';
 
 type WishItemProps = Pick<
@@ -56,10 +54,10 @@ const WishItem = ({
           </span>
           {id ? (
             <Image
-              src="/svg/wish/filled-bookmark.svg"
+              src="/svg/wish/filled-wish.svg"
               width={24}
               height={24}
-              alt="bookmark"
+              alt="wish"
               className="cursor-pointer"
               onClick={() => {
                 setIsModal(true);
@@ -67,10 +65,10 @@ const WishItem = ({
             />
           ) : (
             <Image
-              src="/svg/wish/lined-bookmark.svg"
+              src="/svg/wish/lined-wish.svg"
               width={24}
               height={24}
-              alt="bookmark"
+              alt="wish"
               className="cursor-pointer"
               onClick={() => handleAddFavorite(id)}
             />

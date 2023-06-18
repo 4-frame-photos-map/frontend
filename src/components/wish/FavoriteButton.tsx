@@ -1,8 +1,4 @@
-import tw from 'tailwind-styled-components';
 import Image from 'next/image';
-import Modal from '@components/common/Modal';
-import ToastMessage from '@components/common/ToastMessage';
-import { useState } from 'react';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -40,10 +36,10 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
     <>
       {isFavorite ? (
         <Image
-          src="/svg/wish/filled-bookmark.svg"
+          src="/svg/wish/filled-wish.svg"
           width={24}
           height={24}
-          alt="bookmark"
+          alt="wish"
           className="z-[900] cursor-pointer"
           onClick={() => {
             handleDeleteFavorite(shopId);
@@ -51,10 +47,10 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
         />
       ) : (
         <Image
-          src="/svg/wish/lined-bookmark.svg"
+          src="/svg/wish/lined-wish.svg"
           width={24}
           height={24}
-          alt="bookmark"
+          alt="wish"
           className="z-[900] cursor-pointer"
           onClick={() => {
             if (!isLogin) setIsLoginModal(true);
