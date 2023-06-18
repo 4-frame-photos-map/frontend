@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import { useGetShopsByKeyword } from '@hooks/queries/useGetShop';
@@ -7,6 +6,8 @@ import SearchResult from '@components/navbar/SearchResult';
 import SearchList from '@components/navbar/SearchList';
 import { useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
+import useDebounceValue from '@hooks/useDebounceValue';
+import { useForm } from 'react-hook-form';
 
 export interface FormValue {
   search: string;
@@ -17,7 +18,6 @@ type SearchProps = {
   setIsList: Dispatch<SetStateAction<boolean>>;
   setIsMap: Dispatch<SetStateAction<boolean>>;
   isMap: boolean;
-  location: Position;
   setShopsInfo: Dispatch<SetStateAction<Shop[] | undefined>>;
 };
 
@@ -26,39 +26,17 @@ const Search = ({
   setIsList,
   isMap,
   setIsMap,
-  location,
   setShopsInfo,
 }: SearchProps) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const { register, watch, setValue, handleSubmit } = useForm<FormValue>({
-    mode: 'onChange',
-  });
-  const value = watch('search');
+  const { register, watch, setValue } = useForm<FormValue>();
+  const value = useDebounceValue(watch('search'), 500);
   const curPos = useRecoilValue(curPosState);
-
   const { data: shops } = useGetShopsByKeyword(value, curPos.lng, curPos.lat);
 
   useEffect(() => {
     setShopsInfo(shops);
   }, [shops]);
-
-  const onSubmit = (data: FormValue) => {
-    setValue('search', data.search);
-  };
-
-  let timer: NodeJS.Timeout;
-
-  const handleSearchChange = (inputValue: string) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      setValue('search', inputValue);
-    }, 500);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    handleSearchChange(inputValue);
-  };
 
   const handleSearchClick = () => {
     setIsList(true);
@@ -82,12 +60,11 @@ const Search = ({
 
   return (
     <div className="flex flex-col">
-      <SearchForm onSubmit={handleSubmit(onSubmit)}>
+      <SearchForm>
         <SearchInput
           {...register('search')}
           type="text"
           placeholder="지점/장소 검색"
-          onChange={handleInputChange}
         />
       </SearchForm>
       {watch('search') && (
@@ -104,7 +81,7 @@ const Search = ({
         <SearchContainer>
           {shops?.length > 0 && (
             <div
-              className="flex cursor-pointer items-center px-4 pt-5"
+              className="flex items-center px-4 pt-5 cursor-pointer"
               onClick={handleSearchClick}
             >
               <Image
