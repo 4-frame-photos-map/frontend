@@ -136,7 +136,6 @@ const NavBar = ({
                 setIsList={setIsList}
                 isMap={isMap}
                 setIsMap={setIsMap}
-                location={location}
                 setShopsInfo={setShopInfo}
               />
             )}

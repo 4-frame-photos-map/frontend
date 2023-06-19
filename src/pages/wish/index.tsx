@@ -20,8 +20,8 @@ const Wish = () => {
       />
       {favorites && favorites.length > 0 ? (
         <WishList>
-          {favorites?.map((data, idx) => (
-            <WishItem key={idx} {...data} />
+          {favorites?.map(({ id, shop }) => (
+            <WishItem key={id} {...shop} />
           ))}
         </WishList>
       ) : (

@@ -14,3 +14,9 @@ type Bound = {
   pa: number;
   qa: number;
 };
+
+type Toast = {
+  id?: string;
+  message: string;
+  duration?: number;
+};
