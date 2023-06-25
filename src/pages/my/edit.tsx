@@ -4,9 +4,9 @@ import PageLayout from '@components/layout/PageLayout';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
-import useDebounce from '@hooks/useDebounce';
 import { usePatchProfile } from '@hooks/mutations/usePatchProfile';
 import Seo from '@components/common/Seo';
+import useDebounceCallback from '@hooks/useDebounceCallback';
 
 type FormValue = {
   nickname: string;
@@ -32,7 +32,7 @@ const Edit = () => {
       }
     }
   };
-  useDebounce(validateNickname, 300);
+  useDebounceCallback(validateNickname, 300);
   const onSubmit = (form: FormValue) => {
     const { nickname } = form;
     editProfile(nickname);
