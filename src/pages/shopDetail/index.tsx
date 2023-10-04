@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Header from '@components/common/Header';
-import ShopLayout from '@components/layout/ShopLayout';
+import PageLayout from '@components/layout/PageLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import BrandTag from '@components/common/BrandTag';
 import Scripts from '@components/common/Scripts';
-import Menu from '@components/common/Menu';
 import reviewApi from '@apis/review/reviewApi';
 import { curPosState } from '@recoil/positionAtom';
 import { useRef, useState } from 'react';
@@ -65,7 +64,7 @@ const ShopDetail = () => {
   };
 
   return (
-    <ShopLayout className="bg-white pt-[62px]">
+    <PageLayout className="bg-white pt-[62px]">
       <Seo title="지점" url="shopDetail" />
       {shopInfo && (
         <Scripts
@@ -187,7 +186,7 @@ const ShopDetail = () => {
           else router.push(`/shopDetail/review?shopId=${shopInfo?.id}`);
         }}
       />
-    </ShopLayout>
+    </PageLayout>
   );
 };
 
