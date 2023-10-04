@@ -1,17 +1,17 @@
 import tw from 'tailwind-styled-components';
 import React from 'react';
 
-type ShopLayoutProps = {
+type ReviewLayoutProps = {
   children: React.ReactNode;
   className?: React.ComponentProps<'div'>['className'];
 };
 
-const ShopLayoutBox = tw.div`
+const ReviewLayoutBox = tw.div`
 relative h-full w-full min-h-screen max-w-[375px] bg-bg-primary
 `;
 
-const ShopLayout = ({ children, ...rest }: ShopLayoutProps) => {
-  return <ShopLayoutBox {...rest}>{children}</ShopLayoutBox>;
+const ReviewLayout = ({ children, ...rest }: ReviewLayoutProps) => {
+  return <ReviewLayoutBox {...rest}>{children}</ReviewLayoutBox>;
 };
 
-export default ShopLayout;
+export default ReviewLayout;
