@@ -22,11 +22,13 @@
     "swiper-react": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/core": "latest",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
+    "@types/babel__core": "^7",
     "@types/jest": "^29.5.3",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
@@ -42,7 +44,6 @@
     "eslint-plugin-jest": "^27.2.3",
     "eslint-plugin-tailwindcss": "^3.10.1",
     "jest": "^29.6.2",
-    "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^29.6.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
