@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import SettingItem from '@components/my/SettingItem';
 import SettingList from '@components/my/SettingList';
@@ -34,7 +34,7 @@ const My = () => {
   return (
     <PageLayout className="bg-white">
       <Seo title="마이페이지" url="my" />
-      <NavBar centerTitle="마이페이지" isLeft={true} />
+      <Header centerTitle="마이페이지" isLeft={true} />
       <div className="mt-[73px] px-4">
         <TitleBadge
           className="h-fit w-fit px-3 py-1 text-label2"

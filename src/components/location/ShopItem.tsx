@@ -106,7 +106,7 @@ const ShopItem = ({
           <Image src="/svg/star.svg" width={16} height={16} alt="star" />
           {star_rating} ({review_cnt})
         </span>
-        <div className="pl-2 border-l">
+        <div className="border-l pl-2">
           <span className="pr-1">찜</span>
           <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
           <span className="ml-9 text-caption1 text-text-alternative">

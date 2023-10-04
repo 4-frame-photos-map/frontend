@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import tw from 'tailwind-styled-components';
-import TextHighlighted from '@components/navbar/TextHighlighted';
+import TextHighlighted from '@components/header/TextHighlighted';
 import Link from 'next/link';
 
 type SearchProps = Shop & {
@@ -25,7 +25,7 @@ const SearchResult = ({
           <div className="flex items-center">
             <div className="flex flex-col items-center">
               <Image
-                src="/svg/navbar/location.svg"
+                src="/svg/header/location.svg"
                 width={20}
                 height={20}
                 alt="distance"

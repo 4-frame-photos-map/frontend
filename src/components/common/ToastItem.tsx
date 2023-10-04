@@ -1,10 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 
-type ToastItemBoxProps = {
-  isVisible: boolean;
-};
-
 const ToastItem = ({
   children,
   duration,
@@ -22,11 +18,14 @@ const ToastItem = ({
     }, duration);
   }, [duration]);
 
-  return <ToastItemBox isVisible={isVisible}>{children}</ToastItemBox>;
+  const toastItemStyle = {
+    opacity: isVisible ? 1 : 0,
+  };
+
+  return <ToastItemBox style={toastItemStyle}>{children}</ToastItemBox>;
 };
 
-const ToastItemBox = tw.div<ToastItemBoxProps>`
-${({ isVisible }) => (isVisible ? 'opacity-0.7' : 'opacity-0')}
+const ToastItemBox = tw.div`
 absolute bottom-10 transition-all duration-500 ease-in-out w-fit h-11 bg-brand-black flex justify-center items-center rounded-[4px] px-4
 `;
 

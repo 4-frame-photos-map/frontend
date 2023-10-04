@@ -1,13 +1,13 @@
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import FavoriteButton from '@components/wish/FavoriteButton';
-import Search from '@components/navbar/Search';
+import Search from '@components/header/Search';
 import { useRouter } from 'next/router';
 import { useState, SetStateAction, Dispatch, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { boundState } from '@recoil/boundAtom';
 
-type NavBarProps = {
+type HeaderProps = {
   leftTitle?: string;
   centerTitle?: string;
   isLeft?: boolean;
@@ -25,7 +25,7 @@ type NavBarProps = {
   setModalProps?: Dispatch<SetStateAction<ShopProps | null>>;
 };
 
-const NavBar = ({
+const Header = ({
   leftTitle,
   centerTitle,
   isLeft,
@@ -41,7 +41,7 @@ const NavBar = ({
   setShopsInfo,
   setCurShopsInfo,
   setModalProps,
-}: NavBarProps) => {
+}: HeaderProps) => {
   const router = useRouter();
   const [isInput, setIsInput] = useState<boolean>(false);
   const [isList, setIsList] = useState<boolean>(false);
@@ -70,13 +70,13 @@ const NavBar = ({
   }, [bounds]);
 
   return (
-    <NavContainer>
-      <NavItems>
+    <HeaderContainer>
+      <HeaderItems>
         {isInput ? (
           <>
             {!isMap && !isList && (
               <Image
-                src={'/svg/navbar/prev.svg'}
+                src={'/svg/header/prev.svg'}
                 width={24}
                 height={24}
                 alt="이전"
@@ -94,7 +94,7 @@ const NavBar = ({
                   }}
                 >
                   <Image
-                    src="/svg/navbar/list.svg"
+                    src="/svg/header/list.svg"
                     width={24}
                     height={24}
                     alt="list"
@@ -120,7 +120,7 @@ const NavBar = ({
                   }}
                 >
                   <Image
-                    src="/svg/navbar/map.svg"
+                    src="/svg/header/map.svg"
                     width={24}
                     height={24}
                     alt="map"
@@ -145,7 +145,7 @@ const NavBar = ({
         {isLeft && !isInput && (
           <>
             <Image
-              src={'/svg/navbar/prev.svg'}
+              src={'/svg/header/prev.svg'}
               width={24}
               height={24}
               alt="이전"
@@ -166,7 +166,7 @@ const NavBar = ({
           isInput ? null : (
             <Border className="cursor-pointer" onClick={handleOpenInput}>
               <Image
-                src={'/svg/navbar/search.svg'}
+                src={'/svg/header/search.svg'}
                 alt="검색"
                 width={16}
                 height={16}
@@ -189,22 +189,22 @@ const NavBar = ({
         {centerTitle === '내 칭호' && (
           <div className="z-[999] cursor-pointer" onClick={handleTitleInfo}>
             <Image
-              src="/svg/navbar/info.svg"
+              src="/svg/header/info.svg"
               width={24}
               height={24}
               alt="칭호 정보"
             />
           </div>
         )}
-      </NavItems>
-    </NavContainer>
+      </HeaderItems>
+    </HeaderContainer>
   );
 };
 
-const NavContainer = tw.nav`
+const HeaderContainer = tw.header`
 fixed top-0 w-full bg-bg-secondary max-w-[375px] box-border z-[900] h-[68px]`;
 
-const NavItems = tw.div`
+const HeaderItems = tw.div`
 mx-4 flex items-center justify-between h-full pt-1
 `;
 
@@ -220,4 +220,4 @@ const Border = tw.div`
 flex h-[21px] w-[51px] items-center justify-center gap-x-0.5 rounded-full bg-bg-primary
 `;
 
-export default NavBar;
+export default Header;

@@ -23,7 +23,7 @@ const SearchList = ({
           <span className="text-label1">{place_name}</span>
           <div className="flex gap-x-1">
             <Image
-              src="/svg/navbar/gray-star.svg"
+              src="/svg/header/gray-star.svg"
               width={12}
               height={12}
               alt="star"

@@ -18,7 +18,7 @@ const StarRate = ({ color = false, rate }: StarRateProps) => {
             }
             width={color ? 25 : 18}
             height={color ? 25 : 18}
-            alt="별"
+            alt={color ? `별` : `검정색 별`}
           />
         ))}
       {rate % 1 !== 0 && (
@@ -26,7 +26,7 @@ const StarRate = ({ color = false, rate }: StarRateProps) => {
           src={color ? `/svg/half_star.svg` : `/svg/half_star_black.svg`}
           width={color ? 25 : 18}
           height={color ? 25 : 18}
-          alt="별"
+          alt={color ? `반 별` : `검정색 반 별`}
         />
       )}
       {Array(Math.floor(5 - rate))
@@ -37,7 +37,7 @@ const StarRate = ({ color = false, rate }: StarRateProps) => {
             src={color ? `/svg/blank_star.svg` : `/svg/blank_star_black.svg`}
             width={color ? 25 : 18}
             height={color ? 25 : 18}
-            alt="별"
+            alt={color ? `빈 별` : `검정색 빈 별`}
           />
         ))}
     </div>

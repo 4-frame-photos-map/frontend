@@ -1,5 +1,5 @@
 import Modal from '@components/common/Modal';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import { useDeleteReview } from '@hooks/mutations/useDeleteReview';
@@ -37,7 +37,7 @@ const Reviews = () => {
           />
         </ModalLayout>
       )}
-      <NavBar centerTitle="내 리뷰" isLeft={true} />
+      <Header centerTitle="내 리뷰" isLeft={true} />
       {reviews && reviews.length ? (
         <ul className="my-[52px]">
           {reviews?.map(({ review_info, shop_info }, idx) => (

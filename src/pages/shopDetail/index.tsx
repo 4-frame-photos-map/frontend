@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import ShopLayout from '@components/layout/ShopLayout';
 import ReviewItem from '@components/common/ReviewItem';
 import StarRate from '@components/common/StarRate';
@@ -75,7 +75,7 @@ const ShopDetail = () => {
         />
       )}
       <Map ref={mapContainer}></Map>
-      <NavBar
+      <Header
         isLeft={true}
         isDetail={true}
         shopId={shopInfo?.id}
@@ -136,35 +136,37 @@ const ShopDetail = () => {
             <StarRate color={true} rate={shopInfo.star_rating_avg} />
           )}
         </ReviewInfoBox>
-        {shopInfo?.recent_reviews.length === 0 ? (
-          <span>작성된 리뷰가 없습니다.</span>
-        ) : reviewLoaded && reviews ? (
-          reviews.map(({ review_info, member_info }) => (
-            <ReviewItem
-              key={review_info.id}
-              create_date={review_info.create_date}
-              star_rating={review_info.star_rating}
-              content={review_info.content}
-              purity={review_info.purity}
-              retouch={review_info.retouch}
-              item={review_info.item}
-              member_info={member_info as member_info}
-            />
-          ))
-        ) : (
-          shopInfo?.recent_reviews.map(({ review_info, member_info }) => (
-            <ReviewItem
-              key={review_info.id}
-              create_date={review_info.create_date}
-              star_rating={review_info.star_rating}
-              content={review_info.content}
-              purity={review_info.purity}
-              retouch={review_info.retouch}
-              item={review_info.item}
-              member_info={member_info as member_info}
-            />
-          ))
-        )}
+        <ul>
+          {shopInfo?.recent_reviews.length === 0 ? (
+            <span>작성된 리뷰가 없습니다.</span>
+          ) : reviewLoaded && reviews ? (
+            reviews.map(({ review_info, member_info }) => (
+              <ReviewItem
+                key={review_info.id}
+                create_date={review_info.create_date}
+                star_rating={review_info.star_rating}
+                content={review_info.content}
+                purity={review_info.purity}
+                retouch={review_info.retouch}
+                item={review_info.item}
+                member_info={member_info as member_info}
+              />
+            ))
+          ) : (
+            shopInfo?.recent_reviews.map(({ review_info, member_info }) => (
+              <ReviewItem
+                key={review_info.id}
+                create_date={review_info.create_date}
+                star_rating={review_info.star_rating}
+                content={review_info.content}
+                purity={review_info.purity}
+                retouch={review_info.retouch}
+                item={review_info.item}
+                member_info={member_info as member_info}
+              />
+            ))
+          )}
+        </ul>
         {!reviewLoaded && (shopInfo?.review_cnt as number) > 3 && (
           <LoadReviewBtn
             onClick={async () => {
@@ -185,7 +187,6 @@ const ShopDetail = () => {
           else router.push(`/shopDetail/review?shopId=${shopInfo?.id}`);
         }}
       />
-      <Menu />
     </ShopLayout>
   );
 };

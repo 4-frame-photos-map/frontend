@@ -23,6 +23,15 @@ const Querykey = {
       };
     },
   },
+  '/location': {
+    queryKey: 'useGetShopDetail',
+    convertFunc: (old) => {
+      return {
+        ...old,
+        favorite: false,
+      };
+    },
+  },
 };
 
 export const useDeleteFavorite = (path: string) => {

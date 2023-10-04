@@ -1,4 +1,4 @@
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import Category from '@components/home/Category';
 import ResearchButton from '@components/home/ResearchButton';
@@ -86,7 +86,7 @@ const Home = () => {
   return (
     <PageLayout>
       <Seo title="홈" url="home" />
-      <NavBar
+      <Header
         leftTitle={shopInfo?.address}
         isRight={true}
         location={curPos}

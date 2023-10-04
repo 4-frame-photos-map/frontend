@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 const MenuItem = ({ name, path }: Pick<MenuListType, 'name' | 'path'>) => {
   const router = useRouter();
   return (
-    <div className="flex h-full items-center justify-center px-8 text-[10px]">
-      <Link href={path}>
+    <li className="flex h-full items-center justify-center px-8 text-[10px]">
+      <Link href={`/${path}`}>
         <MenuItemContainer>
           <Image
             src={
@@ -18,7 +18,7 @@ const MenuItem = ({ name, path }: Pick<MenuListType, 'name' | 'path'>) => {
             }
             width={24}
             height={24}
-            alt="home"
+            alt={name}
           />
           <p
             className={`whitespace-nowrap text-[10px] font-normal leading-[10px] ${
@@ -31,7 +31,7 @@ const MenuItem = ({ name, path }: Pick<MenuListType, 'name' | 'path'>) => {
           </p>
         </MenuItemContainer>
       </Link>
-    </div>
+    </li>
   );
 };
 

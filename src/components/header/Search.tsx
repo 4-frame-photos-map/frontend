@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
 import { useGetShopsByKeyword } from '@hooks/queries/useGetShop';
-import SearchResult from '@components/navbar/SearchResult';
-import SearchList from '@components/navbar/SearchList';
+import SearchResult from '@components/header/SearchResult';
+import SearchList from '@components/header/SearchList';
 import { useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
 import useDebounceValue from '@hooks/useDebounceValue';
@@ -69,7 +69,7 @@ const Search = ({
       </SearchForm>
       {watch('search') && (
         <Image
-          src="/svg/navbar/clear-button.svg"
+          src="/svg/header/clear-button.svg"
           width={24}
           height={24}
           alt="삭제"
@@ -81,11 +81,11 @@ const Search = ({
         <SearchContainer>
           {shops?.length > 0 && (
             <div
-              className="flex items-center px-4 pt-5 cursor-pointer"
+              className="flex cursor-pointer items-center px-4 pt-5"
               onClick={handleSearchClick}
             >
               <Image
-                src="/svg/navbar/search-icon.svg"
+                src="/svg/header/search-icon.svg"
                 width={28}
                 height={28}
                 alt="search"
@@ -96,7 +96,7 @@ const Search = ({
           {shops?.length === 0 ? (
             <div className="flex flex-col items-center justify-center pt-12">
               <Image
-                src={'/svg/navbar/danger.svg'}
+                src={'/svg/header/danger.svg'}
                 width={40}
                 height={40}
                 alt="danger"

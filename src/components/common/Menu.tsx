@@ -1,5 +1,6 @@
 import tw from 'tailwind-styled-components';
 import MenuItem from '@components/common/MenuItem';
+import React from 'react';
 
 export type MenuListType = {
   id: number;
@@ -30,18 +31,18 @@ const MENU_LIST: MenuListType[] = [
   },
 ];
 
-const Menu = () => {
+export default React.memo(function Menu() {
   return (
     <MenuBox>
-      {MENU_LIST.map(({ id, name, path }) => (
-        <MenuItem key={id} name={name} path={path} />
-      ))}
+      <ul className="flex">
+        {MENU_LIST.map(({ id, name, path }) => (
+          <MenuItem key={id} name={name} path={path} />
+        ))}
+      </ul>
     </MenuBox>
   );
-};
+});
 
-const MenuBox = tw.div`
+const MenuBox = tw.nav`
 fixed bottom-0 z-[900] w-full max-w-[375px] overflow-hidden border-t-[1px] border-line-normal bg-bg-secondary py-[10px] flex justify-center
 `;
-
-export default Menu;

@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import Map from '@components/common/Map';
 import TrackerButton from '@components/home/TrackerButton';
@@ -69,7 +69,7 @@ const Location = () => {
           radius={radius}
         />
       )}
-      <NavBar
+      <Header
         leftTitle={shopInfo?.address}
         isRight={true}
         location={curPos}
