@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater } from 'recoil';
 import ShopTitle from '@components/title/ShopTitle';
+import useToast from '@hooks/useToast';
 
 type ShopItemProps = {
   brand_name: string;
@@ -34,6 +35,7 @@ const ShopItem = ({
   const { data: shopInfo } = useGetShopDetail(id, position.lat, position.lng);
   const { mutate: add } = usePostFavorite();
   const { mutate: del } = useDeleteFavorite('/home');
+  const { showToast } = useToast();
   const router = useRouter();
   const handleFavorite = (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
@@ -45,8 +47,16 @@ const ShopItem = ({
     } else {
       if (shopInfo?.favorite) {
         del(id);
+        showToast({
+          message: '찜을 삭제했어요.',
+          duration: 800,
+        });
       } else {
         add(id);
+        showToast({
+          message: '찜을 추가했어요.',
+          duration: 800,
+        });
       }
     }
   };

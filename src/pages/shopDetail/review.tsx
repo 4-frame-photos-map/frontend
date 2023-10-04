@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components';
 import Checkbox from '@components/common/Checkbox';
-import ShopLayout from '@components/layout/ShopLayout';
+import ReviewLayout from '@components/layout/ReviewLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -52,7 +52,7 @@ const Review = () => {
   };
 
   return (
-    <ShopLayout className="bg-white">
+    <ReviewLayout className="bg-white">
       <Seo title="리뷰 작성" url="shopDetail/review" />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 리뷰 작성</span>
@@ -126,7 +126,7 @@ const Review = () => {
         handleRightButton={handleSubmit(onSubmit)}
         disabled={!watchStar || !watchContent || watchContent.trim() === ''}
       />
-    </ShopLayout>
+    </ReviewLayout>
   );
 };
 

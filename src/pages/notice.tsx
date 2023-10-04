@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import NoticeItem from '@components/notice/NoticeItem';
 import Seo from '@components/common/Seo';
@@ -14,7 +14,7 @@ const Notice = () => {
   return (
     <PageLayout>
       <Seo title="공지사항" url="notice" />
-      <NavBar isLeft={true} centerTitle="공지사항" />
+      <Header isLeft={true} centerTitle="공지사항" />
       <NoticeContainer>
         {NOTICE_LIST.map(({ id, title, content }) => (
           <NoticeItem

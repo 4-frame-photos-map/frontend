@@ -33,7 +33,7 @@ const SplashLogin = ({ loading }: SplashLoginProps) => {
         width={375}
         height={300}
         priority={true}
-        alt=""
+        alt="splash-image"
       />
     </div>
   );

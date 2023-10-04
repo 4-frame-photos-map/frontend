@@ -1,12 +1,12 @@
 import memberApi from '@apis/member/memberApi';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'tailwind-styled-components';
-import useDebounce from '@hooks/useDebounce';
 import { usePatchProfile } from '@hooks/mutations/usePatchProfile';
 import Seo from '@components/common/Seo';
+import useDebounceCallback from '@hooks/useDebounceCallback';
 
 type FormValue = {
   nickname: string;
@@ -32,7 +32,7 @@ const Edit = () => {
       }
     }
   };
-  useDebounce(validateNickname, 300);
+  useDebounceCallback(validateNickname, 300);
   const onSubmit = (form: FormValue) => {
     const { nickname } = form;
     editProfile(nickname);
@@ -40,7 +40,7 @@ const Edit = () => {
   return (
     <PageLayout className="bg-white">
       <Seo title="닉네임 변경" url="my/edit" />
-      <NavBar centerTitle="닉네임 변경" isLeft={true} />
+      <Header centerTitle="닉네임 변경" isLeft={true} />
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>
         <EditInputBox>

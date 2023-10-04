@@ -3,7 +3,7 @@ import { useGetUserReview } from '@hooks/queries/useGetReview';
 import tw from 'tailwind-styled-components';
 import Button from '@components/common/Button';
 import Checkbox from '@components/common/Checkbox';
-import ShopLayout from '@components/layout/ShopLayout';
+import ReviewLayout from '@components/layout/ReviewLayout';
 import Textarea from '@components/common/Textarea';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -66,7 +66,7 @@ const Edit = () => {
   };
 
   return (
-    <ShopLayout className="bg-white">
+    <ReviewLayout className="bg-white">
       <Seo title="리뷰 수정" url="my/reviews/edit" />
       <RatingContainer>
         <span className="pb-6 text-title2 font-semibold">이용 리뷰 작성</span>
@@ -163,7 +163,7 @@ const Edit = () => {
         }}
         handleRightButton={handleSubmit(onSubmit)}
       />
-    </ShopLayout>
+    </ReviewLayout>
   );
 };
 

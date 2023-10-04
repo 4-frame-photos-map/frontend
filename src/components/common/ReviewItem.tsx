@@ -50,7 +50,7 @@ const ReviewItem = ({
                 src={'/svg/checkbox_disable.svg'}
                 width={18}
                 height={18}
-                alt="체크"
+                alt={purity === 'GOOD' ? '청결상태 좋음' : '청결상태 나쁨'}
               />
               <span className="ml-1">
                 {purity === 'GOOD' ? '청결상태 좋음' : '청결상태 나쁨'}
@@ -65,7 +65,7 @@ const ReviewItem = ({
                 src={'/svg/checkbox_disable.svg'}
                 width={18}
                 height={18}
-                alt="체크"
+                alt={retouch === 'GOOD' ? '보정정도 높음' : '보정정도 낮음'}
               />
               <span className="ml-1">
                 {retouch === 'GOOD' ? '보정정도 높음' : '보정정도 낮음'}
@@ -80,7 +80,7 @@ const ReviewItem = ({
                 src={'/svg/checkbox_disable.svg'}
                 width={18}
                 height={18}
-                alt="체크"
+                alt={item === 'GOOD' ? '악세사리 많음' : '악세사리 적음'}
               />
               <span className="ml-1">
                 {item === 'GOOD' ? '악세사리 많음' : '악세사리 적음'}

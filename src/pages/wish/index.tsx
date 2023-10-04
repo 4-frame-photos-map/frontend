@@ -1,4 +1,4 @@
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import Seo from '@components/common/Seo';
 import PageLayout from '@components/layout/PageLayout';
 import WishItem from '@components/wish/WishItem';
@@ -13,15 +13,15 @@ const Wish = () => {
   return (
     <PageLayout>
       <Seo title="찜" url="wish" />
-      <NavBar
+      <Header
         isWish={true}
         leftTitle={'찜 목록'}
         favoritesNum={favorites?.length}
       />
       {favorites && favorites.length > 0 ? (
         <WishList>
-          {favorites?.map((data, idx) => (
-            <WishItem key={idx} {...data} />
+          {favorites?.map(({ id, shop }) => (
+            <WishItem key={id} {...shop} />
           ))}
         </WishList>
       ) : (

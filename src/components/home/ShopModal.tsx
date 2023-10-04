@@ -4,10 +4,10 @@ import ShopTitle from '@components/title/ShopTitle';
 import Link from 'next/link';
 import { useDeleteFavorite } from '@hooks/mutations/useDeleteFavorite';
 import { usePostFavorite } from '@hooks/mutations/usePostFavorite';
-import { useRouter } from 'next/router';
 import { useGetShopDetail } from '@hooks/queries/useGetShop';
 import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import { curPosState } from '@recoil/positionAtom';
+import useToast from '@hooks/useToast';
 
 type ShopModalProps = {
   id: number;
@@ -26,8 +26,8 @@ const ShopModal = ({
   isLogin,
   setIsModal,
 }: ShopModalProps) => {
-  const router = useRouter();
   const curPos = useRecoilValue(curPosState);
+  const { showToast } = useToast();
 
   const { data: shopInfo } = useGetShopDetail(id, curPos.lat, curPos.lng);
   const { mutate: add } = usePostFavorite();
@@ -39,8 +39,16 @@ const ShopModal = ({
     } else {
       if (shopInfo?.favorite) {
         del(id);
+        showToast({
+          message: '찜을 삭제했어요.',
+          duration: 500,
+        });
       } else {
         add(id);
+        showToast({
+          message: '찜을 추가했어요.',
+          duration: 500,
+        });
       }
     }
   };
@@ -50,7 +58,7 @@ const ShopModal = ({
       <div className="p-4">
         <div className="flex items-center">
           <BrandTag name={place_name} />
-          <div className="ml-2 flex">
+          <div className="flex ml-2">
             {shopInfo?.shop_titles &&
               shopInfo?.shop_titles?.map((title, idx) => (
                 <ShopTitle key={idx} title={title} width={50} height={13} />
@@ -88,7 +96,7 @@ const ShopModal = ({
               <Image src="/svg/star.svg" width={16} height={16} alt="star" />
               {star_rating_avg}({review_cnt})
             </span>
-            <div className="border-l pl-2">
+            <div className="pl-2 border-l">
               <span className="pr-1">찜</span>
               <span className="font-semibold">{shopInfo?.favorite_cnt}</span>
             </div>

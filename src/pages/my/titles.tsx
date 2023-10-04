@@ -1,4 +1,4 @@
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import Seo from '@components/common/Seo';
 import PageLayout from '@components/layout/PageLayout';
 import TitleInfo from '@components/title/TitleInfo';
@@ -56,7 +56,7 @@ const Titles = () => {
   return (
     <PageLayout className="bg-white">
       <Seo title="내 칭호" url="my/titles" />
-      <NavBar centerTitle="내 칭호" isLeft={true} setIsInfo={setIsInfo} />
+      <Header centerTitle="내 칭호" isLeft={true} setIsInfo={setIsInfo} />
       {isInfo && <TitleInfo />}
       {isModal && <TitleModal setIsModal={setIsModal} title={modalTitle} />}
       <TitleContainer>

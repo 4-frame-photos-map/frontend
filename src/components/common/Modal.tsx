@@ -22,7 +22,7 @@ const ModalContainer = tw.div`
 flex flex-col bg-white rounded-lg flex-wrap w-full
 `;
 
-const ModalTitle = tw.div`
+const ModalTitle = tw.h1`
 text-title1 font-semibold text-center
 `;
 
@@ -34,12 +34,8 @@ const ModalEventContainer = tw.div`
 flex text-white
 `;
 
-const ModalEvent = tw.div`
+const ModalEvent = tw.button`
 py-4 px-8 text-center text-body1 cursor-pointer flex items-center justify-center h-[58px]
-`;
-
-const KakaoButton = tw.div`
-py-4 px-6 rounded-br-lg bg-[#F9E000] leading-3 basis-2/3 text-center flex justify-center
 `;
 
 const Modal = ({
@@ -76,27 +72,25 @@ const Modal = ({
               {right}
             </ModalEvent>
           ) : (
-            <KakaoButton>
-              <Link
-                href={
-                  CONFIG.ENV === 'development'
-                    ? `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`
-                    : `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.DOMAIN}/auth/kakao&response_type=code`
-                }
-                className="flex items-center"
-              >
-                <Image
-                  src="/svg/kakao.svg"
-                  width={20}
-                  height={20}
-                  alt="kakao"
-                  priority
-                />
-                <span className="ml-2 text-body1 font-normal text-black">
-                  카카오 로그인
-                </span>
-              </Link>
-            </KakaoButton>
+            <Link
+              href={
+                CONFIG.ENV === 'development'
+                  ? `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.LOCAL}/auth/kakao&response_type=code`
+                  : `https://kauth.kakao.com/oauth/authorize?client_id=${CONFIG.API_KEYS.LOGIN}&redirect_uri=${CONFIG.DOMAIN}/auth/kakao&response_type=code`
+              }
+              className="flex basis-2/3 items-center justify-center rounded-br-lg bg-[#F9E000] py-4 px-8 text-center leading-3"
+            >
+              <Image
+                src="/svg/kakao.svg"
+                width={20}
+                height={20}
+                alt="kakao"
+                priority
+              />
+              <span className="ml-2 text-body1 font-normal text-black">
+                카카오 로그인
+              </span>
+            </Link>
           )}
         </ModalEventContainer>
       </ModalContainer>

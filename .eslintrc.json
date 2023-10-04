@@ -5,8 +5,13 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "prettier/prettier",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style"
   ],
+  "env": {
+    "jest": true
+  },
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
@@ -14,6 +19,7 @@
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-namespace": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-var-requires": 0
   }
 }
