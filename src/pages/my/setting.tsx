@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import SettingList from '@components/my/SettingList';
 import PageLayout from '@components/layout/PageLayout';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
 import authApi from '@apis/auth/authApi';
 import memberApi from '@apis/member/memberApi';
@@ -50,7 +50,7 @@ const Setting = () => {
         leftEvent={() => setIsWithdrawModal(false)}
         rightEvent={handleWithdraw}
       />
-      <NavBar centerTitle="설정" isLeft={true} />
+      <Header centerTitle="설정" isLeft={true} />
       <ListsContainer>
         {SettingLists.map(({ id, text, path }) => (
           <SettingList key={id} text={text} path={path} />

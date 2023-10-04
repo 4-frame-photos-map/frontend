@@ -1,5 +1,5 @@
 import memberApi from '@apis/member/memberApi';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -40,7 +40,7 @@ const Edit = () => {
   return (
     <PageLayout className="bg-white">
       <Seo title="닉네임 변경" url="my/edit" />
-      <NavBar centerTitle="닉네임 변경" isLeft={true} />
+      <Header centerTitle="닉네임 변경" isLeft={true} />
       <EditContainer>
         <EditLabel>변경할 닉네임</EditLabel>
         <EditInputBox>
