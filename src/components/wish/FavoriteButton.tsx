@@ -36,7 +36,7 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
     <>
       {isFavorite ? (
         <Image
-          src="/svg/wish/filled-wish.svg"
+          src="/svg/wish/filled-bookmark.svg"
           width={24}
           height={24}
           alt="wish"
@@ -47,7 +47,7 @@ const FavoriteButton = ({ shopId, isFavorite }: FavortieButtonProps) => {
         />
       ) : (
         <Image
-          src="/svg/wish/lined-wish.svg"
+          src="/svg/wish/lined-bookmark.svg"
           width={24}
           height={24}
           alt="wish"

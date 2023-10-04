@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components';
-import NavBar from '@components/common/NavBar';
+import Header from '@components/common/Header';
 import PageLayout from '@components/layout/PageLayout';
 import Image from 'next/image';
 import FaqModal from '@components/faq/FaqModal';
@@ -56,7 +56,7 @@ const Faq = () => {
           setIsModal={setIsModal}
         />
       )}
-      <NavBar isLeft={true} centerTitle="문의사항" />
+      <Header isLeft={true} centerTitle="문의사항" />
       <CategoryBar>
         <ItemsWrapper>
           <Swiper

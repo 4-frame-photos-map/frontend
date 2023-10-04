@@ -28,7 +28,7 @@ const BrandTag = ({ name }: BrandTagProps) => {
   );
 };
 
-const BadgeContainer = tw.div`
+const BadgeContainer = tw.h3`
 flex h-[14px] w-[44px] items-center justify-center rounded-[2px]
 `;
 
