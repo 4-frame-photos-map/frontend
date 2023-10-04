@@ -36,7 +36,7 @@ const FaqModal = ({ isModal, title, content, setIsModal }: ModalProps) => {
     <ModalBG>
       <div className="mx-4 flex h-[68px] items-center justify-between pt-1">
         <Image
-          src={'/svg/navbar/prev.svg'}
+          src={'/svg/header/prev.svg'}
           width={24}
           height={24}
           alt="이전"
