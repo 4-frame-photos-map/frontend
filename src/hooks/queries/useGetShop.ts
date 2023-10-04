@@ -13,7 +13,6 @@ export const useGetShopDetail = (
       retry: false,
       refetchOnWindowFocus: false,
       enabled: !!shopId,
-      staleTime: Infinity,
     },
   );
 };
