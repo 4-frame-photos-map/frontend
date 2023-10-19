@@ -1,7 +1,7 @@
 import useDebounceValue from '@hooks/useDebounceValue';
 import { renderHook, waitFor } from '@testing-library/react';
 
-describe('useDebounce를 테스트한다.', () => {
+describe('useDebounceValue를 테스트한다.', () => {
   test('초기값은 빈 문자열 또는 값이 없어야 한다.', () => {
     const initValue = '';
     const { result } = renderHook(() =>
