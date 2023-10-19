@@ -3,7 +3,7 @@ import useToast from '@hooks/useToast';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
-describe('useToast를 테스트한다.', () => {
+describe('ToastList 테스트한다.', () => {
   beforeEach(() => {
     render(
       <RecoilRoot>
@@ -13,7 +13,7 @@ describe('useToast를 테스트한다.', () => {
     );
   });
 
-  test('버튼을 누르면 토스트 목록에 ToastItem을 렌더링한다.', () => {
+  it('버튼을 누르면 토스트 메시지를 렌더링한다.', () => {
     const button = screen.getByRole('button', {
       name: 'button-label',
     });
