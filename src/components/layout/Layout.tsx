@@ -10,7 +10,7 @@ type Props = {
 };
 
 const LayoutBox = tw.div`
-flex justify-center w-screen h-full font-Pretendard overflow-x-hidden overflow-y-hidden
+flex justify-center w-screen h-full font-Pretendard overflow-x-hidden overflow-y-hidden bg-slate-50
 `;
 
 const Layout = ({ children }: Props) => {
